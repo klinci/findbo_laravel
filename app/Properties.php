@@ -291,7 +291,7 @@ class Properties extends Model
 		}
 		if(@$arrOfParams["price"]!="")
 		{
-			$whereCls .= ' AND properties.price = "'.$arrOfParams["price"].'"';
+			$whereCls .= ' AND properties.price_usd = "'.$arrOfParams["price"].'"';
 		}
 		if(@$arrOfParams["type"]!="")
 		{
@@ -299,11 +299,11 @@ class Properties extends Model
 		}
 		if(@$arrOfParams["minPrice"]!="")
 		{
-			$whereCls .= ' AND properties.price >= "'.$arrOfParams["minPrice"].'"';
+			$whereCls .= ' AND properties.price_usd >= "'.$arrOfParams["minPrice"].'"';
 		}
 		if(@$arrOfParams["maxPrice"]!="")
 		{
-			$whereCls .= ' AND properties.price <= "'.$arrOfParams["maxPrice"].'"';
+			$whereCls .= ' AND properties.price_usd <= "'.$arrOfParams["maxPrice"].'"';
 		}
 		if(@$arrOfParams["minArea"]!="")
 		{
@@ -376,7 +376,7 @@ class Properties extends Model
 		}
 		else if($arrOfParams['sortBy']=='price')
 		{
-			$orderBy = 'ORDER BY properties.package_type_id DESC, properties.price '.$arrOfParams['sort_order'];
+			$orderBy = 'ORDER BY properties.package_type_id DESC, properties.price_usd '.$arrOfParams['sort_order'];
 		}
 
 		/* echo '<br>====>SELECT

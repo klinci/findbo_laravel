@@ -261,6 +261,7 @@ class PropertyController extends Controller
 		print_r($pagination);
 		exit; */
 
+		//dd($arrOfParams);
 		$result = $objProperties->getSearchProperties($page,$limit,$arrOfParams);
 
 		/* $objAreas = DB::table('areas')

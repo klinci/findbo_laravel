@@ -496,7 +496,7 @@ if($location1 == "" && $location2 == "")
 					//$currentLink = 'https://'.$_SERVER['HTTP_HOST'].'/bolig-detaljer.php?id='.$objProperty->id;
 					$currentLink = url('property_detail/'.$objProperty->id);
 					//$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail;
-					$full_path_img_src = asset($objProperty->thumbnail);
+					$full_path_img_src = asset('public/' . $objProperty->thumbnail);
 					$pin_desc = str_replace('"',"'",$description);
 					?>
 
@@ -726,8 +726,8 @@ if($location1 == "" && $location2 == "")
 											<h3>{{ (!empty($rp->headline_dk))?$rp->headline_dk:$rp->headline_eng }}</h3>
 											<span class="location">{{ (!empty($rp->city_name))?$rp->city_name:'' }}</span>
 										</a>
-										@if(file_exists($rp->thumbnail) && $rp->thumbnail!="")
-											<img src="{{ asset($rp->thumbnail) }}" alt="Bolig billeder - Findbo" width="230" height="237" />
+										@if(file_exists('public/' . $rp->thumbnail) && $rp->thumbnail!="")
+											<img src="{{ asset('public/' . $rp->thumbnail) }}" alt="Bolig billeder - Findbo" width="230" height="237" />
 										@else
 											<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="Bolig billeder - Findbo" width="230" height="237" />
 										@endif
@@ -765,9 +765,9 @@ $map_desc = nl2br($map_desc);
 $map_desc = addslashes($map_desc); // stripcslashes($map_desc);
 
 
-if(file_exists($objProperty->thumbnail) && $objProperty->thumbnail!="")
+if(file_exists('public/' . $objProperty->thumbnail) && $objProperty->thumbnail!="")
 {
-	$thumbnail		= url(strip_tags($objProperty->thumbnail));
+	$thumbnail		= asset('public/' . $objProperty->thumbnail);
 }
 else
 {

@@ -87,8 +87,8 @@
 												<span class="btn btn-default"><i class="fa fa-file-o"></i> {{ __('messages.lbl_details') }}</span>
 											</a>
 											@if($proData->thumbnail!="")
-												@if(file_exists($proData->thumbnail))
-													<img src="{{ $proData->thumbnail }}" alt="..." style="width: 263px; height:230px;" />
+												@if(file_exists('public/' . $proData->thumbnail))
+													<img src="{{ asset('public/' . $proData->thumbnail) }}" alt="..." style="width: 263px; height:230px;" />
 												@else
 													<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="..." style="width: 263px; height:230px;" />
 												@endif
