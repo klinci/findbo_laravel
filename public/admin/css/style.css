@@ -1,0 +1,422 @@
+label.error {
+    clear: both;
+    color: #ff0000;
+    /*float: left;*/
+    margin-left: 3px;
+    text-align: left !important;
+    margin-bottom: 0;
+}
+
+.form-control.error {
+    margin-bottom: 5px !important;
+}
+
+.page-title .title_right {
+	text-align: right !important;
+}
+
+.daterangepicker select.monthselect, .daterangepicker select.yearselect {
+	color: #000000 !important;
+}
+.ui-datepicker  {
+	z-index: 99999 !important;
+}
+
+.fa-pencil, .fa-remove {
+	font-size: 16px !important;
+}
+
+
+@media (max-width:980px){
+	/*footer {
+    	margin: 0 -9px !important;
+	}*/
+}
+
+@media (max-width:1100px){
+	.dropdown-menu li.textColorScroll {
+	    height: 230px;
+	    overflow: scroll;
+	}
+	.note-popover .popover .popover-content .note-color .dropdown-menu, .panel-heading.note-toolbar .note-color .dropdown-menu {
+		min-width: 190px;
+	}
+}
+
+.adminCls {
+    margin-left: 7px;
+    padding: 5px;
+}
+footer .pull-right {
+    float: none !important;
+}
+footer {
+	text-align: center;
+}
+.myloader {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .2 ) 
+                url('../images/loading.gif') 
+                50% 50% 
+                no-repeat;
+}
+.tmConsole {
+    background-color: #000000;
+    border: 1px solid #d7d7d7;
+    color: #ffffff;
+    padding: 5px;
+}
+.radioBtn, .checkboBtn{
+	float: left;
+	padding-top: 0px !important;
+}
+.checkboBtn {
+	position: relative;
+}
+.pad {
+	padding: 15px !important;
+}
+.backColor{
+	background-color: #e4e4e4;
+    border: 1px solid #c4c4c4;
+    color: #202020;
+    margin-left: 0px;
+    line-height: 0px;
+}
+.chkMarginLeft{
+	margin-left: -23px;
+	padding-left: 20px;
+}
+
+
+.chkImg {
+  left: 0;
+  top: 0;
+}
+
+.firstCircle{
+	/*left: 61px;
+	top: 40px;*/
+}
+.secondCircle{
+	/*left: 61px;
+	top: 40px;*/
+}
+.thirdCircle{
+	/*left: 58px;
+	top: 40px;*/
+}
+.circleBox {
+	background-color: #F1F2F4;
+	padding:5px;
+}
+.estimateTitle {
+    color: #2C2D2F;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+}
+.plusMinusBox {
+	/*background-color: #ffffff;
+    border: 3px solid #f0f0f0;*/
+    border-radius: 5px;
+    margin-bottom: 0;
+    margin-left: 115px !important;
+}
+.enableSign{
+	display: none;
+}
+.circleLabel {
+	position: relative; 
+	height: auto; 
+	width: auto; 
+	margin: auto; 
+	text-align: center;
+}
+.chkTxtLeft{
+	left: -4px;
+}
+
+.removeMarginBtm{
+	margin-bottom: 0px !important;
+	padding-left: 35px;
+}
+.removeMarginBtm1{
+	margin-bottom: 0px !important;
+}
+.conditionBox {
+	padding-right: 15px;
+}
+textarea {
+    resize: none !important;
+}
+
+
+@media (max-width: 980px) {
+    body.nav-sm .container.body .left_col {
+        background-color: #2a3f54;
+    }
+    
+    body {
+    	background: #f7f7f7 none repeat scroll 0 0;
+    }
+}
+
+.curTime {
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+}
+.curDate {
+	font-size: 15px;
+    font-weight: normal;
+    text-align: center;	
+}
+
+input[name=txtOverRideHours] {
+	width: 80px;
+}
+td.tdOverrideCls{
+	padding: 0px !important;
+}
+.overrideCls {
+	/*padding: 11px 10px;*/
+	padding: 11px 0px;
+}
+.overrideCls1 {
+	padding: 11px 0px;
+}
+.onlineStatus {
+    color: #009e47;
+    /*border: 1px solid #9e9e9e;
+    border-radius: 18px;*/
+    font-size: 24px;
+    width: 22px;
+}
+.stableStatus {
+    /*border: 1px solid #9e9e9e;
+    border-radius: 10px;*/
+    font-size: 24px;
+    width: 22px;
+}
+.offStatus {
+	color: #ed0000;
+    /*border: 1px solid #9e9e9e;
+    border-radius: 18px;*/
+    font-size: 24px;
+    width: 22px;
+}
+
+
+.timeclockHead {
+	background-color: #43578D;
+	vertical-align: middle !important;
+}
+.costCode1 {
+	background-color: #43849A;
+	vertical-align: middle !important;
+}
+
+.costCode2 {
+	background-color: #5C447A;
+	vertical-align: middle !important;
+}
+
+.costCode3 {
+	background-color: #882F33;
+	vertical-align: middle !important;
+}
+td.hrsLn {
+	border-right: 1px solid #DDDDDD;
+}
+td.commentCell {
+	border-right: 1px solid #DDDDDD;
+	cursor: pointer;
+	padding: 0 !important;
+}
+td.crewCell {
+	padding: 0 !important;
+	cursor: pointer;
+}
+td.code1BudgetCell {
+	padding: 0 !important;
+	cursor: pointer;
+}
+.commentCls, .crewCls, .codeBdCell, .timeTrackerCostCode, .percCls, .crewCls1, .codeBdCell1, .percCls1, .commentCls1 {
+	padding: 11px 10px;
+}
+
+.totalAllocation {
+    /*background-color: #f8bdc3;*/
+    color: #ff0000;
+}
+.cellCenter {
+	text-align: center;
+}
+input[name=txtPercentage] {
+	width: 50px;
+}
+
+.costCodeListCls {
+	width: 64px;
+}
+
+/*.bg-success {
+	margin-bottom: 15px;
+}*/
+input[name=txtCrew] {
+	width: 100px;
+}
+.joblistbox{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+
+/*******************************/
+.bg-yellow {
+    background: #F2C31C !important;
+    border: 0px !important;
+    color: #000000;
+}
+
+.bg-blue1 {
+    background: #6085D0 !important;
+    border: 0px !important;
+    color: #000000;
+}
+
+.budgetBox {
+	padding-bottom: 0px;
+	color: #121212;
+}
+
+.budgetBox h2 {
+	margin-left: 5px;
+	font-size: 20px;
+	padding: 15px 5px;
+}
+.budgetBox h2 img {
+	margin-left: 5px;
+    margin-right: 5px;
+}
+
+.budgetBox p {
+	background-color: #4bb6a0;
+    color: #000000;
+    font-size: 20px;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+.budLstbox {
+	color: #292929;
+}
+.budLstbox p {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.pie_progress {
+	width: 160px;
+	margin: 10px auto;
+}
+
+@media all and (max-width: 768px) {
+	.pie_progress {
+		width: 80%;
+		max-width: 300px;
+	}
+}
+
+.inoutbox .groupbtnbox .btn {
+	font: 600 16px/18px "Open Sans",sans-serif !important;
+}
+/*.progressbar-front-text{
+	font-size: 15px;
+    line-height: 40px;
+    margin-left: 15px;
+    position: absolute;
+    text-align: left;
+    width: 100% !important;
+    z-index: 99999;
+}
+.progressbar-back-text {
+	display: none;
+}
+.progress {
+	height: 40px;
+	line-height: 40px;
+	border-radius: 0px;
+}*/
+.progress {
+    position: relative;
+    border-radius: 0;
+    margin-bottom: 18px;
+    height: 40px;
+}
+.progress .progressbar-back-text {
+    color: #000000;
+    font-size: 14px;
+    height: 100%;
+    line-height: 40px;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+    z-index: 999999;
+    margin-left: 15px;
+}
+.progress .progress-bar {
+    position: absolute;
+    overflow: hidden;
+    line-height: 40px;
+}
+.progress .progressbar-front-text {
+    display: none;
+    width: 100%;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: left;
+}
+
+.tile-stats {
+    position: relative;
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid #E4E4E4;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+    /*padding-bottom: 5px;*/
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 5px;
+    -moz-background-clip: padding;
+    border-radius: 5px;
+    background-clip: padding-box;
+    background: #FFF;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+
+/* input[name=txtMoveDate] {
+	width: 100px;
+}
+ */
+td.tdmovedate{
+	padding: 0px !important;
+}
+.movedateCls, .moveDateHtml {
+	padding: 11px 0px;
+}
+.movedateCls1 {
+	padding: 11px 0px;
+}
+

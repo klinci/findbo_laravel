@@ -1,0 +1,426 @@
+/*** custom checkboxes ***/
+ input[type=checkbox] {
+     position: relative;
+    background-color: #FFFFFF;
+}
+/* to hide the checkbox itself
+ label>input[type=checkbox]:before {
+     position: absolute;
+    background-color: #FFFFFF;
+    height: 200%;
+	width: 100%;
+    font-family: FontAwesome;
+    font-size: 20px;
+    display: inline-block;
+    content:"\f096";
+    letter-spacing: 5px;
+     color: #67be00;
+      margin-top: -3px;
+}
+/* space between checkbox and label
+ label>input[type=checkbox]:checked:before {
+     font-family: FontAwesome;
+    display: inline-block;
+    content:"\f046";
+    font-size: 20px;
+    letter-spacing: 15px;
+    color: #67be00;
+    margin-top: -3px;
+}
+/* allow space for check mark */
+.panel-heading.accordion-toggle:after {
+
+    /*font-family:'Glyphicons Halflings';
+    content:"\2212";*/
+    font-family:'FontAwesome';
+    content: "\f077";
+    float: right;
+    position: relative;
+    bottom: 2px;
+    font-size: 15pt;
+    color: #74777c;
+}
+.panel-heading.accordion-toggle.collapsed:after {
+    /*content:"\2b";*/
+    content: "\f078";
+}
+.panel-heading a {
+	text-decoration: none;
+}
+.panel-heading a:hover{
+	color: #66bd01;
+}
+.justify{
+	text-align: justify;
+}
+.chevron_toggleable{
+	float: right;
+	padding: 5px;
+}
+.regSelect{
+	width: 140px!important;
+	height: 40px!important;
+	border: 1px solid #efefef;
+	background-color: white;
+}
+.inputregisterf{
+	width: 200px!important;
+	border-color: #efefef;
+}
+.inputregistere{
+	width: 50%!important;
+	min-width: 200px;
+	margin-right: 5px;
+	border-color: #efefef;
+}
+.nopadding{
+	padding-left: 0px!important;
+}
+.registrationbox{
+	background-color: #efefef;
+	margin-bottom: 20px;
+}
+#EmailFeed{
+	font-size: 13px;
+	font-weight: bolder;
+}
+#PasswordFeed{
+	font-size: 13px;
+	font-weight: bolder;
+}
+.contract{
+	background-color: #f6f6f6;
+	border: 0px;
+	margin: 5px;
+}
+.servicetext{
+	color: #66be00;
+}
+.footerb{
+	width: 14.28% ;
+	float:left ;
+	text-align: center ;
+	border: 1px solid #dfdfdf ;
+	background-color:#efefef ;
+	padding: 10px 0 ;
+	margin: 0 0 10px 0px;
+}
+
+
+.copyright{
+	padding-top:10px;
+	float:left;
+}
+.languageBar{
+	padding-top:10px;
+	float:right;
+}
+	.languageBar img{
+		margin-top: -2px;
+	}
+.footerb a{
+	color: #66bd01;
+}
+.footerb a:hover{
+	color: #66bd00;
+	text-decoration: none;
+}
+.formin{
+	width:58%;float: left;
+}
+.newsform{
+	width: 480px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.searchform{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.btnSmall{
+	padding: 8px 35px;
+	margin-left: 5px;
+}
+.subscribeBtn{
+	float: left;
+}
+
+.buyrentselect{
+	width:20%;
+	float: left;
+	margin: 0 10px 0 0;
+}
+ @media (min-width:1024px){
+
+	 	.resBlock{
+	 	 display: inline;
+	 	 margin-bottom: 10px;
+	 	 line-height: 2.3em!important
+	 	 }
+ }
+
+ @media (min-width:770px) and (max-width: 1024px){
+	 	.resBlock{
+	 display: block;
+	 margin-right: 0px;
+	 line-height: 2.5em;
+ }
+ .suballpropheader{
+	 margin-top: 20px;
+ }
+ }
+
+@media (max-width: 1024px) {
+  .footerb{
+ width:100%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  }
+ #properties .prop-inner img{
+	 height: 100%;
+ }
+ 	.formin{
+	 width: 57%;
+ }
+ .findHomesTitle{
+	 font-size: 31px;
+ }
+
+}
+@media (max-width: 770px) {
+  .footerb{
+ width:100%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  }
+  .resBlock{
+	 display: block;
+	 margin-bottom: 10px;
+ }
+
+ #properties .prop-inner img{
+	 height: 100%;
+ }
+ .bluebtn{
+	 width: 50%;
+	 float: left;
+	 margin-right: 0px!important;
+ }
+ .addHeaderButton{
+	  width: 50%;
+	  float: right;
+ }
+ .postad{
+	 width: 50%;
+	 margin-top: -32px;;
+	 float: right;
+ }
+.navbar{
+	/*max-height:40px!important;*/
+	padding-bottom: 20px;
+}
+.paralaxContent{
+	margin-top: 200px;
+}
+ 		.formin{
+	 width: 59%;
+	 margin-right: 10px;
+ }
+ .indexForm{
+	 width: 100%;
+ }
+ .searchform{
+	 width: 92%;
+ }
+ #newsletter .form-control{
+	width: 180px;
+	}
+.adformm{
+		width: 140px;
+		float: left;
+		margin: 1px 5px;
+	}
+	.carousel-control{
+		background-image: none!important;
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+
+	.relatedHeight{
+		width: auto;
+		height: auto;
+	}
+	 .findHomesTitle{
+	 font-size: 31px;
+ }
+ .headerGuestIn .innerHeaderGuest{
+	 background-color: #fff!important;
+	 box-shadow: 0 0 10px rgba(51, 51, 51, 0.31);
+ }
+ .headerGuestIn .innerHeader{
+	 background-color: #fff!important;
+	 box-shadow: 0 0 10px rgba(51, 51, 51, 0.31);
+ }
+ .propertiesHeadline{
+		padding-bottom: 70px;
+	}
+	
+	#topfilters{
+		margin-top: -7px!important;
+	}
+}
+
+
+@media (max-width: 480px) {
+	 .findHomesTitle{
+	 font-size: 31px;
+	 }
+	.formin{
+		width: 53%;
+		margin-right: 5px;
+	}
+	.btnSmall{
+	padding: 8px 15px;
+	margin-left: 5px;
+}
+.propertyFacilities{
+		margin: 5px;
+		float: left;
+	}
+	 .findHomesTitle{
+	 font-size: 31px;
+	 }
+	.carousel-control{
+		background-image: none!important;
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+	.fixedHeight{
+		height: auto;
+		width: 120%;
+	}
+	.relatedHeight{
+		width: auto;
+		height: auto;
+	}
+	 .link{
+		 float: left;
+	 }
+	 .buyrenticon{
+		 float: right;
+	 }
+	 .propertiesHeadline{
+		padding-bottom: 70px;
+	}
+	#topfilters{
+		margin-top: 8px!important;
+	}
+}
+
+@media (max-width: 360px) {
+	.home-body-main{
+	 max-width:360px;
+	 overflow:hidden;
+	 margin: 0 auto;
+	 }
+	  .findHomesTitle{
+	 font-size: 31px;
+	 }
+	.formin{
+		width: 53%;
+		margin-right: 5px;
+	}
+
+	.btnSmall{
+	padding: 8px 15px;
+	margin-left: 5px;
+	}
+	#newsletter .form-control{
+	width: 180px;
+	}
+	 .link{
+		 float: left;
+	 }
+	 .buyrenticon{
+		 float: right;
+	 }
+	.fixedHeight{
+		height: auto;
+		width: 120%;
+	}
+	.relatedHeight{
+		width: 120%;
+		height: auto;
+	}
+	.formHeader{
+		min-width: 220px!important;
+	}
+	.propertiesHeadline{
+		padding-bottom: 70px!important;
+	}
+	#topfilters{
+		margin-top: 8px!important;
+	}
+
+}
+
+@media (max-width: 320px) {
+	 .home-body-main{
+	 width:320px;
+	 overflow:hidden;
+	 margin: 0 auto;
+	 }
+	.formin{
+	 width: 51%;
+	 }
+	 .buyrentselect{
+		 width: 26%;
+	 }
+	 .link{
+		 float: left;
+	 }
+	 .buyrenticon{
+		 float: right;
+	 }
+	 .indexForm{
+
+	}
+	 .findHomesTitle{
+	 font-size: 31px;
+	 }
+	.btnSmall{
+	padding: 8px 12px;
+	margin-left: 5px;
+	}
+	.indexForm{
+	width: 290px;
+	margin-left: -10px;
+	}
+	#newsletter .form-control{
+	width: 180px;
+	}
+	.propertyFacilities{
+		margin: 5px;
+		float: left;
+	}
+	.adformm{
+		width: 140px;
+		float: left;
+		margin: 1px 5px;
+	}
+	.carousel-control{
+		background-image: none!important;
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+	.relatedHeight{
+		width: auto;
+		height: auto;
+	}
+	
+}

@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "real-estate-2";
+  src:url("../fonts/real-estate-2.eot");
+  src:url("../fonts/real-estate-2.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/real-estate-2.woff") format("woff"),
+    url("../fonts/real-estate-2.ttf") format("truetype"),
+    url("../fonts/real-estate-2.svg#real-estate-2") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon2]:before {
+  font-family: "real-estate-2" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon2-"]:before,
+[class*=" icon2-"]:before {
+  font-family: "real-estate-2" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon2-money-banknote:before {
+  content: "a";
+}
+.icon2-credit-card:before {
+  content: "b";
+}
+.icon2-balcony:before {
+  content: "c";
+}
+.icon2-elevator:before {
+  content: "d";
+}
+.icon2-touch-screen-phone1:before {
+  content: "e";
+}
+.icon2-youth:before {
+  content: "g";
+}
+.icon2-elderly:before {
+  content: "f";
+}
+.icon2-handicap:before {
+  content: "h";
+}
+.icon2-flash:before {
+  content: "i";
+}

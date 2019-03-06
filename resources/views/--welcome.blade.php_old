@@ -1,0 +1,300 @@
+@extends('layout.index')
+
+@section('pageTitle', __('messages.title_index_page'))
+
+@section('content')
+<!-- BEGIN HOME SEARCH SECTION -->
+<section id="home-search-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12" data-animation-direction="from-top" data-animation-delay="50">
+				<h2 class="slider-title">{{ __('messages.lbl_find_home') }}</h2>
+				<div class="slider-subtitle">{{ __('messages.lbl_with') }} <strong>Findbo</strong> {{ __('messages.lbl_located_denmark') }}</div>
+			</div>
+			
+			<form id="homePageSearchForm" action="{{ url('property') }}" method="post">
+				{{ csrf_field() }}
+				<div id="home-search-buttons" class="col-sm-6 col-sm-offset-3" data-animation-direction="from-bottom" data-animation-delay="250">
+					<div style="display: none;">
+						<button type="button" onclick="javascript:searchForSaleOrRent('buy');" class="btn btn-default btn-semi-transparent">{{ __('messages.lbl_for_sale') }}</button>
+						<button type="button" onclick="javascript:searchForSaleOrRent('rent');" class="btn btn-default btn-semi-transparent active">{{ __('messages.lbl_for_rent') }}</button>
+					</div>
+					<input type="hidden" id="searchActionHdn" name="action" value="rent" />
+					<div class="input-group">
+						<input type="text" placeholder="{{ __('messages.msg_homepage_2') }}" name="location" id="home_search" class="form-control" />
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit" name="submitKeyword"><i class="fa fa-search"></i>{{ __('messages.search') }}</button>
+						</span>
+					</div>
+				</div>
+			</form>
+			<script type="text/javascript">
+				function searchForSaleOrRent(opt)
+				{	
+					$("#searchActionHdn").val(opt);	
+				}
+			</script>
+		</div>
+	</div>
+</section>
+<!-- END HOME SEARCH SECTION -->
+
+<!-- BEGIN ACTION BOX -->
+<div class="action-box">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 center">
+				<h2>
+					{{ __('messages.msg_sale_or_rent_on') }} <strong>Findbo.dk</strong> {{ __('messages.msg_and_be_seen') }}<br/>
+					{{ __('messages.msg_homepage_1') }}
+				</h2>
+				<div>
+					<?php /*if (!isset($_SESSION['user']) || (empty($_SESSION['user']))) { ?>
+						<a href="registrer.php" class="btn btn-default btn-lg">
+							<?php echo $lang['lbl_list_your_property']; ?>
+						</a>
+					<?php } elseif (isset($_SESSION['user']) && (!empty($_SESSION['user'])) && (@$userType == "lord")) { ?>
+						<a href="opret_boligannonce.php" target="_blank" class="btn btn-default btn-lg">
+							<?php echo $lang['lbl_list_your_property']; ?>
+						</a>
+					<?php } elseif (isset($_SESSION['user']) && (!empty($_SESSION['user'])) && (@$userType == "seek")) { ?>
+						<a href="opret_boligsoegeannonce.php" target="_blank" class="btn btn-default btn-lg">
+							<?php echo $lang['lbl_list_your_seek_ad']; ?>
+						</a>
+					<?php }*/ ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END ACTION BOX -->
+
+<!-- BEGIN CONTENT WRAPPER -->
+<div class="content">
+	<div class="container">
+		<div class="row">
+		
+			<!-- BEGIN MAIN CONTENT -->
+			<div class="main col-sm-12">
+				<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">Findbo {{ __('messages.lbl_features') }}</h1>
+
+				<div class="feature col-sm-4" data-animation-direction="from-bottom" data-animation-delay="250">
+					<i class="fa fa-home"></i>
+					<h3>{{ __('messages.lbl_for_rent_or_sale') }}</h3>
+					<p>{{ __('messages.msg_for_rent_or_sale') }}</p>
+					 <a href="#" class="btn btn-default-color">{{ __('messages.lbl_read_more') }}</a> 
+				</div>
+				<div class="feature col-sm-4" data-animation-direction="from-bottom" data-animation-delay="450">
+					<i class="fa fa-bullhorn"></i>
+					<h3>{{ __('messages.lbl_real_ads') }}</h3>
+					<p>{{ __('messages.msg_real_ads') }}</p>
+					
+					 <a href="{{ url('property') }}" class="btn btn-default-color">{{ __('messages.lbl_read_more') }}</a> 
+				</div>
+				<div class="feature col-sm-4" data-animation-direction="from-bottom" data-animation-delay="650">
+					<i class="fa fa-map-marker"></i>
+					<h3>{{ __('messages.lbl_map_vision') }}</h3>
+					<p>{{ __('messages.msg_map_vision') }}</p>
+					
+					 <a href="#" class="btn btn-default-color">{{ __('messages.lbl_read_more') }}</a> 
+				</div>
+			</div>					
+		</div>
+	</div>
+</div>
+<!-- END CONTENT WRAPPER -->
+
+@if(!empty($newProperty) && count($newProperty)>0)
+	<!-- BEGIN PROPERTIES SLIDER WRAPPER-->
+	<div class="gray-bg" data-stellar-background-ratio="0.5">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">{{ __('messages.lbl_new_properties_available') }}</h1>
+					
+					<div id="new-properties-slider" class="owl-carousel carousel-style1">
+						<?php 
+						$new_prop_counter = 1;
+						?>
+						@foreach($newProperty as $new)
+							<?php 
+							if($new_prop_counter == 1)
+							{
+								$delay_counter = 250;
+							}
+							else
+							{
+								$delay_counter += 200;
+							}
+							?>
+							<div class="item" data-animation-direction="from-bottom" data-animation-delay="<?php echo $delay_counter; ?>">
+								<div class="image" style="border: 1px solid #e4e4e4;">
+									<a href="#" class="info">
+										<h3>{{ (!empty($new->headline_dk))?$new->headline_dk:$new->headline_dk }}</h3>
+										<span class="location">{{ $new->city_name.', ' }} {{ $new->area_name }}</span>
+									</a>
+									@if(file_exists($new->thumbnail) && ($new->thumbnail!=""))
+										<img src="{{ $new->thumbnail }}" alt="Bolig billeder - Findbo" width="230" height="237" />
+									@else
+										<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="Bolig billeder - Findbo" width="230" height="237" />
+									@endif
+								</div>
+								<div class="price">
+									<i class="fa fa-home"></i>{{ ($new->action=='rent')?__('messages.lbl_for_rent'):__('messages.lbl_for_sale') }}
+									<span>{{ number_format($new->price_dk/1000,3).' kr' }} {{ ($new->action=='rent')?'/md':'' }}</span>
+								</div>
+								<ul class="amenities">
+									@if($new->size!="")
+										<li><i class="icon-area"></i> {{ $new->size }} m2</li>	
+									@endif
+									<li><i class="icon-bedrooms"></i> {{ $new->rooms }}</li>
+								</ul>
+							</div>
+							<?php 
+				        	if($new_prop_counter == 4)
+				        	{	$new_prop_counter = 1;	}
+				        	else
+				        	{	$new_prop_counter++;	}
+					        ?>
+						@endforeach
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END PROPERTIES SLIDER WRAPPER -->
+@endif		
+
+
+@if(!empty($newHomeSeeker) && count($newHomeSeeker)>0)
+	<!-- BEGIN SEEKER SLIDER WRAPPER-->
+	<div data-stellar-background-ratio="0.5" style="padding: 0 0 60px 0">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">{{ __('messages.lbl_new_property_seeker') }}</h1>
+					
+					<div id="new-seekers-slider" class="owl-carousel carousel-style1">
+						<?php $new_prop_counter = 1;?>
+						@foreach($newHomeSeeker as $homeseeker)
+							<?php 
+					        $seotitle = preg_replace('~[^\\pL0-9_]+~u', '-', $homeseeker->title);
+					        $seotitle = trim($seotitle, "-");
+					        $seotitle = iconv("utf-8", "us-ascii//TRANSLIT", $seotitle);
+					        $seotitle = strtolower($seotitle);
+					        $seotitle = preg_replace('~[^-a-z0-9_]+~', '', $seotitle);
+					        
+					        
+					        if($new_prop_counter == 1)
+					        {	$delay_counter = 250; }
+					        else
+					        {	$delay_counter += 200;	}
+					        ?>
+					        <div class="item" data-animation-direction="from-bottom" data-animation-delay="<?php echo $delay_counter; ?>">
+								<div class="image" style="border: 1px solid #e4e4e4;">
+									<a href="@" class="info">
+										<h3>{{ $homeseeker->title }}</h3>
+										<span class="location">{{ $homeseeker->area_name }}</span>
+									</a>
+									@if(file_exists($homeseeker->thumbnail_large) && $homeseeker->thumbnail_large!="")
+										<img src="{{ $homeseeker->thumbnail_large }}" alt="..." width="230" height="237" />
+									@else
+										<img src="{{ asset('public/images/seeker.png') }}" alt="..." width="230" height="237" />
+									@endif
+								</div>
+								
+								<ul class="amenities">
+									<li><i class="fa fa-home"></i> {{ __('messages.lbl_'.$homeseeker->type) }}</li>
+									<li><i class="icon-bedrooms"></i> {{ $homeseeker->minRooms }}</li>
+								</ul>
+							</div>
+							<?php 
+				        	if($new_prop_counter == 4)
+				        	{	$new_prop_counter = 1;	}
+				        	else
+				        	{	$new_prop_counter++;	}
+					        ?>
+						@endforeach
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END SEEKER SLIDER WRAPPER -->
+@endif
+
+<div class="parallax colored-bg" style="background-image:url('public/images/newsletter-img.jpg');">
+	<div class="container">
+		<div class="row">
+			<!-- BEGIN NEWSLETTER -->
+			<div id="mc_embed_signup">
+			<form action="//findbo.us9.list-manage.com/subscribe/post-json?u=8c47f955c01c91de718703c52&amp;id=a99afcc9c5&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+			<div id="mc_embed_signup_scroll">
+			<div id="newsletter" class="col-md-7 center">
+				<h1 data-animation-direction="from-top" data-animation-delay="50">{{ __('messages.msg_homepage_3') }} <strong>{{ __('messages.lbl_newsletter') }}</strong></h1>
+				
+				<div class="input-group col-md-7 center" data-animation-direction="from-bottom" data-animation-delay="50">
+					<input type="text" placeholder="{{ __('messages.lbl_enter_email') }}" name="EMAIL" id="newsletter_email" class="form-control" />
+					<div style="position: absolute; left: -5000px;"><input type="text" name="b_8c47f955c01c91de718703c52_a99afcc9c5" tabindex="-1" value=""></div>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit" id="mc-embedded-subscribe">{{ __('messages.subscribe') }}</button>
+					</span>
+				</div>
+				<div id="subscribe_msg_box" class="col-md-7 center"></div>
+			</div>
+			</div>
+			</form>
+			</div>
+			<div id="letterfeed"></div>
+			<script type="text/javascript">
+				function register($form)
+				{
+				    $.ajax({
+					        type		: "GET",
+					        url			: $form.attr('action'),
+					        data		: $form.serialize(),
+					        cache       : false,
+					        async 		: false,
+					        dataType    : 'json',
+					        contentType	: "application/json; charset=utf-8",
+					        error       : function(err) { alert("{{ __('messages.registration_msg_1') }}"); },
+				        	success     : function(data)
+				        				  {
+			            						if(data.result != "success")
+				            					{
+					            					var subscribe_msg = '';
+					            					subscribe_msg += '<div class="alert alert-danger alert-dismissable" style="margin-top: 10px">';
+					            					subscribe_msg += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">'+'&times;'+'</button>';
+					            					subscribe_msg += '{{ __("messages.error_msg_1") }}! ';
+					            					subscribe_msg += '</div>';
+					            					 
+										        	$("#subscribe_msg_box").html(subscribe_msg);
+										        } else {
+										        	var subscribe_msg = '';
+
+										        	subscribe_msg += '<div class="alert alert-success alert-dismissable" style="margin-top: 10px">';
+										        	subscribe_msg += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">'+'&times;'+'</button>';
+										        	subscribe_msg += '<strong>{{ __("messages.thankyou") }}! </strong>';
+					            					subscribe_msg += '{{ __("messages.successfully_subscribed_msg") }}! ';
+					            					subscribe_msg += '</div>';
+
+										        	$("#subscribe_msg_box").html(subscribe_msg);
+										        	$("#newsletter_email").val();
+												};
+				        				}
+				    });
+				}
+			</script>
+			<!-- END NEWSLETTER -->
+		</div>
+	</div>
+</div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="{{ asset('public/js/map_address_search.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpNqB30eVLDw9fM5qTFqJvkA4XdJslXm0&libraries=places&callback=initAutocomplete" async defer></script>
+@endsection
