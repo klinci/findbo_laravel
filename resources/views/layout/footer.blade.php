@@ -54,7 +54,7 @@
 						<span id="inputSuccess2Status" class="sr-only">(success)</span>
 					</div>
 				</form>
-				
+
 				<script>
 				function register($form)
 				{
@@ -75,17 +75,17 @@
 									subscribe_msg += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">'+'&times;'+'</button>';
 									subscribe_msg += '{{  __('messages.error_msg_1') }} ';
 									subscribe_msg += '</div>';
-									
+
 									$("#subscribe_msg_box").html(subscribe_msg);
 								} else {
 									var subscribe_msg = '';
-	
+
 									subscribe_msg += '<div class="alert alert-success alert-dismissable" style="margin-top: 10px">';
 									subscribe_msg += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">'+'&times;'+'</button>';
 									subscribe_msg += '<strong>{{  __('messages.thankyou') }} </strong>';
 									subscribe_msg += '{{  __('messages.successfully_subscribed_msg') }} ';
 									subscribe_msg += '</div>';
-	
+
 									$("#subscribe_msg_box").html(subscribe_msg);
 									$("#newsletter_email").val();
 								};
@@ -95,7 +95,7 @@
 				</script>
 			</div>
 		</div>
-		
+
 		<div class="row" style="margin-top: 45px;">
 			<div class="col-md-2 col-md-offset-3 col-sm-3 col-xs-12">
 				<h3 class="footertitle">About</h3>
@@ -115,6 +115,8 @@
 					@else
 						<li><a href="{{ url('login') }}">Create Teanant ad</a></li>
 					@endif
+					<li><a href="{{ url('blog') }}">Blog</a></li>
+					<li><a href="{{ url('contact') }}">{{ __('messages.contactus') }}</a></li>
 				</ul>
 			</div>
 			<!-- <div class="col-md-2 col-sm-3 col-xs-12">
@@ -165,4 +167,3 @@
 	<!-- END COPYRIGHT -->
 
 </footer>
-
