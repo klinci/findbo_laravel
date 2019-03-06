@@ -15,6 +15,9 @@
 Auth::routes();
 
 Route::get('/describe', 'HomeController@describe');
+Route::get('/dashboard', function () {
+    return redirect('http://findbo.dk/dashboard');
+});
 
 Route::get('/', 'HomeController@index');
 Route::get('/auto_search', 'HomeController@autoSearch');
