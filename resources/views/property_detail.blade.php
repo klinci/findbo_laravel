@@ -4,8 +4,8 @@
 
 
 @section('meta_tags')
-<meta name="keywords" content=""> 
-<?php 
+<meta name="keywords" content="">
+<?php
 if($objProperty->description_dk!="")
 {
 	$description = $objProperty->description_dk;
@@ -27,7 +27,7 @@ $meta_desc = str_replace('"',"'",$meta_desc);
 $meta_desc = addslashes($meta_desc);
 ?>
 <meta name="description" content="<?php echo $meta_desc;?>">
-<?php 
+<?php
 if(!empty($objGallery) && count($objGallery)>0)
 {
 	foreach($objGallery as $gal)
@@ -48,12 +48,12 @@ else
 	<meta property="og:image" content="{{ asset('public/images/ikke_navngivet_main.png') }}" />
 	<?php
 }
-?> 
+?>
 <meta property="og:url" content="{{ url('property_detail/'.$objProperty->id) }}" />
 <meta property="og:title" content="{{ ($objProperty->headline_dk!='')?$objProperty->headline_dk:$objProperty->headline_eng }}" />
 @endsection
 
-<?php 
+<?php
 
 $location1 = $objProperty->location1;
 $location2 = $objProperty->location2;
@@ -67,10 +67,10 @@ if($location1 == "" && $location2 == "")
 		$res = file_get_contents($mapUrl);
 
 		$resDecode = json_decode($res, true);
-			
+
 		/*echo '<pre>';
 			print_r($resDecode);*/
-			
+
 		if($resDecode["status"]=="OK")
 		{
 			$result = $resDecode["results"][0]["geometry"]["location"];
@@ -81,7 +81,7 @@ if($location1 == "" && $location2 == "")
 	}
 	else
 	{
-			
+
 	}
 }
 ?>
@@ -93,7 +93,7 @@ if($location1 == "" && $location2 == "")
 		<div class="row">
 			<div class="col-sm-6">
 				<h1 class="page-title">{{ __('messages.propertydettails') }}</h1>
-				
+
 				<ul class="breadcrumb">
 					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
 					<li>
@@ -148,12 +148,12 @@ if($location1 == "" && $location2 == "")
 
 				@if(session()->has('message.level'))
 					<div class="col-md-12">
-						<div class="alert alert-{{ session('message.level') }}"> 
+						<div class="alert alert-{{ session('message.level') }}">
 					    {!! session('message.content') !!}
 					    </div>
 					</div>
 				@endif
-				
+
 				<div class="property-topinfo" style="margin-top: 15px;">
 					<ul class="amenities">
 						<li><i class="icon-apartment"></i>{{ (!empty($objProperty->type))?__('messages.lbl_'.strtolower($objProperty->type)):"" }}</li>
@@ -171,30 +171,30 @@ if($location1 == "" && $location2 == "")
 						@endif
 					</div>
 				</div>
-				
+
 				<div id="property-detail-wrapper" class="style1">
 					<div class="price {{ ($objProperty->is_available == '0')? 'red':'' }}">
 						@if($objProperty->is_available == '1')
 							<i class="fa fa-home"></i>
-							@if($objProperty->action == 'rent') 
-								{{ __('messages.lbl_for_rent') }} 
-							@else 
+							@if($objProperty->action == 'rent')
+								{{ __('messages.lbl_for_rent') }}
+							@else
 								{{ __('messages.lbl_for_sale') }}
 							@endif
 						@elseif ($objProperty->is_available == '0')
 							<i class="fa fa-ban"></i>
-							@if($objProperty->action == 'rent') 
+							@if($objProperty->action == 'rent')
 								{{ __('messages.lbl_rented') }}
-							@else 
+							@else
 								{{ __('messages.lbl_sold') }}
 							@endif
 						@endif
-						<span>{{ number_format($objProperty->price,0,',','.') }} kr {{ ($objProperty->action == 'rent')?'/md':'' }}</span>
+						<span>{{ number_format($objProperty->price_usd,0,',','.') }} kr {{ ($objProperty->action == 'rent')?'/md':'' }}</span>
 						<!-- <span>{{ number_format($objProperty->price_usd/1000,3).' kr' }}  {{ ($objProperty->action == 'rent')?'/md':'' }}</span> -->
 					</div>
-					
+
 					<div id="property-detail-large" class="owl-carousel">
-						<?php 
+						<?php
 						$isExists = 0;
 						?>
 						@if(!empty($objGallery) && count($objGallery)>0)
@@ -212,14 +212,14 @@ if($location1 == "" && $location2 == "")
 								@endif
 							@endforeach
 						@endif
-						
+
 						@if($isExists==0)
 							<div class="item">
 								<img src="{{ asset('public/images/ikke_navngivet_main.png') }}" alt="Bolig billeder - Findbo" />
 							</div>
 						@endif
 					</div>
-					
+
 					<div id="property-detail-thumbs" class="owl-carousel">
 						@if(!empty($objGallery) && count($objGallery)>0)
 							@foreach($objGallery as $gallery)
@@ -236,15 +236,15 @@ if($location1 == "" && $location2 == "")
 						@endif
 					</div>
 				</div>
-				
+
 				<p id="short_desc_handler">
 					@if(!empty($objProperty->description_dk))
 						<?php $description = $objProperty->description_dk ?>
 					@else
 						<?php $description = $objProperty->description_eng ?>
 					@endif
-					
-					<?php 
+
+					<?php
 					$short_desc_limit = 300;
 					if(strlen($description) > $short_desc_limit)
 					{
@@ -262,7 +262,7 @@ if($location1 == "" && $location2 == "")
 					}
 					?>
 				</p>
-				
+
 				<p id="long_desc_handler" style="display: none;">
 					<?php echo nl2br($description); ?>
 					<span class="text-right" style="display: block;"><a href="javascript:void(0);" onclick="javascript:show_short_desc();">
@@ -270,7 +270,7 @@ if($location1 == "" && $location2 == "")
 					</span>
 				</p>
 				<p>&nbsp;</p>
-				
+
 				@if(Auth::check() && $active_pack_id==0)
 					<div class="contact-landlord">
 						<a href="{{ url('package/'.$objProperty->id) }}" class="btn btn-fullcolor contact-landlord">
@@ -278,7 +278,7 @@ if($location1 == "" && $location2 == "")
 						</a>
 					</div>
 				@endif
-				
+
 				@if(!Auth::check())
 					<div class="contact-landlord">
 						<a data-id="contactLandlordBtn" href="{{ url('login') }}" class="btn btn-fullcolor contact-landlord">
@@ -286,22 +286,22 @@ if($location1 == "" && $location2 == "")
 						</a>
 					</div>
 				@endif
-				
+
 				<h1 class="section-title">{{ __('messages.lbl_property_features') }}</h1>
-				
+
 				@if($objProperty->rooms > 0)
 					<ul class="property-features col-sm-6">
 						<li><i class="icon-rooms"></i> {{ $objProperty->rooms.' '.__('messages.postrooms') }}</li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->size > 0)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon-area"></i> {{ $objProperty->size }} m2</li>
 					</ul>
 				@endif
-				
-				<?php 
+
+				<?php
 				$main_rentDeposit = stripslashes(stripslashes($objProperty->rentDeposit));
 				$main_rentDeposit = str_replace('DKK','',$main_rentDeposit);
 				$main_rentDeposit = trim($main_rentDeposit);
@@ -310,7 +310,7 @@ if($location1 == "" && $location2 == "")
 				else
 					$rentDeposit = $main_rentDeposit;
 				?>
-				
+
 				@if($objProperty->action=='rent')
 					@if(!empty($rentDeposit))
 						<ul class="property-features col-sm-6">
@@ -318,62 +318,62 @@ if($location1 == "" && $location2 == "")
 						</ul>
 					@endif
 				@endif
-				
+
 				@if((!empty($objProperty->expenses) && $objProperty->expenses > 0) && $objProperty->expenses!="-")
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon2 icon2-flash tipso" title="{{ __('messages.lbl_consumption_and_energy') }}"></i> {{ $objProperty->expenses.' Kr. | ' }}</li>
 					</ul>
 				@else
 					@if((!empty($objProperty->energy) && $objProperty->energy > 0) && $objProperty->energy!="-")
-						<ul class="property-features col-sm-6">	
+						<ul class="property-features col-sm-6">
 							<li><i class="icon2 icon2-flash tipso" title="{{ __('messages.lbl_consumption_and_energy') }}"></i> {{ $objProperty->energy }}</li>
 						</ul>
 					@endif
 				@endif
-				
+
 				@if($objProperty->action=='rent')
 					@if(!empty($rentalperiod))
-						@if($rentalperiod=='ubegrænset' || $rentalperiod=='Snarest muligt' || $rentalperiod=='snarest')
+						@if($rentalperiod=='ubegrï¿½nset' || $rentalperiod=='Snarest muligt' || $rentalperiod=='snarest')
 						@elseif(strtotime($rentalperiod)>0)
 							<!-- // do nothing  -->
 						@else
-							<ul class="property-features col-sm-6">	
+							<ul class="property-features col-sm-6">
 								<li><i class="fa fa-clock-o tipso" title="{{ __('messages.lengthofstay') }}"></i> {{ __('messages.rental_period_'.$rentalperiod) }}</li>
 							</ul>
 						@endif
 					@endif
 				@endif
-				
+
 				@if($objProperty->action=='buy')
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="fa fa-crop tipso" title="{{ __('messages.groundArea') }}"></i> {{ $groundarea }} m2</li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->action=='buy' && !empty($objProperty->payment))
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="fa fa-credit-card tipso" title="{{ __('messages.payout') }}"></i> {{ $objProperty->payment.' '.__('messages.pricekvm') }}</li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->action=='buy' && !empty($objProperty->gross))
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="fa fa-money tipso" title="{{ __('messages.gross') }}"></i> {{ $objProperty->gross }}</li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->action=='buy' && !empty($objProperty->net))
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="fa fa-money tipso" title="{{ __('messages.net') }}"></i> {{ $objProperty->net }}</li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->action=='buy' && !empty($objProperty->year))
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="fa fa-calendar tipso" title="{{ __('messages.builtyear') }}"></i> {{ $objProperty->year }}</li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty=='rent')
 					@if($objProperty->pets_allowed == 1 || $objProperty->pets_allowed == 2)
 						<ul class="property-features col-sm-6">
@@ -395,76 +395,76 @@ if($location1 == "" && $location2 == "")
 						</ul>
 					@endif
 				@endif
-				
-				
+
+
 				@if($objProperty->furnished==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon-01"></i> {{ __('messages.lbl_furnished') }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->garage==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon-garage"></i> {{ __('messages.lbl_with').' '.strtolower(__('messages.garage')) }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->balcony==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon2 icon2-balcony"></i> {{ __('messages.lbl_with').' '.strtolower(__('messages.postBalcony')) }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->entry_phone==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon2 icon2-touch-screen-phone1"></i> {{ __('messages.lbl_with').' '.strtolower(__('messages.lbl_entryphone')) }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->lift==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon2 icon2-elevator"></i> {{ __('messages.lbl_with').' '.strtolower(__('messages.postlift')) }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->garden==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon-garden"></i> {{ __('messages.lbl_with').' '.strtolower(__('messages.postGarden')) }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->youthHousing==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon2 icon2-youth"></i> {{ __('messages.youthFriendly') }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->seniorFriendly==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon2 icon2-elderly"></i> {{ __('messages.seniorFriendly') }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->handicapFriendly==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="icon2 icon2-handicap"></i> {{ __('messages.handicapFriendly') }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->shareFriendly==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i class="fa fa-group"></i> {{ __('messages.shareFriendly') }} </li>
 					</ul>
 				@endif
-				
+
 				@if($objProperty->basement==1)
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li><i><img style="margin-bottom: 15px;" src="{{ asset('public/images/down_stair.png') }}"></i> {{ __('messages.lbl_basement') }}</i> </li>
 					</ul>
 				@endif
-				
+
 				@if(!empty($objProperty->vacant))
-					<ul class="property-features col-sm-6">	
+					<ul class="property-features col-sm-6">
 						<li>
 							<i class="fa fa-check-circle-o tipso" title="{{ __('messages.postVacant') }}"></i>
 							@if(strtolower($objProperty->vacant)=='immediately')
@@ -477,44 +477,44 @@ if($location1 == "" && $location2 == "")
 						</li>
 					</ul>
 				@endif
-				
+
 				@if(!empty($objProperty->openHouseDate) && strtotime($objProperty->openHouseDate)>0)
 					<ul class="property-features col-sm-6">
 						<li>
 							<i class="fa fa-unlock-alt tipso" title="{{ __('messages.postOpenHouse') }}"></i>
-							{{ date("j M, Y", strtotime($objProperty->openHouseDate)).' ('.$objProperty->openHouseStartTime.' - '.$objProperty->openHouseEndTime.') ' }} 
-						</li>	
+							{{ date("j M, Y", strtotime($objProperty->openHouseDate)).' ('.$objProperty->openHouseStartTime.' - '.$objProperty->openHouseEndTime.') ' }}
+						</li>
 					</ul>
 				@endif
-				
+
 				<h1 class="section-title">{{ __('messages.lbl_property_location') }}</h1>
 				<div id="property_location" class="map col-sm-12"></div>
-				
+
 				<div class="share-wraper col-sm-12">
 					<h5 style="margin-right: 0px;">{{ __('messages.lbl_share_this_property') }}:</h5>
-					<?php 
+					<?php
 					//$currentLink = 'https://'.$_SERVER['HTTP_HOST'].'/bolig-detaljer.php?id='.$objProperty->id;
 					$currentLink = url('property_detail/'.$objProperty->id);
 					//$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail;
 					$full_path_img_src = asset($objProperty->thumbnail);
 					$pin_desc = str_replace('"',"'",$description);
 					?>
-					
+
 					<ul class="social-networks">
 						<li><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php echo $currentLink; ?>"><i class="fa fa-facebook"></i></a></li>
 						<li><a target="_blank" href="https://twitter.com/intent/tweet?text=<?php echo $currentLink; ?>"><i class="fa fa-twitter"></i></a></li>
 						<li><a target="_blank" href="https://plus.google.com/share?url=<?php echo $currentLink; ?>"><i class="fa fa-google"></i></a></li>
 						<li><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php echo $currentLink; ?>&description=<?php echo $pin_desc; ?>&media=<?php echo $full_path_img_src; ?>"><i class="fa fa-pinterest"></i></a></li>
 					</ul>
-					
+
 					@if(Auth::check())
 						@if(!empty($objWishlist) && count($objWishlist)>0)
-							<?php 
+							<?php
 								$disRemoveWishlistBtn = '';
 								$disAddWishlistBtn = 'display: none;';
 							?>
 						@else
-							<?php 
+							<?php
 								$disRemoveWishlistBtn = 'display: none;';
 								$disAddWishlistBtn = '';
 							?>
@@ -528,23 +528,23 @@ if($location1 == "" && $location2 == "")
 							{{ __('messages.lbl_add_to_favorite') }}
 						</a>
 					@endif
-					
+
 					<?php /*@if(Auth::check() && (Auth::user()->id==$objProperty->user_id))
 						<a id="propActivateBtn" class="btn btn-default-color favorite-btn" onclick="javascript:return is_prop_available({{ $objProperty->id }},1);" style="{{ (!empty($objProperty->is_available))?'display:none':'' }}">
 							<i class="fa fa-check"></i>
 							{{ ($objProperty->action=='rent')?__('messages.lbl_prop_activate_rent'):__('messages.lbl_prop_activate_sale') }}
 						</a>
-						
+
 						<a id="propDeactivateBtn" class="btn btn-default-color favorite-btn" onclick="javascript:return is_prop_available({{ $objProperty->id }},0);" style="{{ (empty($objProperty->is_available))?'display:none':'' }}">
 							<i class="fa fa-ban"></i>
 							{{ ($objProperty->action=='rent')?__('messages.lbl_prop_deactivate_rent'):__('messages.lbl_prop_deactivate_sale') }}
 						</a>
 					@endif*/ ?>
-					
+
 					<a class="print-button" href="javascript:window.print();" style="padding-left: 10px;">
 						<i class="fa fa-print"></i>
 					</a>
-					
+
 					<a href="#" id="reportBtn" class="btn btn-default-color favorite-btn" data-toggle="modal" data-target="#reportModal" onclick="javascript:showReportForm();" style="float: right; margin-top: 2px;margin-right: 10px;">
 						<i class="fa fa-exclamation-circle"></i>
 						{{ __('messages.lbl_report') }}
@@ -564,15 +564,15 @@ if($location1 == "" && $location2 == "")
 										</header>
 										<ul class="contact-us">
 											@if($active_pack_id==1 || $active_pack_id==2)
-												
+
 												@if((!empty($objProperty->property_email)) && ($objProperty->property_email!='info@findbo.dk') && ((!empty($objProperty->prop_site_name)) && (trim($objProperty->prop_site_name)!="findbo")))
 													<li><i class="fa fa-envelope"></i><a href="mailto:{{ $objProperty->property_email }}">{{ $objProperty->property_email }}</a></li>
 												@endif
-												
+
 												@if(!empty($objProperty->phonenum1))
 													<li><i class="fa fa-phone"></i>{{ $objProperty->phonenum1 }}</li>
 												@endif
-												
+
 												@if(!empty($objProperty->phonenum2))
 													<li><i class="fa fa-phone"></i>{{ $objProperty->phonenum2 }}</li>
 												@endif
@@ -580,11 +580,11 @@ if($location1 == "" && $location2 == "")
 										</ul>
 									</div>
 								</div>
-								
-								
+
+
 								<form id="propMessage" action="bolig-detaljer.php" method="POST" class="form-style col-md-7" style="padding: 40px 10px;{{ ((!empty($objProperty->property_email)) && (trim($objProperty->prop_site_name) == 'prodomus'))?'display:none;':'' }}">
-									<?php 
-									if( ((!empty($email)) && (trim($email) != 'info@findbo.dk')) || ((!empty($user_email)) && (trim($user_email) != 'info@findbo.dk')) ) 
+									<?php
+									if( ((!empty($email)) && (trim($email) != 'info@findbo.dk')) || ((!empty($user_email)) && (trim($user_email) != 'info@findbo.dk')) )
 									{
 										$email_msg_to = '';
 										if((!empty($email)) && (trim($email) != 'info@findbo.dk'))
@@ -592,11 +592,11 @@ if($location1 == "" && $location2 == "")
 										elseif((!empty($user_email)) && (trim($user_email) != 'info@findbo.dk'))
 										{	$email_msg_to = $user_email;	}
 										?>
-										
+
 										<div class="col-sm-12">
-											<textarea name="txtMessage" rows="9" placeholder="{{ __('messages.msg') }}" class="form-control required"></textarea> 
+											<textarea name="txtMessage" rows="9" placeholder="{{ __('messages.msg') }}" class="form-control required"></textarea>
 										</div>
-										
+
 										<div class="center">
 											<input type="hidden" value="{{ Auth::user()->id }}" name="userid">
 								            <input type="hidden" value="{{ $objProperty->user_id}}" name="user2">
@@ -606,7 +606,7 @@ if($location1 == "" && $location2 == "")
 								            <input type="hidden" name="messageSubmit" value="Send message" />
 											<button type="button" onclick="javascript:submitPropertyMessage();" name="msgSubmitBtn" class="btn btn-default-color "><i class="fa fa-envelope"></i> {{ __('messages.sendmsg') }}</button>
 										</div>
-										<?php 
+										<?php
 									}
 									else
 									{
@@ -621,21 +621,21 @@ if($location1 == "" && $location2 == "")
 									}
 									?>
 								</form>
-								
+
 								<script type="text/javascript">
 								function submitPropertyMessage()
 								{
 									$('#propMessage').submit();
 								}
 								</script>
-								
+
 							</div>
 						</div>
 					</div>
 				@endif
-				
-				
-				<!-- START REPORT MODAL BLOCKS -->				
+
+
+				<!-- START REPORT MODAL BLOCKS -->
 				<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModal" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -643,7 +643,7 @@ if($location1 == "" && $location2 == "")
 								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{ __('messages.close') }}</span></button>
 								<h3 class="modal-title modalHeaderTitle text-center" id="myModalLabel">{{ __('messages.prop_report_msg_1') }}</h3>
 							</div>
-				
+
 							<div class="modal-body">
 								<form id="reportForm" action="{{ url('send_report_email') }}" method="post">
 									{{ csrf_field() }}
@@ -656,7 +656,7 @@ if($location1 == "" && $location2 == "")
 											</p>
 										</div>
 									</div>
-								
+
 									<div class="row">
 										<div class="col-sm-4 text-right" style="margin-top: 10px;">{{ __('messages.lbl_name') }} :</div>
 										<div class="col-sm-7">
@@ -666,7 +666,7 @@ if($location1 == "" && $location2 == "")
 											</p>
 										</div>
 									</div>
-									
+
 									<div class="row">
 										<div class="col-sm-4 text-right" style="margin-top: 10px;">{{ __('messages.prop_report_msg_3') }} :</div>
 										<div class="col-sm-7">
@@ -680,7 +680,7 @@ if($location1 == "" && $location2 == "")
 											</p>
 										</div>
 									</div>
-								
+
 									<div class="row">
 										<div class="col-sm-4 text-right" style="margin-top: 10px;">&nbsp;</div>
 										<div class="col-sm-7">
@@ -690,7 +690,7 @@ if($location1 == "" && $location2 == "")
 											</p>
 										</div>
 									</div>
-								
+
 									<div class="row">
 										<div class="col-sm-4 text-right" style="margin-top: 10px;">&nbsp;</div>
 										<div class="col-sm-7" style="margin: 5px 0px;">
@@ -699,7 +699,7 @@ if($location1 == "" && $location2 == "")
 											<div class="col-sm-6"><div id="reportSubmitBtnWaiter" class="center" style="display:none;"><img src="{{ asset('pulblic/images/loader.gif') }}" style="width:21px; margin:0px 3px;" alt="Wait..." /></div></div>
 										</div>
 									</div>
-									
+
 									<div class="row">
 										<div class="col-sm-4 text-right" style="margin-top: 10px;">&nbsp;</div>
 										<div class="col-sm-7" style="margin: 5px 0px;">&nbsp;</div>
@@ -712,8 +712,8 @@ if($location1 == "" && $location2 == "")
 				</div>
 				<!-- START REPORT MODAL BLOCKS -->
 			</div>
-			
-			
+
+
 			<div class="sidebar gray col-sm-4" style="margin-top: 20px; margin-bottom: 20px;">
 				<h2 class="section-title">{{ __('messages.lbl_similar_properties') }}</h2>
 				<div id="similar-properties" class="grid-style1 clearfix">
@@ -734,7 +734,7 @@ if($location1 == "" && $location2 == "")
 									</div>
 									<div class="price">
 										<i class="fa fa-home"></i>{{ ($rp->action=='rent')?__('messages.lbl_for_rent'):__('messages.lbl_for_sale') }}
-										<span>{{ number_format($rp->price,0,',','.') }} kr {{ ($rp->action=='rent')?'/md':'' }}</span>
+										<span>{{ number_format($rp->price_usd,0,',','.') }} kr {{ ($rp->action=='rent')?'/md':'' }}</span>
 										<!-- <span>{{ number_format($rp->price_usd/1000,3).' kr' }}  {{ ($rp->action=='rent')?'/md':'' }}</span> -->
 									</div>
 									<ul class="amenities">
@@ -756,7 +756,7 @@ if($location1 == "" && $location2 == "")
 
 @section('scripts')
 <script src="{{ asset('public/js/tipso/src/tipso.js') }}"></script>
-<?php 
+<?php
 $map_desc = substr($description, 0, 30);
 $map_desc = str_replace("'",'"',$map_desc);
 $map_desc = str_replace(chr(13).chr(10),chr(13),$map_desc);
@@ -781,7 +781,7 @@ function showReportForm()
 {
 	$('.reporterMsg').removeClass('errorMsg').hide();
 }
-    
+
 function submitReport()
 {
 		$('.reporterMsg').removeClass('errorMsg').hide();
@@ -791,21 +791,21 @@ function submitReport()
 		if(reporter_email == '')
 		{
 			$('#errorMsg_reporter_email').addClass('errorMsg').show();
-			isValid = false;	
+			isValid = false;
 		}
 
 		var reporter_name = $.trim($('#reporter_name').val());
 		if(reporter_name == '')
 		{
 			$('#errorMsg_reporter_name').addClass('errorMsg').show();
-			isValid = false;	
+			isValid = false;
 		}
 
 		var reporter_reason_desc = $.trim($('#reporter_reason_desc').val());
 		if(reporter_reason_desc == '')
 		{
 			$('#errorMsg_reporter_reason_desc').addClass('errorMsg').show();
-			isValid = false;	
+			isValid = false;
 		}
 
 		if(!isValid)
@@ -828,8 +828,8 @@ function submitReport()
 	            					{
             							$("#reportSubmitBtnWaiter").hide();
             							$("#reportSubmitBtn").show();
-            							
-										$("#reportModal").removeClass("fade").modal("hide");	            							
+
+										$("#reportModal").removeClass("fade").modal("hide");
 							        } else {
 							        	$("#reportSubmitBtnWaiter").hide();
             							$("#reportSubmitBtn").show();
@@ -865,7 +865,7 @@ function  is_prop_available(str,str1)
         var xmlhttp=new XMLHttpRequest();
         xmlhttp.onreadystatechange=function()
         {
-          if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+          if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	      {
 		      if(xmlhttp.responseText == 'deactivated')
 		      {
@@ -876,7 +876,7 @@ function  is_prop_available(str,str1)
 		      {
 		    	  $("#propActivateBtn").hide();
 		    	  $("#propDeactivateBtn").show();
-		      }        
+		      }
           }
         }
         xmlhttp.open("GET","isPropertyAvailable.php?q="+str+"&i="+str1,true);
@@ -902,7 +902,7 @@ function closePackageNotification()
 
 (function($){
 		"use strict";
-		
+
 		$(document).ready(function()
 		{
 			$('#mc-embedded-subscribe-form').submit(function (event)
