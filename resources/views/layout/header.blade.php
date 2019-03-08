@@ -52,8 +52,12 @@
 												 url('add_property') : url('home_seeker/create') }}">{{ __('messages.post_ad') }}</a>
 								</li>
 							@else
-								<li style="padding: 4px;"><a class="btn btn-success postad" href="{{ url('/login') }}">{{ __('messages.lbl_register') }}/{{ __('messages.signin') }}</a></li>
-								<li style="padding: 4px;"><a class="btn btn-success postad" href="{{ url('/add_property') }}">{{ __('messages.lbl_post_requirements') }}</a></li>
+								<li style="padding: 4px;">
+									<a class="btn btn-success postad" href="{{ url('/login') }}">{{ __('messages.lbl_register') }}/{{ __('messages.signin') }}</a>
+								</li>
+								<li style="padding: 4px;">
+									<a class="btn btn-success postad" href="{{ url('/add_property') }}">{{ __('messages.lbl_post_requirements') }}</a>
+								</li>
 							@endif
 						</ul>
 					</nav>

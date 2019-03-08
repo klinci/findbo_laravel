@@ -31,6 +31,7 @@ Route::post('/loginsubmit', 'Auth\LoginController@loginSubmit');
 Route::get('/login/confirm', 'Auth\LoginController@confirm');
 Route::get('/activate/{code}', 'Auth\ActivateController@index');
 Route::get('/notactivated', 'Auth\ActivateController@notActivated');
+Route::get('/notapproved', 'Auth\ApproveController@notApproved');
 Route::get('/resend_code', 'Auth\ActivateController@resendCode');
 Route::post('/logoutfront', 'Auth\LoginController@logoutfront');
 

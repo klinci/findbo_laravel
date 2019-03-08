@@ -36,6 +36,7 @@ class PropertyController extends Controller
 	public function __construct() {
 		$this->middleware('auth')->except(['index', 'sendReportEmail', 'propertyDetail', 'noProperty']);
 		$this->middleware('active')->only(['addProperty', 'insertProperty']);
+		$this->middleware('approved')->only(['addProperty', 'insertProperty']);
 	}
 
 	public function index(Request $request)
