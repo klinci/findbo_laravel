@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'active' => \App\Http\Middleware\ActivatedMiddleware::class,
         'approved' => \App\Http\Middleware\ApprovedMiddleware::class,
+        'landlord' => \App\Http\Middleware\LandlordMiddleware::class,
     ];
 }
