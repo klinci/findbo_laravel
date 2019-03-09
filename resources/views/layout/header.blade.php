@@ -15,6 +15,13 @@
 								<li><a href="{{ url('property') }}">{{ __('messages.lbl_for_rent') }}</a></li>
 								<li><a href="{{ url('blog') }}">Blog</a></li>
 								<li><a href="{{ url('contact') }}">{{ __('messages.contactus') }}</a></li>
+							@else
+								<li>
+									<a href="{{ url('/login') }}"><strong>{{ __('messages.lbl_register') }}/{{ __('messages.signin') }}</strong></a>
+								</li>
+								<li>
+									<a href="{{ url('/add_property') }}"><strong>{{ __('messages.lbl_post_requirements') }}</strong></a>
+								</li>
 							@endif
 						</ul>
 
@@ -50,13 +57,6 @@
 								<li>
 									<a class="btn btn-success postad" href="{{ Auth::user()->userType == 1 ?
 												 url('add_property') : url('home_seeker/create') }}">{{ __('messages.post_ad') }}</a>
-								</li>
-							@else
-								<li style="padding: 4px;">
-									<a class="btn btn-success postad" href="{{ url('/login') }}">{{ __('messages.lbl_register') }}/{{ __('messages.signin') }}</a>
-								</li>
-								<li style="padding: 4px;">
-									<a class="btn btn-success postad" href="{{ url('/add_property') }}">{{ __('messages.lbl_post_requirements') }}</a>
 								</li>
 							@endif
 						</ul>
