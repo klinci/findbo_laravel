@@ -16,7 +16,7 @@
 					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }} </a></li>
 					<li>{{ __('messages.post_ad') }}</li>
 				</ul>
-					
+
 			</div>
 		</div>
 	</div>
@@ -27,7 +27,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="main col-sm-12 mainpbt">
-			
+
 				<form action="{{ url('insert_property') }}" method="POST" class="" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<ul class="nav nav-tabs tabcostum" role="tablist" style="margin:10px 0;">
@@ -43,44 +43,44 @@
 								<label><input type="radio" id="radio_2" name="action" value="buy" style="visibility: hidden;" /></label>
 							</a>
 						</li>
-					  
+
 						@if(!Auth::check())
 							<h4 style="color: #74777c; font-weight: normal; padding: 12px 0; text-align: center;">
 								You need to have a Findbo account to post your listing. Create account <a style="font-size: 12px;" href="{{ url('login') }}"> HERE</a>
 							</h4>
 						@endif
 					</ul>
-					
+
 					<div class="panel panel-default">
-						
+
 						<div class="panel-heading">
 							<h3 class="panel-title">
 								<a class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ __('messages.adDetails') }}</a>
 							</h3>
 						</div>
-						
+
 						<div id="collapseOne" class="panel-collapse collapse in">
 							<div class="panel-body">
-								
+
 								<div class="row">
 									<div class="col-sm-12 green">
-										<div style="padding-bottom:20px; font-size:20px;"> 
-											{{ __('messages.danishvers') }} 
-										</div> 
+										<div style="padding-bottom:20px; font-size:20px;">
+											{{ __('messages.danishvers') }}
+										</div>
 									</div>
-									
+
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postHeadline') }}: *</strong></label>
-									</div> 
-									
+									</div>
+
 									<div class="col-md-8">
 										<input class="form-control adform" type="text" name="headline_dk" required>
 									</div>
-									
+
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.bodyText') }}: *</strong></label>
 									</div>
-									
+
 									<div class="col-md-8">
 										<textarea class="areatxt form-control" rows="3" name="text_dk" id="texta" required></textarea>
 										<p>{{ __('messages.hundredminchars') }}</p>
@@ -91,51 +91,51 @@
 											</label>
 										</span>
 									</div>
-						
+
 								</div>
-								
+
 								<div class="row englishversion" style="display:none;">
-									<div class="col-sm-12 green"> 
+									<div class="col-sm-12 green">
 										<div style="padding-bottom:20px; font-size:20px;">
-											{{ __('messages.enversion') }} 
-										</div> 
+											{{ __('messages.enversion') }}
+										</div>
 									</div>
-									
+
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postHeadline') }}:</strong></label>
 									</div>
-									
+
 									<div class="col-md-8">
 										<input class="form-control adform" type="text" name="headline_eng" maxlength="50">
 									</div>
-									
+
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.bodyText') }}: </strong></label>
 									</div>
-									
+
 									<div class="col-md-8">
 										<textarea class="areatxt form-control" rows="3" name="text_eng" id="texta"></textarea>
 										<p>{{ __('messages.hundredminchars') }}</p>
 									</div>
-									
+
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title"><a class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">{{ __('messages.locationDetails') }}</a></h3>
 						</div>
-						
+
 						<div id="collapseTwo" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postAreas') }} *</strong></label>
 									</div>
-									
+
 									<div class="col-md-3">
 										<select class="form-control adform area" name="areas" id="area" required>
 											<option value=""> {{ __('messages.postAreas') }}</option>
@@ -148,7 +148,7 @@
 									</div>
 									<div class="col-md-6"> </div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postCity') }}: *</strong></label>
@@ -165,7 +165,7 @@
 									</div>
 									<div class="col-md-6"></div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postAddress') }}: *</strong></label>
@@ -177,7 +177,7 @@
 									</div>
 									<div class="col-sm-2"> </div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.houseNr') }}: *</strong></label>
@@ -190,7 +190,7 @@
 									</div>
 									<div class="col-sm-2"> </div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postFloorSide') }}:</strong></label>
@@ -213,7 +213,7 @@
 						                		<option value="<?php echo $floorIndex; ?>. tv"><?php echo $floorIndex; ?>. tv</option>
 						                		<option value="<?php echo $floorIndex; ?>. mf"><?php echo $floorIndex; ?>. mf</option>
 						                		<option value="<?php echo $floorIndex; ?>. th"><?php echo $floorIndex; ?>. th</option>
-						                		<?php 
+						                		<?php
 						                	}
 						                	?>
 										</select>
@@ -223,7 +223,7 @@
 									</div>
 									<div class="col-sm-2"> </div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3"></div>
 									<div class="col-md-9">
@@ -239,7 +239,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title"><a class="panel-heading accordion-toggle "  data-toggle="collapse" data-parent="#accordion" href="#collapseThree">{{ __('messages.leaseDetails') }}</a></h3>
@@ -254,15 +254,15 @@
 										<label for="handlerImmediately">
 											<input englishversion type="radio" onclick="javascript:setVacantOption('immediately');" name="vacant" id="handlerImmediately" value="Immediately"> {{ __('messages.immediately') }}
 										</label>
-										
+
 										<label for="handlerAppointment">
 											<input englishversion onclick="javascript:setVacantOption('appointment');" type="radio" name="vacant" style="margin-top:4px;" id="handlerAppointment" value="appointment"> {{ __('messages.postAppoinment') }}
 										</label>
-										
+
 										<label for="handlerDate">
 											<input englishversion onclick="javascript:setVacantOption('date');" type="radio" name="vacant" id="handlerDate" value="Date" checked="checked"> {{ __('messages.lbl_date') }}
 										</label>
-										
+
 										<div id="datepickDiv">
 											<input id="datepick" style="width: 236px;" size="50" name="vacantDate" class="form-control" required />
 										</div>
@@ -288,7 +288,7 @@
 									</div>
 									<div class="col-sm-6"> </div>
 								</div>
-								
+
 								<div class="row rental_period_row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.rentalperiod') }}: *</strong></label>
@@ -305,7 +305,7 @@
 									</div>
 									<div class="col-md-4"><p></p></div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.areainsqrm') }}: *</strong></label>
@@ -317,7 +317,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row ground" style="display:none;">
 									<div class="col-md-3">
 										<label><strong>{{ __('messags.groundArea') }}: *</strong></label>
@@ -330,7 +330,7 @@
 									</div>
 									<div class="col-sm-4"> </div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postrooms') }}: *</strong></label>
@@ -340,7 +340,7 @@
 									</div>
 									<div class="col-sm-4"> </div>
 								</div>
-								
+
 								<div class="row petsrow">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postpetss') }}:</strong></label>
@@ -357,7 +357,7 @@
 										<input class="form-control adform" type="text" name="petcomment" placeholder="{{ __('messages.possibleComments') }}" id="">
 									</div>
 								</div>
-								
+
 								<div class="row yearbuild" style="display:none;">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.builtyear') }}: </strong></label>
@@ -367,7 +367,7 @@
 									</div>
 									<div class="col-sm-6"> </div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postFacilities') }}:</strong></label>
@@ -396,7 +396,7 @@
 											</label>
 										</div>
 									</div>
-									
+
 									<div class="col-md-3">
 										<div class="dd_li">
 											<label for="chkGarden">
@@ -406,7 +406,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3"></div>
 									<div class="col-md-2">
@@ -425,7 +425,7 @@
 											</label>
 										</div>
 									</div>
-									
+
 									<div class="col-md-2">
 										<div class="dd_li">
 											<label for="chkYouthHousing">
@@ -434,7 +434,7 @@
 											</label>
 										</div>
 									</div>
-									
+
 									<div class="col-md-3">
 										<div class="dd_li">
 											<label for="chkSeniorFriendly">
@@ -444,7 +444,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3"></div>
 									<div class="col-md-2">
@@ -480,7 +480,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -489,7 +489,7 @@
 								</a>
 							</h3>
 						</div>
-						
+
 						<div id="collapseFour" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="row">
@@ -504,7 +504,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="tab-content" style="margin: 0;">
 									<div class="tab-pane" id="sell"  style="border: none; padding: 0;">
 										<div class="row" style="display: none; padding: 0;">
@@ -528,7 +528,7 @@
 											</div>
 											<div class="col-sm-6"> </div>
 										</div>
-										
+
 										<div class="row">
 											<div class="col-md-3">
 												<label><strong>{{ __('messages.gross') }}:</strong></label>
@@ -541,7 +541,7 @@
 											</div>
 											<div class="col-sm-6"> </div>
 										</div>
-										
+
 										<div class="row">
 											<div class="col-md-3">
 												<label><strong>{{ __('messages.net') }}:</strong></label>
@@ -554,14 +554,14 @@
 											</div>
 										</div>
 									</div>
-									
-									
+
+
 									<div class="tab-pane active" id="rent" style="border: none; padding: 0;">
 										<div class="row">
 											<div class="col-md-3">
 												<label><strong>{{ __('messages.postDeposit') }}:</strong></label>
 											</div>
-											
+
 											<div class="col-md-3">
 												<select class="form-control adform" name="deposit"  id="deposit">
 													<option>{{ __('messages.postchoosee') }}</option>
@@ -570,16 +570,16 @@
 													<option>{{ __('messages.postthreemonth') }}</option>
 												</select>
 											</div>
-											
+
 											<div class="col-md-4" style="padding-bottom: 10px;">
 												<div class="input-group">
 													<input class="form-control adform" type="text" name="depositValue" id="depositValue" placeholder="{{ __('messages.depositValue') }}">
 				              						<span class="input-group-addon" style="padding: 8px;">Kr.</span>
 												</div>
 											</div>
-											
+
 										</div>
-										
+
 										<div class="row">
 											<div class="col-md-3">
 												<label><strong>{{ __('messages.postPrepaid')}} :</strong></label>
@@ -598,11 +598,11 @@
 				              						<span class="input-group-addon" style="padding: 8px;">Kr.</span>
 				              					</div>
 											</div>
-											
+
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row" style="padding-bottom:5px;">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postfixed') }}:</strong></label>
@@ -611,10 +611,10 @@
 										<div class="input-group">
 								          	<input class="form-control adform" type="text" name="expenses" placeholder="{{ __('messages.writenumber') }}">
 								        	<span class="input-group-addon" style="padding: 8px;">Kr.</span>
-										</div>  
+										</div>
 									</div>
 								</div>
-								
+
 								<div class="row" style="padding-bottom:5px;">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.lbl_energy_label') }}:</strong></label>
@@ -632,11 +632,11 @@
 										</select>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -645,7 +645,7 @@
 								</a>
 							</h3>
 						</div>
-						
+
 						<div id="collapseFifth" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="row">
@@ -656,7 +656,7 @@
 										<input class="form-control adform" type="text" name="company_name" placeholder="" />
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.postphone') }}: *</strong></label>
@@ -669,27 +669,27 @@
 									</div>
 									<span class="showphone green" style="cursor:pointer;">{{ __('messages.lbl_add_secondary_contact_no') }}</span>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.emaill') }}: *</strong></label>
 									</div>
-									
+
 									<div class="col-md-6">
 										<input class="form-control adform" type="email" name="emailadd" id="NewConfirmPassword" placeholder="{{ __('messages.enteremail') }}" required></span>
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3">
 										<label><strong>{{ __('messages.url') }}: </strong></label>
 									</div>
-									
+
 									<div class="col-md-6">
 										<input class="form-control adform" type="text" name="txtURL" id="txtURL" placeholder="{{ __('messages.url') }}">
 									</div>
 								</div>
-								
+
 								<div class="secondphone" style="display: none">
 									<div class="row">
 										<div class="col-md-3">
@@ -699,7 +699,7 @@
 											<input class="form-control adform" type="email" name="emailadd2" id="NewConfirmPassword" placeholder="{{ __('messages.enteremail') }}" ></span>
 										</div>
 									</div>
-									
+
 									<div class="row">
 										<div class="col-md-3">
 											<label><strong>{{ __('messages.postphone') }} 2: </strong></label>
@@ -715,12 +715,12 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title"><a class="panel-heading accordion-toggle "  data-toggle="collapse" data-parent="#accordion" href="#collapseSix">{{ __('messages.postOpenHouse') }}</a></h3>
 						</div>
-						
+
 						<div id="collapseSix" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="row">
@@ -732,19 +732,19 @@
 									</div>
 								</div>
 								<br>
-								
+
 								<div class="openHousetoggle" style="display:none;">
 									<div class="row">
 										<div class="col-sm-3">
 											<label><strong>{{ __('messages.lbl_time') }}: </strong></label>
 										</div>
-										
+
 										<div class="col-sm-3">
 											<div>
 												<input id="datepick2" size="50" name="openHouseDate" class="form-control" />
 											</div>
 										</div>
-										
+
 										<span style="float:left;padding-top:5px;">{{ __('messages.between') }}</span>
 										<div class="col-sm-2">
 											<select id="OpenHouseStartTime" class="form-control adform" name="openHouseStartTime">
@@ -779,7 +779,7 @@
 												<option value="22:00">22:00</option>
 											</select>
 										</div>
-										
+
 										<span style="float:left;padding-top:5px;">{{ __('messages.and') }}</span>
 										<div class="col-sm-2">
 											<select id="OpenHouseEndTime" class="form-control adform" name="openHouseEndTime">
@@ -815,7 +815,7 @@
 											</select>
 										</div>
 									</div>
-									
+
 									<div class="row">
 										<div class="col-md-3">
 											<label><strong>{{ __('messages.openhouse') }}: </strong></label>
@@ -824,7 +824,7 @@
 											<input class="form-control adform" type="text" name="openHouseAddress" id="NewConfirmPassword" placeholder="">
 										</div>
 						          	</div>
-						          
+
 						          	<div class="row">
 						          		<div class="col-md-3">
 						          			<label><strong>{{ __('messages.postComments') }}: </strong></label>
@@ -837,54 +837,54 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title"><a class="panel-heading accordion-toggle "  data-toggle="collapse" data-parent="#accordion" href="#collapseSixth">{{ __('messages.postPictures') }}</a></h3>
 						</div>
 						<script type="text/javascript">
 						window.onload = function(){
-					        
+
 						    //Check File API support
 						    if(window.File && window.FileList && window.FileReader)
 						    {
 						        var filesInput = document.getElementById("files");
-						        
+
 						        filesInput.addEventListener("change", function(event){
-						            
+
 						            var files = event.target.files; //FileList object
 						            var output = document.getElementById("result");
-						            
+
 						            for(var i = 0; i< files.length; i++)
 						            {
 						                var file = files[i];
-						                
+
 						                //Only pics
 						                if(!file.type.match('image'))
 						                  continue;
-						                
+
 						                var picReader = new FileReader();
-						                
+
 						                picReader.addEventListener("load",function(event){
-						                    
+
 						                    var picFile = event.target;
-						                    
+
 						                    var div = document.createElement("div");
 						                    div.className = "imgprev";
 						                    div.innerHTML = "<input type='hidden' value='"+picFile.result+"' name='image_files[]'><img class='thumbnail' src='" + picFile.result + "'" +
 						                            "title='" + picFile.name + "'/> <a onclick='remove_div(this)' href='#collapseSixth' class='remove_pict'>X</a>";
-						                    
-						                    output.insertBefore(div,null);   
+
+						                    output.insertBefore(div,null);
 						                    div.children[1].addEventListener("click", function(event){
 						                       div.parentNode.removeChild(div);
-						                    });         
-						                
+						                    });
+
 						                });
-						                
+
 						                 //Read the image
 						                picReader.readAsDataURL(file);
-						            }                               
-						           
+						            }
+
 						        });
 						    }
 						    else
@@ -896,7 +896,7 @@
 							$(obj).parent().remove();
 						}
 						</script>
-						
+
 						<div id="collapseSixth" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="row">
@@ -909,14 +909,14 @@
 										    margin:auto;
 										    margin-top:10px;
 										}
-										
+
 										#result { float: left;}
 										.imgprev { float: left; margin-left:15px; }
 										.remove_pict {float: right; margin: -30px -7px 0 0;}
 										.thumbnail
 										{
 										    height: 100px;
-										    margin: 10px;  
+										    margin: 10px;
 										    width:  100px;
 										}
 									</style>
@@ -935,7 +935,7 @@
 					<input type="hidden" id="pk_rGroup" name="package_type_id" value="1" />
 
 					<!--
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title"><a class="panel-heading accordion-toggle "  data-toggle="collapse" data-parent="#accordion" href="#collapseSeventh">{{ __('messages.postPackageselect') }}</a></h3>
@@ -959,7 +959,7 @@
 											<a href="javascript:select_pk('1');" class="btn btn-default-color">{{ __('messages.postFree') }}</a>
 											</div>
 										</div>
-										
+
 										<div class="item col-sm-4 green_pk">
 											<div id="pk_2" class="priceDiV">
 											<header>
@@ -974,7 +974,7 @@
 											<a href="javascript:select_pk('2');" class="btn btn-default-color">{{ __('messages.lbl_package_buy') }}</a>
 											</div>
 										</div>
-							
+
 										<div class="item col-sm-4 blue_pk">
 											<div id="pk_3" class="priceDiV">
 											<header>
@@ -989,54 +989,54 @@
 											<a href="javascript:select_pk('3');" class="btn btn-default-color">{{ __('messages.lbl_package_buy') }}</a>
 											</div>
 										</div>
-							
+
 									</div>
 									<script type="text/javascript">
 									function select_pk(id)
 									{
 										var freePkTxt = "{{ __('messages.lbl_post_prop') }}";
 										var paidPkTxt = "{{ __('messages.lbl_proceed_to_checkout') }}";
-			
+
 										if(id == 1)
 										{	$("#propSubmitBtn").val(freePkTxt); }
 										else
-										{	$("#propSubmitBtn").val(paidPkTxt); }		
-										
+										{	$("#propSubmitBtn").val(paidPkTxt); }
+
 										$("#pk_rGroup").val(id);
 										$(".priceDiV").removeClass("selected");
 										$("#pk_"+id).addClass("selected");
 									}
 									</script>
-									
+
 									<div class="row">
 										<div class="col-md-3 col-md-offset-9">
 										</div>
 									</div>
-						
+
 								</div>
 							</div>
 						</div>
-						
+
 						 <div class="row">
 						 	<div class="col-md-4 col-md-offset-9">
 						 		@if(!Auth::check())
-						 			
+
 						 		@else
 						 			<input id='propSubmitBtn' type='submit' class='btn btn-primary' style='font-weight:bold;' value="{{ __('messages.lbl_post_prop') }}" name='submitProperty'><br><br>
 						 		@endif
 						 	</div>
 						 </div>
-						
-						
+
+
 					</div>
 
 					-->
 
 					<input id='propSubmitBtn' type='submit' class='btn btn-primary' style='font-weight:bold;' value="{{ __('messages.lbl_post_prop') }}" name='submitProperty'><br><br>
-					
+
 				</form>
-				
-			</div>	
+
+			</div>
 		</div>
 	</div>
 </div>
@@ -1170,14 +1170,14 @@ function validateProperty()
 	{
 		alert('Please select proper address');
 		return false;
-	}		
+	}
 	return true;
 }
 
 function setVacantOption(val)
 {
 	if(val == 'date')
-	{	
+	{
 		$("#datepickDiv").show();
 		$("#datepick").attr("required", true);
 	}
@@ -1188,7 +1188,7 @@ function setVacantOption(val)
 		$("#datepick").attr("required", false);
 	}
 }
-    
+
 $(document).ready(function () {
     // Get the Radio Buttons.
     var rb = $('.radioss').find('input:radio');
