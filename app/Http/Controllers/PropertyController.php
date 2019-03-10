@@ -503,7 +503,6 @@ class PropertyController extends Controller
 
 	public function insertProperty(Request $request)
 	{
-		if(Auth::user()->is_paid_member == '0') return redirect(url('package'));
 		$headline_dk = $request->input('headline_dk'); // In the database headline_dk
 		$headline_eng = $request->input('headline_eng'); // In the database headline_eng
 
@@ -943,8 +942,7 @@ class PropertyController extends Controller
 			return redirect("property");
 		}
 		*/
-		//return redirect("property");
-		return redirect("property_detail/" . $propertyId);
+		return redirect("property");
 	}
 
 	public function propertyPayment($id,$pid)

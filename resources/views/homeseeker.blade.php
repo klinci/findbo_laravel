@@ -3,8 +3,8 @@
 @section('pageTitle', __('messages.lbl_new_property_seeker'))
 
 @section('meta_tags')
-<meta name="keywords" content=""> 
-<meta name="description" content="{{ __('messages.meta_desc_home_seeker') }}"> 
+<meta name="keywords" content="">
+<meta name="description" content="{{ __('messages.meta_desc_home_seeker') }}">
 <meta property="og:title" content="{{ $objHomeSeeker->title }}" />
 <meta property="og:url" content="{{ url('home_seeker/'.$objHomeSeeker->id) }}" />
 <meta property="og:image" content="{{ asset($objHomeSeeker->thumbnail) }}" />
@@ -12,19 +12,54 @@
 @endsection
 
 @section('content')
+
+@if(Auth::check() && Auth::user()->userType == '2' && Auth::user()->is_paid_member == '0')
+<!-- BEGIN PAGE TITLE/BREADCRUMB -->
+<div class="parallax colored-bg pattern-bg" data-stellar-background-ratio="0.5">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1 class="page-title">Your account has not yet been paid!</h1>
+
+				<ul class="breadcrumb">
+					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li>Your account has not yet been paid!</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END PAGE TITLE/BREADCRUMB -->
+
+<div class="content">
+	<div class="container">
+		 <div class="row green" style="padding-top:70px; padding-bottom:30px; border-bottom:solid 1px #ccc;">
+			<div class="main col-sm-12" style="text-align:center; font-weight:bold;">
+				<h3 style="color: #4D4F56;">Please buy a package first before proceeding by click <a href="{{ url('/'.'package') }}">here</a>.</h3><br/>
+	          	<!-- <h1 style="color: #4D4F56;"> <i class="fa fa-lg fa-spinner fa-spin"></i></h1> -->
+	          	<script type="text/javascript">/*
+	          		window.setTimeout(function(){
+	          			window.location.href="{{ url('/') }}";
+		          	}, 3000);*/
+	          	</script>
+			</div>
+		</div>
+	</div>
+</div>
+@else
 <!-- BEGIN PAGE TITLE/BREADCRUMB -->
 <div class="parallax colored-bg pattern-bg" data-stellar-background-ratio="0.5">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
 				<h1 class="page-title">{{ __('messages.lbl_new_property_seeker') }}</h1>
-				
+
 				<ul class="breadcrumb">
 					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
 					<li>{{ __('messages.lbl_new_property_seeker') }}</li>
 				</ul>
 			</div>
-			
+
 			<div class="col-sm-6">
 				<div class="row pull-right">
 					<?php
@@ -45,7 +80,7 @@
 					if((!empty($l_user_id) && ($l_user_id == $objHomeSeeker->user2)) || ($isAdmin==0))
 					{*/
 						?>
-						
+
 						@if(Auth::check() && Auth::user()->id == $objHomeSeeker->userFk)
 
 						<a class="btn btn-default remove-btn" href="{{ url('home_seeker/'.$objHomeSeeker->id.'/edit') }}">
@@ -60,7 +95,7 @@
 					?>
 				</div>
 			</div>
-					
+
 		</div>
 	</div>
 </div>
@@ -73,7 +108,7 @@
 				<div class="row">
 					<div class="main col-sm-8" style="padding-top: 0px;">
 						<h1 class="property-title"  style="margin-bottom: 15px;margin-top: 0px;">{{ $objHomeSeeker->title }} <small>{{ $objHomeSeeker->loc }}</small></h1>
-						
+
 						<div class="agent-detail clearfix" style="margin-top: 15px;">
 							<div class="image col-md-5">
 								@if(!empty($thumbnail) && file_exists($thumbnail))
@@ -83,43 +118,43 @@
 									<img src="{{ asset('public/images/prof_img.jpg') }}" alt="" />
 								@endif
 							</div>
-							
+
 							<div class="info col-md-7">
 								<header style="margin-bottom:0px;">
 									<h2>{{ $objHomeSeeker->name }}</h2>
 								</header>
-								
+
 								<table class="table table-striped">
 									<tr>
 										<td class="seektr">{{ __('messages.lbl_civil_status') }}</td>
 										<td><strong>{{ __('messages.lbl_'.$objHomeSeeker->civilStatus) }}</strong></td>
 									</tr>
-									
+
 									<tr>
 										<td class="seektr">{{ __('messages.postAreas') }}</td>
 										<td><strong>{{ $objHomeSeeker->loc }}</strong></td>
 									</tr>
-									
+
 									<tr>
 										<td class="seektr">{{ __('messages.lbl_min_rooms') }}</td>
 										<td><strong>{{ $objHomeSeeker->minRooms }}</strong></td>
 									</tr>
-									
+
 									<tr>
 										<td class="seektr">{{ __('messages.lbl_min_area') }}</td>
 										<td><strong>{{ $objHomeSeeker->minArea }}</strong> m2</td>
 									</tr>
-									
+
 									<tr>
 										<td class="seektr">{{ __('messages.lbl_max_rent') }}</td>
 										<td><strong>{{ $objHomeSeeker->maxRent }}</strong> DKK</td>
 									</tr>
-									
+
 									<tr>
 										<td class="seektr">{{ __('messages.lbl_property_type') }}</td>
 										<td><strong>{{ __('messages.lbl_'.$objHomeSeeker->type) }}</strong></td>
 									</tr>
-									
+
 									<tr>
 										<td class="seektr">{{ __('messages.rentalperiod') }}</td>
 										<td><strong>
@@ -132,36 +167,36 @@
 											@endif
 										</strong></td>
 									</tr>
-									
+
 									<tr>
 										<td class="seektr">{{ __('messages.lbl_date') }}</td>
 										<td><strong>{{ $objHomeSeeker->date }}</strong></td>
 									</tr>
-									
+
 								</table>
 							</div>
 						</div>
-						
+
 						<div class="share-wraper col-sm-12">
 							<h5 style="margin-right: 0px;">{{ __('messages.lbl_share_this_property') }}:</h5>
-							<?php 
+							<?php
 							$currentLink = url('home_seeker/'.$objHomeSeeker->id);
-							$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail; 
+							$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail;
 							?>
-							
+
 							<ul class="social-networks">
 								<li><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php echo $currentLink; ?>"><i class="fa fa-facebook"></i></a></li>
 								<li><a target="_blank" href="https://twitter.com/intent/tweet?text=<?php echo $currentLink; ?>"><i class="fa fa-twitter"></i></a></li>
 								<li><a target="_blank" href="https://plus.google.com/share?url=<?php echo $currentLink; ?>"><i class="fa fa-google"></i></a></li>
 								<li><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php echo $currentLink; ?>&description=<?php echo $objHomeSeeker->description; ?>&media=<?php echo $full_path_img_src; ?>"><i class="fa fa-pinterest"></i></a></li>
 							</ul>
-							
+
 							<a class="print-button" href="javascript:window.print();" style="padding-left: 10px;">
 								<i class="fa fa-print"></i>
 							</a>
-							
+
 						</div>
-						
+
 						<p class="center">
 							{{ $objHomeSeeker->description }}
 						</p>
@@ -211,7 +246,7 @@
 							</div>
 						@endif
 					</div>
-					
+
 					<div class="sidebar gray col-sm-4" style="margin-bottom: 20px;">
 						<h2 class="section-title">{{ __('messages.lbl_house_seekers_smae_area') }}</h2>
 						<ul class="latest-news">
@@ -226,11 +261,11 @@
 												<img src="{{ asset('public/images/prof_img.jpg') }}" style="margin-bottom: 0px;" alt="" />
 											@endif
 										</div>
-										
+
 										<ul class="top-info">
 											<li><i class="fa fa-map-marker"></i> {{ $row->loc }}</li>
 										</ul>
-											
+
 										<h3>
 											<span style="width: 67%; display: block; float: right;">
 												<a href="{{ url('home_seeker/'.$row->id) }}">{{ ($row->title!="")?$row->title:$row->name }}</a>
@@ -242,12 +277,13 @@
 							@endif
 						</ul>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+@endif
 <script type="text/javascript">
 function printpage()
 {

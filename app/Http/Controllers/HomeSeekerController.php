@@ -41,7 +41,7 @@ class HomeSeekerController extends Controller
 			$active_pack_id = 0;
 			$isAdmin = "";
 			if(Auth::check())
-			{
+			{				
 				$l_user_id = Auth::user()->id;
 				$objUser = User::find($l_user_id);
 				$is_paid_member = $objUser->is_paid_member;
