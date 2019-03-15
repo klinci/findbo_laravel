@@ -82,7 +82,7 @@ class RegisterController extends Controller
             'fname' => $data['fname'],
             'lname' => $data['lname'],
             'email' => $data['email'],
-            'usertype' => $data['usertype'],
+            'userType' => $data['usertype'],
             'password' => bcrypt($data['password']),
             'code' => md5($data['email'] . uniqid()),
             'token' => 0,
