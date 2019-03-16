@@ -41,7 +41,7 @@ class HomeSeekerController extends Controller
 			$active_pack_id = 0;
 			$isAdmin = "";
 			if(Auth::check())
-			{				
+			{
 				$l_user_id = Auth::user()->id;
 				$objUser = User::find($l_user_id);
 				$is_paid_member = $objUser->is_paid_member;
@@ -191,14 +191,14 @@ class HomeSeekerController extends Controller
 	*/
 	public function create()
 	{
-			if(Auth::check() && ((Auth::user()->userType == '2' && Auth::user()->is_paid_member == '1') || Auth::user()->isAdmin == 'admin'))
+			if(Auth::check() && ((Auth::user()->userType == '2' && Auth::user()->seek_package_id > 0) || Auth::user()->isAdmin == 'admin'))
 			{
 					$objArea = Area::all();
 					return view('create_ads', [
 						'objArea' => $objArea,
 					]);
 			}
-			if(Auth::check() && (Auth::user()->userType == '2' && Auth::user()->is_paid_member == '0'))
+			if(Auth::check() && (Auth::user()->userType == '2' && Auth::user()->seek_package_id == '0'))
 			{
 				 	return view('auth.notpaid');
 			}
