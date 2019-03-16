@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBirchejendommeUrlsTable extends Migration
+class CreateDateaUrlsTable extends Migration
 {
   /**
   * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBirchejendommeUrlsTable extends Migration
   */
   public function up()
   {
-    Schema::create('birchejendomme_urls', function (Blueprint $table) {
+    Schema::create('datea_urls', function (Blueprint $table) {
       $table->increments('id');
       $table->text('property_url');
       $table->integer('is_synced');
@@ -28,6 +28,6 @@ class CreateBirchejendommeUrlsTable extends Migration
   */
   public function down()
   {
-  	Schema::dropIfExists('birchejendomme_urls');
+  //
   }
 }
