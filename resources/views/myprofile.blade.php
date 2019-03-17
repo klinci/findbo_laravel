@@ -37,7 +37,7 @@
 					@if(session()->has('message.level'))
 						<div class="col-md-12">
 							<div class="alert alert-{{ session('message.level') }}"> 
-						    {!! session('message.content') !!}
+						    {!! session('message.content') !!} dasdasd
 						    </div>
 						</div>
 					@endif

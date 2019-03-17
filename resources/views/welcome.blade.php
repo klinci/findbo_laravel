@@ -94,13 +94,19 @@
 		
 			<!-- BEGIN MAIN CONTENT -->
 			<div class="main col-sm-12">
-				<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">Selected cities in Danmark</h1>
+				<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">
+					{{-- Selected cities in Danmark --}}
+					@lang('messages.wellcome_danmark_caption')
+				</h1>
 				
 				<div class="row">
 					<div class="col-md-6 col-sm-6 img1">
 						<div class="ctinfo">
 							<div class="cth3">Aalborg </div>
-							<div class="cthtotal">{{ $aalborgCount }} rental properties </div>
+							<div class="cthtotal">
+								{{-- {{ $aalborgCount }} @lang('messages.rental_properties_caption') --}}
+								{{ $aalborgCount }} @lang('messages.rental_properties_caption')
+							</div>
 							<div class="cthbtn">
 								<form action="/property" method="POST" id="aalborg-form">
 									{{ csrf_field() }}
@@ -108,9 +114,12 @@
 									<input type="hidden" name="zip[23]" value="23">
 									<input type="hidden" name="zip[24]" value="24">
 									<input type="hidden" name="zip[25]" value="25">
-									<!-- <button>Find a house</button> -->
+									<!-- <button>@lang('messages.find_house_caption')</button> -->
 								</form>
-								<button onclick="$('#aalborg-form').submit()">Find a house</button>
+								<button onclick="$('#aalborg-form').submit()">
+									{{-- @lang('messages.find_house_caption') --}}
+									@lang('messages.find_house_caption')
+								</button>
 							</div>
 						</div>
 						<img src="{{ asset('public/images/Aalborg.jpg') }}" class="img-responsive" />
@@ -119,7 +128,7 @@
 						<div class="col-md-6 col-sm-6 img2">
 							<div class="ctinfo">
 								<div class="cth3">Copenhagen </div>
-								<div class="cthtotal">{{ $copenhagenCount }} rental properties </div>
+								<div class="cthtotal">{{ $copenhagenCount }} @lang('messages.rental_properties_caption') </div>
 								<div class="cthbtn">
 									<form action="/property" method="POST" id="copenhagen-form">
 										{{ csrf_field() }}
@@ -130,7 +139,7 @@
 										<input type="hidden" name="zip[204]" value="204">
 										<input type="hidden" name="zip[8]" value="8">
 									</form>
-									<button onclick="$('#copenhagen-form').submit()">Find a house</button>
+									<button onclick="$('#copenhagen-form').submit()">@lang('messages.find_house_caption')</button>
 								</div>
 							</div>
 							<img src="{{ asset('public/images/Copenhagen.jpeg') }}" class="img-responsive" />
@@ -138,7 +147,9 @@
 						<div class="col-md-6 col-sm-6 img3">
 							<div class="ctinfo">
 								<div class="cth3">Aarhus </div>
-								<div class="cthtotal">{{ $aarhusCount }} rental properties </div>
+								<div class="cthtotal">
+									{{ $aarhusCount }} @lang('messages.rental_properties_caption')
+								</div>
 								<div class="cthbtn">
 									<form action="/property" method="POST" id="aarhus-form">
 										{{ csrf_field() }}
@@ -146,7 +157,7 @@
 										<input type="hidden" name="zip[544]" value="544">
 										<input type="hidden" name="zip[545]" value="545">
 									</form>
-									<button onclick="$('#aarhus-form').submit()">Find a house</button>
+									<button onclick="$('#aarhus-form').submit()">@lang('messages.find_house_caption')</button>
 								</div>
 							</div>
 							<img src="{{ asset('public/images/Aarhus.gif') }}" class="img-responsive" />
@@ -154,7 +165,7 @@
 						<div class="col-md-12 col-sm-12 img4">
 							<div class="ctinfo">
 								<div class="cth3">Odense </div>
-								<div class="cthtotal">{{ $odenseCount }} rental properties </div>
+								<div class="cthtotal">{{ $odenseCount }} @lang('messages.rental_properties_caption') </div>
 								<div class="cthbtn">
 									<form action="/property" method="POST" id="odense-form">
 										{{ csrf_field() }}
@@ -168,7 +179,7 @@
 										<input type="hidden" name="zip[131]" value="131">
 										<input type="hidden" name="zip[129]" value="129">
 									</form>
-									<button onclick="$('#odense-form').submit()">Find a house</button>
+									<button onclick="$('#odense-form').submit()">@lang('messages.find_house_caption')</button>
 								</div>
 							</div>
 							<img src="{{ asset('public/images/Odense.jpg') }}" class="img-responsive" />
@@ -453,9 +464,9 @@
 					<h3 class="lookingh3">Looking for a new home?</h3>
 					<p class="lookingp">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
 					@if(!Auth::check())
-						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">Find a house</a>
+						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">@lang('messages.find_house_caption')</a>
 					@else
-						<a href="{{ url('property') }}" class="btn btn-default-color newbtn">Find a house</a>
+						<a href="{{ url('property') }}" class="btn btn-default-color newbtn">@lang('messages.find_house_caption')</a>
 					@endif 
 				</div>
 				<div class="feature col-md-4 col-sm-5 findbofts" data-animation-direction="from-bottom" data-animation-delay="450">

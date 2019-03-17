@@ -27,7 +27,7 @@
 
 <div class="content contacts">
 	<div id="contacts_map"></div>
-	
+	{{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2248.595804275932!2d9.521014015392932!3d55.696013580538164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464c82f9e6e17d45%3A0xaa32ac815e12f68f!2sPedersholms+All%C3%A9+13%2C+7100+Vejle%2C+Denmark!5e0!3m2!1sid!2sid!4v1552754713897" id="contacts_map" frameborder="0" style="border:0" allowfullscreen></iframe> --}}
 	<div class="container">
 		
 		<div class="row mainpbt">
@@ -50,11 +50,11 @@
 			
 			<!-- BEGIN MAIN CONTENT -->
 			<div class="main col-sm-4 col-sm-offset-8">
-				@if(session()->has('message.level'))
+				@if(session()->has('messages.level'))
 					<div class="row">
 						<div class="col-md-12">
-							<div class="alert alert-{{ session('message.level') }}"> 
-						    {!! session('message.content') !!}
+							<div class="alert alert-{{ session('messages.level') }}"> 
+						    {!! session('messages.content') !!}
 						    </div>
 						</div>
 					</div>
@@ -112,17 +112,17 @@ $(document).ready(function(){
 		},
 		messages: {
 			"contactName": {
-				required: "Please enter name."
+				required: "@lang('messages.required_contact_name_error_label')"
 			},
 			"contactEmail": {
-				required: "Please enter email.",
-				email: "Please enter valid email."
+				required: "@lang('messages.required_contact_email_error_label')",
+				email: "@lang('messages.required_contact_email_error_label')"
 			},
 			"contactSubject": {
-				required: "Please enter subject."
+				required: "@lang('messages.required_contact_subject_error_label')"
 			},
 			"contactMessage": {
-				required: "Please enter message."
+				required: "@lang('messages.required_contact_message_error_label')"
 			}
 		}
 	});

@@ -11,10 +11,10 @@
 						<button id="nav-mobile-btn"><i class="fa fa-bars"></i></button>
 						<ul class="nav navbar-nav">
 							@if(Auth::check())
-								<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
+								{{-- <li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
 								<li><a href="{{ url('property') }}">{{ __('messages.lbl_for_rent') }}</a></li>
 								<li><a href="{{ url('blog') }}">Blog</a></li>
-								<li><a href="{{ url('contact') }}">{{ __('messages.contactus') }}</a></li>
+								<li><a href="{{ url('contact') }}">{{ __('messages.contactus') }}</a></li> --}}
 							@else
 								<li>
 									<a href="{{ url('/login') }}"><strong>{{ __('messages.lbl_register') }}/{{ __('messages.signin') }}</strong></a>

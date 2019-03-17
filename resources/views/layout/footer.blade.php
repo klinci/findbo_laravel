@@ -10,7 +10,10 @@
 				<form action="{{ url('/newsletter')}}" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate> <!-- //findbo.us9.list-manage.com/subscribe/post-json?u=8c47f955c01c91de718703c52&amp;id=a99afcc9c5&c=? -->
 					{{ csrf_field() }}
 					<div class="form-group has-success has-feedback">
-						<label class="control-label lblweeklynws">Subscribe to our weekly newsletter</label>
+						<label class="control-label lblweeklynws">
+							{{-- Subscribe to our weekly newsletters --}}
+							@lang('messages.newsletter_label')
+						</label>
 						<input type="email" class="form-control newsltrtxt" id="newsletter_email" name="EMAIL" aria-describedby="inputSuccess2Status">
 						<!-- <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> -->
 						<svg id="mc-embedded-subscribe" class="form-control-feedback newsicon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -109,12 +112,25 @@
 			<div class="col-md-2 col-sm-3 col-xs-12">
 				<h3 class="footertitle">Tenant</h3>
 				<ul class="lists">
-					<li><a href="{{ url('property') }}">Search Properties</a></li>
+					<li><a href="{{ url('property') }}">
+						{{-- Search Properties --}}
+						@lang('messages.search_properties_caption')
+					</a></li>
 					@if(Auth::check())
-						<li><a href="{{ url('add_property') }}">Create Teanant ad</a></li>
+						@php
+							$_url = url('add_property')
+						@endphp
 					@else
-						<li><a href="{{ url('login') }}">Create Teanant ad</a></li>
+						@php
+							$_url = url('login')
+						@endphp
 					@endif
+					<li>
+						<a href="{{ $_url }}">
+							{{-- Create Teanant ad --}}
+							@lang('messages.create_tenant_caption')
+						</a>
+					</li>
 					<li><a href="{{ url('blog') }}">Blog</a></li>
 					<li><a href="{{ url('contact') }}">{{ __('messages.contactus') }}</a></li>
 				</ul>

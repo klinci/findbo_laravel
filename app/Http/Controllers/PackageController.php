@@ -123,7 +123,11 @@ class PackageController extends Controller
 			$request->session()->flash('message.content', $purchase->getMessage());
 		} else {
 			$request->session()->flash('message.level', 'success');
-			$request->session()->flash('message.content', 'Package activated successfully.');
+			$request->session()->flash(
+				'message.content',
+				// 'Package activated successfully.'
+				\Lang::get('messages.udpate_package_message')
+			);
 		}
 		if ($request -> property_id)
 			return redirect('property_detail/' . $request -> property_id);

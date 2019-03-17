@@ -750,7 +750,7 @@ return [
 	'lbl_send_mail_to_reset_pwd' => 'Vi sender en e-mail for at nulstille kodeord',
 
 	'lbl_buy_package'		=> 'Køb pakke',
-	'seeker_green_package_name'	=> 'IntroPakken',
+	'seeker_green_package_name'	=> 'Din IntroPakke er',
 	'seeker_blue_package_name'	=> 'FindboPakken',
 
 	'lbl_expires_on'				=> 'Udløber om',
@@ -797,7 +797,7 @@ return [
 
 	'lbl_forever'				=> "for evigt",
 	'lbl_per_month'				=> "per måned",
-	'lbl_activated'				=> "Aktiv",
+	'lbl_activated'				=> "Aktiveret",
 	'lbl_upgrade'				=> "Opgradere",
 	'lbl_select'					=> "Vælg",
 	'lbl_renew_package'			=> "Forny Pakke",
@@ -881,7 +881,7 @@ return [
 	'email_msg_prop_pk_4'	=> "Vi håber, at du får glæde af pakken.",
 
 	'email_msg_seeker_pk_1'	=> "Tak fordi du har valgt",
-	'email_msg_seeker_pk_2'	=> "Pakken indeholder mulighed for at oprette en søgeannonce, hvor udlejere og sælgere kan finde dig, samt adgang til kontaktoplysninger til udlejere og sælgere i",
+	'email_msg_seeker_pk_2'	=> "Pakken indeholder mulighed for at oprette en søgeannonce, hvor udlejere kan finde dig, samt adgang til kontaktoplysninger til udlejere i",
 	'email_msg_seeker_pk_3'	=> "Din betalingskode er",
 	'email_msg_seeker_pk_4'	=> "Vi håber at du får glæde af pakken.",
 
@@ -1019,4 +1019,17 @@ return [
 	'title_message'=>'Beskeder | Find Lejlighed, Værelser Til Leje i København',
 	'meta_keyword_message'=>'Beskeder, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
 	'meta_desc_message'=>'Beskeder | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
+
+	'newsletter_label' => 'Tilmeld dig til vores nyhedsbreve',
+	'search_properties_caption' => 'Søg boliger',
+	'create_tenant_caption' => 'Opret en boligsøgeannonce',
+	'wellcome_danmark_caption' => 'Udvalgte byer i Danmark',
+	'rental_properties_caption' => 'lejeboliger',
+	'find_house_caption' => 'Find en bolig',
+	'udpate_profile_message' => 'Din profil er opdateret',
+	'udpate_package_message' => 'IntroPakken er aktiveret.',
+	'required_contact_email_error_label' => 'Venligst indtast dit navn',
+	'required_contact_name_error_label' => 'Venligst indtast din e-mail adresse',
+	'required_contact_subject_error_label' => 'Venligst indtast et emne',
+	'required_contact_message_error_label' => 'Venligst indtast en besked',
 ];

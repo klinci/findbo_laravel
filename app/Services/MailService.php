@@ -92,13 +92,13 @@
 		public function sendPackagePurchaseMail($charge, $package) {
 			$mailer = $this -> getMailer();
 
-			$name = $package->id == 1 ? 
-						__('seeker_green_package_name') . ' ' . __('lbl_activated') : 
+			$name = $package->id == 1 ?
+						__('seeker_green_package_name') . ' ' . __('lbl_activated') :
 						__('seeker_blue_package_name') . ' ' . __('lbl_activated');
-			
+
 			$mailer -> Subject = 'FindBo - ' . $name;
 			$mailer -> addAddress($charge -> source->name);
-			$mailer -> SetFrom('info@findbo.dk');
+			$mailer -> SetFrom('noreply@findbo.dk');
 			$mailer -> MsgHTML(view('mails.propertypackage')
 									->with([
 										'description' => $charge -> description,

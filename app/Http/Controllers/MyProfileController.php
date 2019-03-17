@@ -47,7 +47,11 @@ class MyProfileController extends Controller
 			]);
 		
 		$request->session()->flash('message.level', 'success');
-		$request->session()->flash('message.content', 'Profile updated successfully.');
+		$request->session()->flash(
+			'message.content',
+			// 'Profile updated successfully.'
+			\Lang::get('messages.udpate_profile_message')
+		);
 		return redirect('myprofile');
 	}
 	
