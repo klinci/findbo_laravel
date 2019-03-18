@@ -202,7 +202,7 @@
 						</div>
 						<div id="collapseFour3" class="panel-collapse collapse">
 							<div class="panel-body">
-								Når du er logget på, har du adgang til udlejeres kontaktoplysninger. Kan du stadig ikke se kontaktoplysninger, er du velkommen til at <a href="{{ url('contact') }}">kontakte os</a>.
+								Når du er logget på, har du adgang til udlejeres kontaktoplysninger. Kan du stadig ikke se kontaktoplysninger, er du velkommen til at <a href="{{ route('home.contact') }}">kontakte os</a>.
 							</div>
 						</div>
 					</div>
@@ -217,7 +217,7 @@
 						</div>
 						<div id="collapseFive3" class="panel-collapse collapse">
 							<div class="panel-body">
-								For at opsige abonnementet, så skal du logge ind på din brugerprofil og vælge "<a target="_blank" href="{{ url('package') }}">Køb pakke</a>". På siden kan du finde en funktion, hvor du kan slå automatisk fornyelse fra. Det vil betyde at du ikke længere vil blive opkrævet af os.
+								For at opsige abonnementet, så skal du logge ind på din brugerprofil og vælge "<a target="_blank" href="{{ route('packages') }}">Køb pakke</a>". På siden kan du finde en funktion, hvor du kan slå automatisk fornyelse fra. Det vil betyde at du ikke længere vil blive opkrævet af os.
 								Ønsker du derimod at blive slettet som bruger på findbo.dk, må du sende os en mail til <a href="mailto:info@findbo.dk">info@findbo.dk</a>.
 							</div>
 						</div>

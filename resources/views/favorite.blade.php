@@ -36,7 +36,7 @@
 						@foreach($objFavorite as $favorite)
 							<div class="item col-sm-3">
 								<div class="image"  style="border: 1px solid #e4e4e4;">
-									<a target="_blank" href="{{ url('property_detail/'.$favorite->id) }}">
+									<a target="_blank" href="{{ route('property_detail.show', $favorite->id) }}">
 										@if(!empty($favorite->headline_dk))
 											<h3>{{ $favorite->headline_dk }}</h3>
 										@else
@@ -85,7 +85,7 @@
 function showHint(str)
 {
     $.ajax({
-        url: "{{ url('removetowishlist') }}",
+        url: "{{ route('removetowishlist') }}",
         data: 'id='+str,
         type: 'POST',
         success: function(){

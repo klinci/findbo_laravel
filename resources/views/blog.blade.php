@@ -54,7 +54,7 @@
 
 							<div class="item col-md-6">
 								<div class="image">
-									<a href="{{ url('/blog/'.$posts[$i]->post_seo_title) }}">
+									<a href="{{ route('blog.show', $posts[$i]->post_seo_title) }}">
 										<span class="btn btn-default"><i class="fa fa-file-o"></i> Læs mere</span>
 									</a>
 									<img src="{{ asset($posts[$i]->post_thumbnail) }}" alt="Bolig billeder - Findbo" />
@@ -64,7 +64,7 @@
 										<li><i class="fa fa-calendar"></i>{{ $posts[$i]->date }}</li>
 									</ul>
 									<h3>
-										<a href="{{ url('/blog/'.$posts[$i]->post_seo_title) }}">{{ $posts[$i]->post_title }}</a>
+										<a href="{{ route('blog.show', $posts[$i]->post_seo_title) }}">{{ $posts[$i]->post_title }}</a>
 									</h3>
 									<p>{{ $posts[$i]->shortDescription }}</p>
 								</div>
@@ -95,14 +95,14 @@
 							@foreach($latest as $post)
 								<li class="col-md-12">
 									<div class="image">
-										<a href="{{ url('/blog/'.$post->post_seo_title) }}"></a>
+										<a href="{{ route('blog.show', $post->post_seo_title) }}"></a>
 										<img src="{{ asset($post->post_thumbnail) }}" alt="" />	
 									</div>			
 									<ul class="top-info">
 										<li><i class="fa fa-calendar"></i> {{ $post->date }}</li>
 									</ul>
 										
-									<h3 class="bottom-info"><a href="{{ url('/blog/'.$post->post_seo_title) }}">{{ $post->post_title }}</a></h3>
+									<h3 class="bottom-info"><a href="{{ route('blog.show', $post->post_seo_title) }}">{{ $post->post_title }}</a></h3>
 								</li>
 							@endforeach
 

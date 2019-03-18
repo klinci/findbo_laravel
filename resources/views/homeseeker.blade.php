@@ -3,12 +3,14 @@
 @section('pageTitle', __('messages.lbl_new_property_seeker'))
 
 @section('meta_tags')
-<meta name="keywords" content="">
-<meta name="description" content="{{ __('messages.meta_desc_home_seeker') }}">
-<meta property="og:title" content="{{ $objHomeSeeker->title }}" />
-<meta property="og:url" content="{{ url('home_seeker/'.$objHomeSeeker->id) }}" />
-<meta property="og:image" content="{{ asset($objHomeSeeker->thumbnail) }}" />
-<meta property="og:description" content="{{ $objHomeSeeker->description }}"/>
+	<meta name="keywords" content="">
+	<meta name="description" content="{{ __('messages.meta_desc_home_seeker') }}">
+	<meta property="og:title" content="{{ $objHomeSeeker->title }}" />
+	<meta
+		property="og:url"
+		content="{{ route('home_seeker.show/', $objHomeSeeker->id) }}">
+	<meta property="og:image" content="{{ asset($objHomeSeeker->thumbnail) }}" />
+	<meta property="og:description" content="{{ $objHomeSeeker->description }}"/>
 @endsection
 
 @section('content')

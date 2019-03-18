@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="main col-sm-12 mainpbt">
 			
-				<form action="{{ url('update_property') }}" method="POST" class="" enctype="multipart/form-data">
+				<form action="{{ route('property.update') }}" method="POST" class="" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<input type="hidden" name="id" value="{{ $objProperty->id }}" />
 					<ul class="nav nav-tabs tabcostum" role="tablist" style="margin:10px 0;">
@@ -900,7 +900,7 @@
 							var dataString = 'id='+id;
 							
 							$.ajax({
-									url: "{{ url('delete_property_image') }}",
+									url: "{{ route('property.delete_image') }}",
 									type: "POST",
 									data: dataString,
 									dataType: "json",

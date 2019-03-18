@@ -19,10 +19,26 @@ Route::get('/dashboard', function () {
     return redirect('http://findbo.dk/dashboard');
 });
 
-Route::get('/', 'HomeController@index');
-Route::get('/auto_search', 'HomeController@autoSearch');
-
-Route::match(['get', 'post'], '/map', 'PropertyController@map');
+Route::get('/', 'HomeController@index')
+  ->name('home');
+Route::match(['get', 'post'], '/property', 'PropertyController@index')
+  ->name('home.properties');
+Route::match(['get', 'post'], '/map', 'PropertyController@map')
+  ->name('home.map');
+Route::get('/auto_search', 'HomeController@autoSearch')
+  ->name('home.auto_search');
+Route::get('/how_it_works', 'HowItWorksController@index')
+  ->name('home.how_it_works');
+Route::get('/price','PriceController@index')
+  ->name('prices');
+Route::get('/home_seeker/{id}', 'HomeSeekerController@index')
+  ->name('home_seeker.show');
+Route::get('/about', 'AboutusController@index');
+Route::get('/terms_condition', 'TermsConditionController@index');
+Route::get('/faq', 'FaqController@index');
+Route::get('/contact', 'ContactController@index')
+  ->name('home.contact');
+Route::post('/submit_contact', 'ContactController@submitContact')->name('submit_contact');
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/register', 'Auth\RegisterController@register');
@@ -42,58 +58,52 @@ Route::post('/updatepassword', 'MyProfileController@updatePassword');
 Route::match(['get', 'post'], '/myads', 'MyAdsController@index');
 
 Route::get('/favorite', 'FavoriteController@index');
-Route::post('/removetowishlist', 'FavoriteController@removeToWishlist');
+Route::post('/removetowishlist', 'FavoriteController@removeToWishlist')->name('removetowishlist');
 
 Route::get('/package/{id}', 'PackageController@index');
-Route::get('/package', 'PackageController@index');
+Route::get('/package', 'PackageController@index')->name('packages');
 Route::post('/purchase_package', 'PackageController@purchasePackage');
 Route::post('/package_success', 'PackageController@packageSuccess');
 Route::post('/package_auto_renew', 'PackageController@packageAutoRenew');
 
-Route::match(['get', 'post'], '/property', 'PropertyController@index');
 Route::get('/add_property', 'PropertyController@addProperty');
-Route::post('/insert_property', 'PropertyController@insertProperty');
-Route::post('/update_property', 'PropertyController@updateProperty');
+Route::post('/insert_property', 'PropertyController@insertProperty')
+  ->name('property.insert');
+Route::post('/update_property', 'PropertyController@updateProperty')->name('property.update');
 Route::get('/property_payment/{id}/{pid}', 'PropertyController@propertyPayment');
 Route::post('/purchase_property', 'PropertyController@purchaseProperty');
 Route::get('/property_edit/{id}', 'PropertyController@editProperty');
-Route::post('/delete_property_image', 'PropertyController@deletePropertyImage');
+Route::post('/delete_property_image', 'PropertyController@deletePropertyImage')->name('property.delete_image');
 Route::post('/send_report_email', 'PropertyController@sendReportEmail');
 Route::post('/add_remove_wishlist', 'PropertyController@addRemoveWishlist');
 Route::post('/delete_property', 'PropertyController@deleteProperty');
-Route::get('/property_detail/{id}', 'PropertyController@propertyDetail');
+Route::get('/property_detail/{id}', 'PropertyController@propertyDetail')->name('property_detail.show');
 Route::get('/property_detail', 'PropertyController@noProperty');
 
 //Route::get('/redirect', 'RedirectController@index');
-Route::get('/how_it_works', 'HowItWorksController@index');
-Route::get('/price', 'PriceController@index');
-Route::get('/about', 'AboutusController@index');
-Route::get('/terms_condition', 'TermsConditionController@index');
-Route::get('/faq', 'FaqController@index');
-
-Route::get('/contact', 'ContactController@index');
-Route::post('/submit_contact', 'ContactController@submitContact');
 
 Route::get('/home_seeker/create', 'HomeSeekerController@create');
-Route::get('/home_seeker/{id}', 'HomeSeekerController@index');
 Route::post('/home_seeker_contact', 'HomeSeekerController@contact');
 Route::get('/home_seeker/{homeseeker}/activate/{act}', 'HomeSeekerController@activate')->middleware('can:update,homeseeker');
 Route::get('/home_seeker/{id}/edit', 'HomeSeekerController@edit');
 Route::put('/home_seeker/{homeseeker}', 'HomeSeekerController@update')->middleware('can:update,homeseeker');
-Route::post('/home_seeker', 'HomeSeekerController@store')->middleware('can:create,App\Seekads');
+Route::post('/home_seeker', 'HomeSeekerController@store')
+  ->name('home_seeker.post')
+  ->middleware('can:create,App\Seekads');
 
 Route::get('/forgot_password', 'Auth\ForgotPasswordController@showLinkRequestForm');
-Route::post('/submit_forgotpwd', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/submit_forgotpwd', 'Auth\ForgotPasswordController@sendResetLinkEmail')
+  ->name('submit_forgotpwd');
 Route::get('/password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 
-Route::match(['get', 'post'], '/message_inbox', 'MessageController@inbox');
-Route::match(['get', 'post'], '/message_sent', 'MessageController@sent');
+Route::match(['get', 'post'], '/message_inbox', 'MessageController@inbox')->name('message_inbox');
+Route::match(['get', 'post'], '/message_sent', 'MessageController@sent')->name('message_sent');
 Route::post('/delete_msg', 'MessageController@deleteMsg');
 
 Route::get('/conversation/{id}', 'ConversationController@index');
-Route::post('/conversation_submit', 'ConversationController@submitMsg');
+Route::post('/conversation_submit', 'ConversationController@submitMsg')->name('conversation_submit');
 
 
 Route::get('/redirect', 'SocialAuthFacebookController@redirect');
@@ -102,7 +112,7 @@ Route::get('/callback', 'SocialAuthFacebookController@callback');
 Route::post('/newsletter', 'NewsletterController@store');
 
 Route::get('/blog', 'BlogController@index');
-Route::get('/blog/{id}', 'BlogController@show');
+Route::get('/blog/{id}', 'BlogController@show')->name('blog.show');
 
 Route::group(['prefix' => 'admin'], function () {
   Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('admin.login');

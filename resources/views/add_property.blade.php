@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="main col-sm-12 mainpbt">
 
-				<form action="{{ url('insert_property') }}" method="POST" class="" enctype="multipart/form-data">
+				<form action="{{ route('property.insert') }}" method="POST" class="" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<ul class="nav nav-tabs tabcostum" role="tablist" style="margin:10px 0;">
 						<li class="rentt active">

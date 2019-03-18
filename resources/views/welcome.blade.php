@@ -32,7 +32,7 @@
 				<div class="slider-subtitle">{{  __('messages.lbl_with') }} <strong>Findbo</strong> {{  __('messages.lbl_located_denmark') }}</div>
 			</div>
 			
-			<form id="homePageSearchForm" action="{{ url('property') }}" method="post">
+			<form id="homePageSearchForm" action="{{ route('home.properties') }}" method="post">
 				{{ csrf_field() }}
 				<div id="home-search-buttons" class="col-sm-6 col-sm-offset-3" data-animation-direction="from-bottom" data-animation-delay="50">
 					<input type="hidden" name="code" id="code" value="" />
@@ -127,7 +127,7 @@
 					<div class="col-md-6 col-sm-6">
 						<div class="col-md-6 col-sm-6 img2">
 							<div class="ctinfo">
-								<div class="cth3">Copenhagen </div>
+								<div class="cth3">København</div>
 								<div class="cthtotal">{{ $copenhagenCount }} @lang('messages.rental_properties_caption') </div>
 								<div class="cthbtn">
 									<form action="/property" method="POST" id="copenhagen-form">
@@ -200,7 +200,7 @@
 		
 			<!-- BEGIN MAIN CONTENT -->
 			<div class="main col-sm-12">
-				<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">Findbo {{  __('messages.lbl_features') }}</h1>
+				<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">{{  __('messages.lbl_features') }}</h1>
 
 				<div class="feature col-sm-4 findbofts" data-animation-direction="from-bottom" data-animation-delay="250">
 					<!-- <i class="fa fa-home"></i> -->
@@ -252,7 +252,7 @@
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_for_rent_or_sale') }}</h3>
 					<p class="featuredesc1">{{ __('messages.feature_rent_or_sale') }}</p><br>
-					<a href="{{ url('how_it_works') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
+					<a href="{{ route('home.how_it_works') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
 				</div>
 				<div class="feature col-sm-4 findbofts" data-animation-direction="from-bottom" data-animation-delay="450">
 					<!-- <i class="fa fa-bullhorn"></i> -->
@@ -310,7 +310,7 @@
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_real_ads') }}</h3>
 					<p class="featuredesc1">{{ __('messages.feature_real_ads')}}</p>
-					<a href="{{ url('property') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
+					<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
 				</div>
 				<div class="feature col-sm-4 findbofts" data-animation-direction="from-bottom" data-animation-delay="650">
 					<!-- <i class="fa fa-map-marker"></i> -->
@@ -352,7 +352,7 @@
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_map_vision') }}</h3>
 					<p class="featuredesc1">{{ __('messages.feature_map_vision') }}</p>
-					<a href="{{ url('map') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
+					<a href="{{ route('home.map') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
 				</div>
 			</div>					
 		</div>
@@ -383,7 +383,7 @@
 						$seotitle = preg_replace('~[^-a-z0-9_]+~', '', $seotitle);
 						?>
 						<div class="homeseekerscls">
-							<a href="{{ url('home_seeker/'.$seek_prop_id) }}" class="info">
+							<a href="{{ route('home_seeker.show', $seek_prop_id) }}" class="info">
 								@if(file_exists($homeSeeker->thumbnail_large) && !empty($homeSeeker->thumbnail_large))
 									<img src="{{  asset($homeSeeker->thumbnail_large) }}" alt="..." width="150" height="150" />
 								@else
@@ -461,12 +461,14 @@
 						</g>
 					</g>
 					</svg>
-					<h3 class="lookingh3">Looking for a new home?</h3>
-					<p class="lookingp">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
+					<h3 class="lookingh3">@lang('messages.looking_new_home_label')</h3>
+					<p class="lookingp">@lang('messages.looking_new_home_description')</p>
 					@if(!Auth::check())
-						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">@lang('messages.find_house_caption')</a>
+						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">
+							@lang('messages.find_house_caption')
+						</a>
 					@else
-						<a href="{{ url('property') }}" class="btn btn-default-color newbtn">@lang('messages.find_house_caption')</a>
+						<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">@lang('messages.find_house_caption')</a>
 					@endif 
 				</div>
 				<div class="feature col-md-4 col-sm-5 findbofts" data-animation-direction="from-bottom" data-animation-delay="450">
@@ -598,12 +600,16 @@
 						</g>
 					</g>
 					</svg>
-					<h3 class="lookingh3">Have a property for rent?</h3>
-					<p class="lookingp">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
+					<h3 class="lookingh3">@lang('messages.have_a_properties_label')</h3>
+					<p class="lookingp">@lang('messages.have_a_properties_description')</p>
 					@if(!Auth::check())
-						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">Find a tenant</a>
+						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">
+							@lang('messages.have_a_properties_label_button')
+						</a>
 					@else
-						<a href="{{ url('property') }}" class="btn btn-default-color newbtn">Find a tenant</a>
+						<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">
+							@lang('messages.have_a_properties_label_button')
+						</a>
 					@endif 
 				</div>
 			</div>					
@@ -639,7 +645,7 @@ $(document).ready(function(){
 	});
   $( "#home_search" ).catcomplete({
 		delay: 0,
-		source: "{{ url('auto_search') }}",
+		source: "{{ route('home.auto_search') }}",
 		select: function (event, ui) { 
 			//alert(ui.item.searchBy); 
 			$("#code").val(ui.item.code);

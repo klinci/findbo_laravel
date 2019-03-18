@@ -105,10 +105,10 @@ class HomeController extends Controller
 		return view('welcome', [
             'newHomeSeeker' => $newHomeSeeker,
             'priceRange' => $priceRange,
-            'aalborgCount' => $this -> properties -> countWhereCityNameLike('Aalborg'),
-            'copenhagenCount' => $this -> properties -> countWhereCityNameLike('København'),
-            'aarhusCount' => $this -> properties -> countWhereCityNameLike('Århus'),
-            'odenseCount' => $this -> properties -> countWhereCityNameLike('Odense'),
+            'aalborgCount' => $this->properties->countWhereCityNameLike('Aalborg'),
+            'copenhagenCount' => $this->properties->countWhereCityNameLike('København'),
+            'aarhusCount' => $this->properties->countWhereCityNameLike('Århus'),
+            'odenseCount' => $this->properties->countWhereCityNameLike('Odense'),
         ]);
     }
     

@@ -148,7 +148,9 @@
 												</li>
 											@endforeach
 										@else
-											<li class="list-group-item clearfix inbox-item">No messages found.</li>
+											<li class="list-group-item clearfix inbox-item">
+												Ingen beskeder.
+											</li>
 										@endif
 									</ul>
 								</div>

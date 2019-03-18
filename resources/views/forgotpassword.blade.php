@@ -45,7 +45,7 @@
 						<div class="form-col">
 							<h1 class="center">{{ __('messages.lbl_create_new_account') }}</h1>
 							<br>
-							<form action="{{ url('submit_forgotpwd') }}" method="post" class="" name="frmForgotPwd" id="frmForgotPwd">
+							<form action="{{ route('submit_forgotpwd') }}" method="post" class="" name="frmForgotPwd" id="frmForgotPwd">
 								{{ csrf_field() }}
 
 								<div class="form-group">

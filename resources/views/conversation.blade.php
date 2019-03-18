@@ -43,8 +43,8 @@
 						
 						<div class="col-md-12">
 							<ul class="nav nav-tabs tabs-left">
-								<li class="active"><a href="{{ url('message_inbox') }}" ><i class="fa fa-inbox"> {{ __('messages.lbl_inbox') }}</i></a></li>
-								<li class=""><a href="{{ url('message_sent') }}" ><i class="fa fa-envelope-o"> {{ __('messages.lbl_sent') }}</i></a></li>
+								<li class="active"><a href="{{ route('message_inbox') }}" ><i class="fa fa-inbox"> {{ __('messages.lbl_inbox') }}</i></a></li>
+								<li class=""><a href="{{ route('message_sent') }}" ><i class="fa fa-envelope-o"> {{ __('messages.lbl_sent') }}</i></a></li>
 							</ul>
 							
 							<div class="tab-content tabs-left">
@@ -67,7 +67,15 @@
 																@else
 																	{{ ucfirst($row['name']) }}
 																@endif
-																<small>{{ date("jS M, Y, h:i A", strtotime($row["message_date"])) }} <a target="_blank" href="{{ url('property_detail/'.$row['propertyId']) }}" style="float: right;">{{ __('messages.lbl_view_property') }}</a></small>
+																<small>
+																		{{ date("jS M, Y, h:i A", strtotime($row["message_date"])) }}
+																		<a
+																			target="_blank"
+																			href="{{ route('property_detail.show', $row['propertyId']) }}"
+																			style="float: right;">
+																			{{ __('messages.lbl_view_property') }}
+																		</a>
+																</small>
 																<span style="clear: both;"></span>
 															</h3>
 															<p>{{ $row['message_text'] }}</p>
@@ -78,7 +86,7 @@
 										</ul>
 										
 										<div class="">
-											<form action="{{ url('conversation_submit') }}" method="post" class="row">
+											<form action="{{ route('conversation_submit') }}" method="post" class="row">
 												{{ csrf_field() }}
 												<div class="col-sm-12">
 													<textarea rows="4" name="replyText" placeholder="{{ __('messages.lbl_write_message') }}..." class="form-control"></textarea>

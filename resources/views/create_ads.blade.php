@@ -37,8 +37,17 @@
 					</div>
 					
 					<div class="col-sm-12">
-						<form action="@isset($objSeekAds){{ url('home_seeker/'.$objSeekAds->id) }}@else{{ url('home_seeker') }}@endisset" method="post" enctype="multipart/form-data">
+
+						<form action="
+							@isset($objSeekAds)
+								{{ route('home_seeker.show', $objSeekAds->id) }}
+							@else
+								{{ route('home_seeker.post') }}
+							@endisset"
+							method="post"
+							enctype="multipart/form-data">
 							{{ csrf_field() }}
+
 							@isset($method) {{ method_field($method) }} @endisset
 							<div class="panel panel-default">
 								<div class="panel-heading">

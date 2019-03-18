@@ -165,7 +165,7 @@ $(document).ready(function(){
 				required: "Please enter last name."
 			},
 			"phone": {
-				required: "Please enter phone number."
+				required: "@lang('messages.number_phone_required_message')"
 			}
 		}
 	});
@@ -189,10 +189,10 @@ $(document).ready(function(){
 		},
 		messages: {
 			"old_password": {
-				required: "Please enter old password."
+				required: "Venlingst indtast din gamle adgangskode"
 			},
 			"new_password": {
-				required: "Please enter new password.",
+				required: "Venlingst indtast dine nye adgangskode",
 				minlength: "Password min length must be greater than or equal to 8 character.",
 				maxlength: "Password max length must be less than or equal to 16 character."
 			},
