@@ -86,7 +86,7 @@
 							@endif
 						</a> --}}
 						@if(Auth::check() && Auth::user()->id == $objHomeSeeker->userFk)
-							<a class="btn btn-default remove-btn" href="{{ route('home_seeker.edit/', $objHomeSeeker->id) }}">
+							<a class="btn btn-default remove-btn" href="{{ route('home_seeker.edit', $objHomeSeeker->id) }}">
 								<i class="fa fa-edit"></i>
 								{{ __('messages.lbl_edit') }}
 							</a>
@@ -194,7 +194,7 @@
 									</a>
 								</li>
 
-								<li><a target="_blank" href="https://twitter.com/intent/tweet?text={{ {{ $currentLink }} }}"><i class="fa fa-twitter"></i></a></li>
+								<li><a target="_blank" href="https://twitter.com/intent/tweet?text={{ $currentLink }}"><i class="fa fa-twitter"></i></a></li>
 								<li><a target="_blank" href="https://plus.google.com/share?url={{ $currentLink }}"><i class="fa fa-google"></i></a></li>
 								<li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ $currentLink }}&description={{ $objHomeSeeker->description }}&media={{ $full_path_img_src }}"><i class="fa fa-pinterest"></i></a></li>
 							</ul>
