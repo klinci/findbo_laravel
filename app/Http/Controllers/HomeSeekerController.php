@@ -27,7 +27,7 @@ class HomeSeekerController extends Controller
 {
 	public function __construct() {
 		$this->middleware('auth')->except('index');
-		$this->middleware('active')->only(['create', 'store']);
+		//$this->middleware('active')->only(['create', 'store']);
 	}
 
 	public function index($id)

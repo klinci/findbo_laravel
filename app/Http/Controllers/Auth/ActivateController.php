@@ -20,13 +20,14 @@ class ActivateController extends Controller
 		$objUSer = DB::table('users')
 						->where('code','=',$code)
 						->first();
-		
+
 		if(!empty($objUSer) && count($objUSer)>0)
 		{
 			DB::table('users')
 					->where('id','=',$objUSer->id)
 					->update([
-						'token'=>1
+						'token'=>1,
+						'active'=>1
 					]);
 		}
 		return view('auth.activate');
