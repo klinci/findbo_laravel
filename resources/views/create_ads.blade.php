@@ -3,8 +3,8 @@
 @section('pageTitle', __('messages.lbl_seek_house_ad'))
 
 @section('meta_tags')
-<meta name="keywords" content=""> 
-<meta name="description" content="{{ __('messages.meta_desc_home_seeker') }}"> 
+<meta name="keywords" content="">
+<meta name="description" content="{{ __('messages.meta_desc_home_seeker') }}">
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<h1 class="page-title">{{ __('messages.lbl_seek_house_ad') }}</h1>
-				
+
 				<ul class="breadcrumb">
 					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
 					<li>{{ __('messages.lbl_seek_ad') }}</li>
@@ -35,7 +35,7 @@
 						<h2 class="property-title" style="margin: 10px 0px;"> {{ __('messages.seek_ad_msg_1') }} </h2>
 						<p>{{ __('messages.seek_ad_msg_2') }}</p>
 					</div>
-					
+
 					<div class="col-sm-12">
 
 						<form action="
@@ -55,7 +55,7 @@
 										<a class="panel-heading accordion-toggle"  data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ __('messages.lbl_ad_information') }}</a>
 									</h3>
 								</div>
-																
+
 								<div id="collapseOne" class="panel-collapse collapse in">
 									<div class="panel-body">
 										<div class="row">
@@ -100,7 +100,7 @@
 												<input type="text" class="form-control" value="@isset($objSeekAds){{ $objSeekAds->title }}@endisset" name="title" maxlength="50" placeholder="{{ __('messages.lbl_enter_ad_title') }}" required>
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Description -->
 											<div class="col-sm-2">
@@ -130,7 +130,7 @@
 												<input type="text" class="form-control" name="name" value="@isset($objSeekAds) {{ $objSeekAds->name }} @endisset" placeholder="{{ __('messages.lbl_enter_name_surname') }}" required>
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Name -->
 											<div class="col-sm-2">
@@ -140,7 +140,7 @@
 												<input type="number" min="1" max="120" class="form-control" name="age" value="@isset($objSeekAds){{ $objSeekAds->age }}@endisset" placeholder="{{ __('messages.lbl_enter_age') }}">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Phone number -->
 											<div class="col-sm-2">
@@ -150,7 +150,7 @@
 												<input type="text" class="form-control" name="phone" value="@isset($objSeekAds){{ $objSeekAds->phone }}@endisset" placeholder="{{ __('messages.lbl_enter_phone') }}" required>
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Phone number -->
 											<div class="col-sm-2">
@@ -160,7 +160,7 @@
 												<input type="text" class="form-control" name="phone2" value="@isset($objSeekAds){{ $objSeekAds->phone2 }}@endisset" placeholder="{{ __('messages.lbl_enter_another_phone') }}" >
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Email -->
 											<div class="col-sm-2">
@@ -173,14 +173,14 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										<a class="panel-heading accordion-toggle"  data-toggle="collapse" data-parent="#accordion" href="#collapseThree">{{ __('messages.lbl_property_requirements') }}</a>
 									</h3>
 								</div>
-								
+
 								<div id="collapseThree" class="panel-collapse collapse in">
 									<div class="panel-body">
 										<div class="row">
@@ -198,7 +198,7 @@
 												</select>
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Max rent -->
 											<div class="col-sm-2">
@@ -208,7 +208,7 @@
 												<input type="text" class="form-control" name="maxRent" value="@isset($objSeekAds){{ $objSeekAds->maxRent }}@endisset">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Min area -->
 											<div class="col-sm-2">
@@ -218,7 +218,7 @@
 												<input type="text" class="form-control" name="minArea" value="@isset($objSeekAds){{ $objSeekAds->minArea }}@endisset">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Min rooms -->
 											<div class="col-sm-2">
@@ -228,7 +228,7 @@
 												<input type="number" class="form-control" name="minRooms" value="@isset($objSeekAds){{ $objSeekAds->minRooms }}@endisset">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Min area -->
 											<div class="col-sm-2">
@@ -271,7 +271,7 @@
 											</div>
 											<br/><br/>
 										</div>
-										
+
 										<div class="row">
 											<div class="col-sm-2">
 												<label><strong>{{ __('messages.rentalperiod') }} :</strong></label>
@@ -281,11 +281,11 @@
 												<label class="radio-inline">
 													<input type="radio" name="period" {{ ($objSeekAds->rentalPeriod == 'unlimited')?'checked="checked"':'' }} value="unlimited" required> {{ __('messages.lbl_unlimited') }}
 												</label>
-												
+
 												<label class="radio-inline">
 													<input type="radio" name="period" {{ ($objSeekAds->rentalPeriod == 'More than 12 months')?'checked="checked"':'' }} value="More than 12 months" required> {{ __('messages.lbl_more_than_12_months') }}
 												</label>
-												
+
 												<label class="radio-inline">
 													<input type="radio" name="period" {{ ($objSeekAds->rentalPeriod == 'Less than 12 months')?'checked="checked"':'' }} value="Less than 12 months" required> {{ __('messages.lbl_less_than_12_months') }}
 												</label>
@@ -294,11 +294,11 @@
 												<label class="radio-inline">
 													<input type="radio" name="period" value="unlimited" required> {{ __('messages.lbl_unlimited') }}
 												</label>
-												
+
 												<label class="radio-inline">
 													<input type="radio" name="period" value="More than 12 months" required> {{ __('messages.lbl_more_than_12_months') }}
 												</label>
-												
+
 												<label class="radio-inline">
 													<input type="radio" name="period" value="Less than 12 months" required> {{ __('messages.lbl_less_than_12_months') }}
 												</label>
@@ -309,7 +309,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h3 class="panel-title">
@@ -322,7 +322,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							@isset($objSeekAds) <input type="hidden" name="id" value="{{ $objSeekAds->id }}" />
 							<input type="submit" style="font-weight:bold;" class="btn btn-warning" name="submit" value="Opdatering"> @else
 							<input type="submit" style="font-weight:bold;" class="btn btn-primary" name="submit" value="{{ __('messages.lbl_post_requirements') }}"> @endisset <br><br>

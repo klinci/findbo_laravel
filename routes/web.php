@@ -31,8 +31,6 @@ Route::get('/how_it_works', 'HowItWorksController@index')
   ->name('home.how_it_works');
 Route::get('/price','PriceController@index')
   ->name('prices');
-Route::get('/home_seeker/{id}', 'HomeSeekerController@index')
-  ->name('home_seeker.show');
 Route::get('/about', 'AboutusController@index');
 Route::get('/terms_condition', 'TermsConditionController@index');
 Route::get('/faq', 'FaqController@index');
@@ -87,6 +85,8 @@ Route::post('/home_seeker_contact', 'HomeSeekerController@contact');
 Route::get('/home_seeker/{homeseeker}/activate/{act}', 'HomeSeekerController@activate')->middleware('can:update,homeseeker');
 Route::get('/home_seeker/{id}/edit', 'HomeSeekerController@edit');
 Route::put('/home_seeker/{homeseeker}', 'HomeSeekerController@update')->middleware('can:update,homeseeker');
+Route::get('/home_seeker/{id}', 'HomeSeekerController@index')
+->name('home_seeker.show');
 Route::post('/home_seeker', 'HomeSeekerController@store')
   ->name('home_seeker.post')
   ->middleware('can:create,App\Seekads');
