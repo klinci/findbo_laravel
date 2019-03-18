@@ -86,8 +86,8 @@ return [
 	'lbl_features'				=> 'Findbo Fordele',
 	'lbl_for_rent_or_sale' => 'Nemt og enkelt',
 	'lbl_real_ads'				=> 'Lejeboliger',
-	'lbl_map_vision'			=> 'I hele landet',
-	'lbl_view_map'				=> 'I hele landet',
+	'lbl_map_vision'			=> 'Mapvisning',
+	'lbl_view_map'				=> 'Mapvisning',
 	'lbl_read_more'				=> 'Læs mere',
 	'lbl_less'					=> 'Mindre',
 	'msg_homepage_3'			=> 'Tilmeld vores ugentlige',
@@ -1022,7 +1022,7 @@ return [
 
 	'newsletter_label' => 'Tilmeld dig til vores nyhedsbreve',
 	'search_properties_caption' => 'Søg boliger',
-	'create_tenant_caption' => 'Opret en boligsøgeannonce',
+	'create_tenant_caption' => 'Boligsøgerannonce',
 	'wellcome_danmark_caption' => 'Udvalgte byer i Danmark',
 	'rental_properties_caption' => 'lejeboliger',
 	'find_house_caption' => 'Find en bolig',
@@ -1037,9 +1037,10 @@ return [
 	'looking_new_home_description' => 'Søger du en bolig? På Findbo.dk finder du et stort udvalg af ledige boliger i hele landet. Opret en boligsøgeannonce og komme i gang med din boligsøgning.',
 	'have_a_properties_label' => 'Udlejer',
 	'have_a_properties_label_button' => 'Find End Lejer',
-	'have_a_properties_description' => 'Har du en bolig du ønsker at udleje? Upload din bolig i dag og bliv set af adskillige boligsøgende. Find din kommende lejer på Findbo.dk - nemt og enkelt.',
+	'have_a_properties_description' => 'Har du en bolig du ønsker at udleje? Upload din bolig i dag og bliv set af adskillige boligsøgende. Find din kommende lejer på Findbo.dk.',
 	'register_thanks_message' => 'Tak for din registering!',
 	'message_confirmation' => 'En email er blevet sendt til dig som beskræftelse på at du har oprettet en brugerkonto hos Findbo.dk',
 
-	'number_phone_required_message' => 'Venlingst indtast din telefonnummer'
+	'number_phone_required_message' => 'Venlingst indtast din telefonnummer',
+	''
 ];

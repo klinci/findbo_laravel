@@ -41,9 +41,9 @@
 						    </div>
 						</div>
 					@endif
-					
+
 					<div class="profileBody">
-						<form action="{{ url('updateprofile') }}" method="post" name="frmUpdateProfile" id="frmUpdateProfile">
+						<form action="{{ route('updateprofile') }}" method="post" name="frmUpdateProfile" id="frmUpdateProfile">
 							{{ csrf_field() }}
 							<div class="row">
 				                <div class="col-sm-3 col-sm-offset-2 text-right">
@@ -98,7 +98,7 @@
 					</div>
 					
 					<div class="profileBody">
-						<form action="{{ url('updatepassword') }}" method="post" name="frmPassword" id="frmPassword">
+						<form action="{{ route('updatepassword') }}" method="post" name="frmPassword" id="frmPassword">
 							{{ csrf_field() }}
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 text-right">

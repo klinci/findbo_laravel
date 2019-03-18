@@ -129,7 +129,7 @@ class HomeSeekerController extends Controller
 
 		Mail::to($to)->send(new HomeSeekerContact($objDemo));
 
-		return redirect('home_seeker/'.$redirect);
+		return redirect()->back();
 	}
 
 	public function activation($id,$act)
@@ -151,11 +151,12 @@ class HomeSeekerController extends Controller
 						->update(['is_active'=>$act]);
 			}
 
-			return redirect('home_seeker/'.$id);
+			return redirect()->back();
 		}
 		else
 		{
-			return redirect('home_seeker/'.$id);
+			// return redirect('home_seeker/'.$id);
+			return redirect()->back();
 		}
 	}
 
@@ -174,9 +175,11 @@ class HomeSeekerController extends Controller
 	*/
 	public function edit($id) {
 		$objSeekAds = Seekads::getHomeSeekerById($id);
-		if (!$objSeekAds) return redirect('/');
+		if (!$objSeekAds) {
+			// return redirect('/');
+			return redirect()->back();
+		}
 		$objArea = Area::all();
-
 		return view('create_ads', [
 			'objSeekAds' => $objSeekAds,
 			'objArea' => $objArea,
@@ -193,17 +196,19 @@ class HomeSeekerController extends Controller
 	{
 			if(Auth::check() && ((Auth::user()->userType == '2' && Auth::user()->seek_package_id > 0) || Auth::user()->isAdmin == 'admin'))
 			{
-					$objArea = Area::all();
+				$objArea = Area::all();
 
-					$seekAds = Seekads::where('userFk', Auth::user()->id)->first();
-					if($seekAds) return redirect()->route('home_seeker.edit', $seekAds->id);
-					
-					return view('create_ads', [
-						'objArea' => $objArea,
-					]);
+				$seekAds = Seekads::where('userFk', Auth::user()->id)->first();
+				if($seekAds) {
+					// return redirect()->route('home_seeker.edit', $seekAds->id);
+					return redirect()->back();
+				}
+
+				return view('create_ads', [
+					'objArea' => $objArea,
+				]);
 			}
-			if(Auth::check() && (Auth::user()->userType == '2' && Auth::user()->seek_package_id == '0'))
-			{
+			if(Auth::check() && (Auth::user()->userType == '2' && Auth::user()->seek_package_id == '0')) {
 				 	return view('auth.notpaid');
 			}
 			return redirect()->back();
@@ -286,7 +291,8 @@ class HomeSeekerController extends Controller
 			}
 		}
 
-		return redirect('home_seeker/' . $saved -> id);
+		// return redirect('home_seeker/' . $saved -> id);
+		return redirect()->back();
 	}
 
 	/**
@@ -364,7 +370,8 @@ class HomeSeekerController extends Controller
 			}
 		}
 
-		return redirect('home_seeker/' . $request -> id);
+		// return redirect('home_seeker/' . $request -> id);
+		return redirect()->back();
 	}
 
 	/*

@@ -11,7 +11,7 @@
 				<h1 class="page-title">Your account has not yet been approved!</h1>
 
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>Your account has not yet been approved by administrator!</li>
 				</ul>
 			</div>
@@ -24,7 +24,7 @@
 	<div class="container">
 		 <div class="row green" style="padding-top:70px; padding-bottom:30px; border-bottom:solid 1px #ccc;">
 			<div class="main col-sm-12" style="text-align:center; font-weight:bold;">
-				<h3 style="color: #4D4F56;">Please contact to the administrator before proceeding by click <a href="{{ url('/'.'contact') }}">here</a>.</h3><br/>
+				<h3 style="color: #4D4F56;">Please contact to the administrator before proceeding by click <a href="{{ route('home.contact') }}">here</a>.</h3><br/>
 	          	<!-- <h1 style="color: #4D4F56;"> <i class="fa fa-lg fa-spinner fa-spin"></i></h1> -->
 	          	<script type="text/javascript">/*
 	          		window.setTimeout(function(){

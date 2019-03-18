@@ -16,7 +16,7 @@
 				<h1 class="page-title">{{  __('messages.resettitle') }}</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>{{  __('messages.resettitle') }}</li>
 				</ul>
 			</div>
@@ -45,7 +45,7 @@
 						<div class="form-col">
 							<h1 class="center">{{ __('messages.resettitle') }}</h1>
 							<br>
-							<form action="{{ url('submit_resetpwd') }}" method="post" class="" name="frmResetPwd" id="frmResetPwd">
+							<form action="{{ route('passwordreset.post') }}" method="post" class="" name="frmResetPwd" id="frmResetPwd">
 								{{ csrf_field() }}
 
 								<input type="hidden" name="token" value="{{ $token }}">

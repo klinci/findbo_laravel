@@ -28,14 +28,14 @@ class ResetPasswordController extends Controller
     		
     		$request->session()->flash('message.level', 'success');
     		$request->session()->flash('message.content', __('messages.msg_password_updated'));
-    		return redirect('reset_password/'.$code);
+            return redirect(route('passwordreset.get', $code));
     		
     	}
     	else
     	{
     		$request->session()->flash('message.level', 'danger');
     		$request->session()->flash('message.content', __('messages.msg_reset_pwd_link_expired'));
-    		return redirect('reset_password/'.$code);
+    		return redirect(route('passwordreset.get', $code));
     	}
     		
     }

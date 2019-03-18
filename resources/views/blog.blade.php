@@ -17,7 +17,7 @@
 						<h1 class="page-title">Findbo Blog</h1>
 						
 						<ul class="breadcrumb">
-							<li><a href="https://www.findbo.dk/">Forside </a></li>
+							<li><a href="{{ route('home') }}">Forside</a></li>
 							<li>Blog</li>
 						</ul>
 					</div>

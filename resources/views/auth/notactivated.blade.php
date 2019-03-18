@@ -11,7 +11,7 @@
 				<h1 class="page-title">Your account has not yet been activated!</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>Your account has not yet been activated!</li>
 				</ul>
 			</div>
@@ -26,7 +26,7 @@
 			<div class="main col-sm-12" style="text-align:center; font-weight:bold;">
 				<h3 style="color: #4D4F56;">Please activate your account before proceeding.</h3><br/>
 				<h3 style="color: #4D4F56;">An e-mail has been sent to you with the activation code. Follow the link inside the e-mail to activate your account.</h3><br/>
-				<h3 style="color: #4D4F56;">If you didn't receive the e-mail with the activation code, please click <a href="{{ url('/'.'resend_code') }}">here</a>.</h3>
+				<h3 style="color: #4D4F56;">If you didn't receive the e-mail with the activation code, please click <a href="{{ route('resend_code') }}">here</a>.</h3>
 	          	<br/>
 	          	<!-- <h1 style="color: #4D4F56;"> <i class="fa fa-lg fa-spinner fa-spin"></i></h1> -->
 	          	<script type="text/javascript">/*

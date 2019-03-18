@@ -34,7 +34,7 @@ class PasswordResetRequest extends FormRequest
      * @return void
      */
     protected function failedValidation(Validator $validator) {
-        throw new HttpResponseException(redirect('forgot_password')->withErrors($validator));
+        throw new HttpResponseException(redirect()->back()->withErrors($validator));
     }
 
 }

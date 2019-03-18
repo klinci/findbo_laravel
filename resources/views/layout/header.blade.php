@@ -7,7 +7,7 @@
 					<!-- <a href="{{ url('/') }}" class="nav-logo"><img src="{{ asset('public/images/logo.png') }}" alt="lejligheder til leje i københavn" /></a> -->
 					<!-- BEGIN MAIN MENU -->
 					<nav class="navbar">
-						<a href="{{ url('/') }}" class="nav-logo"><img src="{{ asset('public/images/logo.png') }}" alt="lejligheder til leje i københavn" /></a>
+						<a href="{{ route('home') }}" class="nav-logo"><img src="{{ asset('public/images/logo.png') }}" alt="lejligheder til leje i københavn" /></a>
 						<button id="nav-mobile-btn"><i class="fa fa-bars"></i></button>
 						<ul class="nav navbar-nav">
 							@if(Auth::check())
@@ -17,10 +17,14 @@
 								<li><a href="{{ url('contact') }}">{{ __('messages.contactus') }}</a></li> --}}
 							@else
 								<li>
-									<a href="{{ url('/login') }}"><strong>{{ __('messages.lbl_register') }}/{{ __('messages.signin') }}</strong></a>
+									<a href="{{ route('login') }}">
+										<strong>
+											{{ __('messages.lbl_register') }}/{{ __('messages.signin') }}
+										</strong>
+									</a>
 								</li>
 								<li>
-									<a href="{{ url('/add_property') }}"><strong>{{ __('messages.lbl_post_requirements') }}</strong></a>
+									<a href="{{ route('property.create') }}"><strong>{{ __('messages.lbl_post_requirements') }}</strong></a>
 								</li>
 							@endif
 						</ul>
@@ -31,31 +35,31 @@
 									<a href="#" id="" data-toggle="dropdown" data-hover="dropdown">Velkommen, <b>{{ Auth::user()->fname}} {{ Auth::user()->lname}}</b><span class="caret"></span></a>
 									<ul class="dropdown-menu dropdown-menu-right acc_dropdown" role="menu" aria-labelledby="dropdownMenu1">
 										<li>
-											<a href="{{ url('myprofile') }}"><span class="glyphicon glyphicon-cog"></span> &nbsp;{{ __('messages.my_profile') }}</a>
+											<a href="{{ route('myprofile') }}"><span class="glyphicon glyphicon-cog"></span> &nbsp;{{ __('messages.my_profile') }}</a>
 										</li>
 										<li>
 											<a href="{{ Auth::user()->userType == 1 ?
-														 url('add_property') : url('home_seeker/create') }}">
+														 route('property.create') : route('home_seeker.create') }}">
 														 <span class="glyphicon glyphicon-plus"></span> &nbsp; {{ __('messages.post_ad') }}</a>
 										</li>
 										@if(Auth::user()->userType == '1' || Auth::user()->isAdmin == 'admin')
 										<li>
-											<a href="{{ url('myads') }}"><span class="glyphicon glyphicon-home"></span> &nbsp;{{ __('messages.my_search_ad') }}</a>
+											<a href="{{ route('myads') }}"><span class="glyphicon glyphicon-home"></span> &nbsp;{{ __('messages.my_search_ad') }}</a>
 										</li>
 										@endif
 										<li>
-											<a href="{{ url('favorite') }}"><span class="glyphicon glyphicon-heart"></span> &nbsp;Favoritter</a>
+											<a href="{{ route('favorites') }}"><span class="glyphicon glyphicon-heart"></span> &nbsp;Favoritter</a>
 										</li>
 										<li>
-											<a href="{{ url('message_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> &nbsp;Beskeder</a>
+											<a href="{{ route('message_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> &nbsp;Beskeder</a>
 										</li>
 		                				<li>
-		                					<a href="{{ url('package') }}"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;{{ __('messages.buy_packages') }}</a>
+		                					<a href="{{ route('packages') }}"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;{{ __('messages.buy_packages') }}</a>
 		                				</li>
 		                				<li><hr style="margin: 5px 0;"></li>
 										<li>
-											<a href="{{ url('logoutfront') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="glyphicon glyphicon-log-out"></span> &nbsp;Log ud</a>
-											<form id="logout-form" action="{{ url('logoutfront') }}" method="POST" style="display: none;">
+											<a href="{{ route('logoutfront') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="glyphicon glyphicon-log-out"></span> &nbsp;Log ud</a>
+											<form id="logout-form" action="{{ route('logoutfront') }}" method="POST" style="display: none;">
 												{{ csrf_field() }}
 											</form>
 										</li>

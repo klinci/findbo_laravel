@@ -31,7 +31,7 @@ class PackageController extends Controller
 			if ($userId > 0)
 			{
 				$objUser = User::find($userId);
-		
+
 				$today_date = date('Y-m-d H:i:s');
 				if((strtotime($objUser->package_expiry_date)>strtotime($today_date)) && ($objUser->seek_package_id == 2))
 				{
@@ -41,7 +41,7 @@ class PackageController extends Controller
 				{
 					$active_pack_id = $objUser->seek_package_id;
 				}
-				
+
 				$today_date = date('Y-m-d H:i:s');
 				if(($active_pack_id == 1) || ($active_pack_id == 2))
 				{
@@ -53,7 +53,7 @@ class PackageController extends Controller
 		$objGreenSeekPackages = DB::table('seeker_packages')
 									->where('name','=','seeker_green_package_name')
 									->first();
-		
+
 		$objBlueSeekPackages = DB::table('seeker_packages')
 								->where('name','=','seeker_blue_package_name')
 								->first();
@@ -80,13 +80,13 @@ class PackageController extends Controller
 			{
 				$auto_renew_seek_package = $request->input('autorenew');
 			}
-			
+
 			DB::table('users')
 					->where('id', Auth::id())
 					->update([
 						'auto_renew_seek_package' => $auto_renew_seek_package
 					]);
-					
+
 			$log_p_status = $auto_renew_seek_package;
 			$log_date = date('Y-m-d H:i:s');
 			$log_comment = 'disabled by user';
@@ -94,18 +94,18 @@ class PackageController extends Controller
 			if($log_p_status == 1) {
 				$log_comment = 'enabled by user';
 			}
-			
+
 			$objSeekerLogs = new SeekerPackageLogs();
 			$objSeekerLogs -> user_id = Auth::user()->id;
 			$objSeekerLogs -> package_status = $log_p_status;
 			$objSeekerLogs -> log_date = $log_date;
 			$objSeekerLogs -> log_comment = $log_comment;
 		}
-		
+
 		$request->session()->flash('message.level', 'success');
 		$request->session()->flash('message.content', 'Auto renew submitted successfully.');
-		return redirect('package');
-		
+		// return redirect('package');
+		return redirect()->back();
 	}
 
 
@@ -113,7 +113,7 @@ class PackageController extends Controller
 	public function purchasePackage(Request $request) {
 
 		$package = SeekerPackages::find($request -> selected_pack);
-		if (!$package) return redirect('package');
+		if (!$package) return redirect()->back();
 
 		$stripe = new StripeService;
 		$purchase = $stripe -> purchasePackage($request->stripeToken, $package);
@@ -129,9 +129,12 @@ class PackageController extends Controller
 				\Lang::get('messages.udpate_package_message')
 			);
 		}
-		if ($request -> property_id)
-			return redirect('property_detail/' . $request -> property_id);
-		return redirect('package');
+		if($request->property_id) {
+			// return redirect('property_detail/'.$request->property_id);
+			return redirect()->back();
+		}
+		// return redirect('package');
+		return redirect()->back();
 
 
 
@@ -171,11 +174,11 @@ class PackageController extends Controller
 		$selectedPack = $request->input("selected_pack");
 		//$packageName = $request->input("packageName");
 		//$packageAmount = $request->input("packageAmount");
-		
+
 		$userEmail = Auth::user()->email;
-		
+
 		$objSeekerPackages = SeekerPackages::find($selectedPack);
-		
+
 		$price = $objSeekerPackages -> price;
 		$days = $objSeekerPackages -> days;
 
@@ -184,26 +187,26 @@ class PackageController extends Controller
 		} else {
 			$name = __('messages.seeker_blue_package_name');
 		}
-		
+
 		include(app_path() . '/modules/Stripe/lib/Util/Set.php');
 		include(app_path() . '/modules/Stripe/lib/Object.php');
 		include(app_path() . '/modules/Stripe/lib/ApiResource.php');
 		include(app_path() . '/modules/Stripe/lib/SingletonApiResource.php');
 		include(app_path() . '/modules/Stripe/lib/Error/Base.php');
-		
+
 		$lib_path = app_path() . '/modules/Stripe/lib/';
 		$allClasses = scandir($lib_path);
 		foreach ($allClasses as $class)
 		{
 			if ($class == '.' || $class == '..')
 				continue;
-				
+
 			if (is_dir($lib_path.$class))
 			{	$allSubClasses = scandir($lib_path.$class);
 			foreach ($allSubClasses as $subClass)
 			{	if ($subClass == '.' || $subClass == '..')
 				continue;
-		
+
 			if (!is_dir($lib_path.$class.'/'.$subClass))
 				include_once $lib_path.$class.'/'.$subClass;
 			}
@@ -211,14 +214,14 @@ class PackageController extends Controller
 			}
 			include_once $lib_path.$class;
 		}
-		
+
 		Stripe::setApiKey(env('STRIPE_TEST_SK'));
 		//\Stripe\Stripe::setApiKey("sk_live_QzQTc1EOLHMyfFYTb9AqG2Gw");	//live
 		//\Stripe\Stripe::setApiKey("pk_test_oMmhTOQFmqt1ytxOpBw2kNSn");	//test
-		
+
 		$userId = Auth::user()->id;
 		$userEmail = Auth::user()->email;
-		
+
 		$error_message = "";
 		try
 		{
@@ -226,26 +229,26 @@ class PackageController extends Controller
 								"description" => "ID : ".$userId.", Email : ".$userEmail,
 								"source" => $token
 						));
-			
+
 			$cust_id = $customer->id;
-			
+
 			DB::table('users')
 				->where('id','=',$userId)
 				->update(['cust_id' => $cust_id]);
-				
+
 			$charge_info_arr = array(
 					"amount" => ($price * 100), // amount in cents, again
 					"currency" => "DKK",
 					"customer" => $cust_id,
 					"description" => $name);
-		
+
 			$charge_info = \Stripe\Charge::create($charge_info_arr);
-			
+
 			if($charge_info)
 			{
 				$package_start_date	= date('Y-m-d H:i:s');
 				$package_expiry_date= date('Y-m-d H:i:s',strtotime("+$days day"));
-				
+
 				if($charge_info->status == 'succeeded')
 				{
 					DB::table('users')
@@ -259,7 +262,7 @@ class PackageController extends Controller
 								'is_paid_member'=>1,
 							]);
 				}
-				
+
 				$seekerTransaction = new SeekerTransactions([
 							'user_id'=>$userId,
 							'charge_id'=>$charge_info->id,
@@ -298,7 +301,7 @@ class PackageController extends Controller
 							'action_by'=>1,
 						]);
 				$seekerTransaction->save();
-				
+
 				$objSeekerHistory = new SeekerPackageHistory([
 						'user_id'=>$userId,
 						'cust_id'=>$cust_id,
@@ -308,17 +311,17 @@ class PackageController extends Controller
 						'transaction_id'=>$charge_info->balance_transaction
 					]);
 				$objSeekerHistory->save();
-				
+
 				$log_date	= date('Y-m-d H:i:s');
 				$log_package_name = 'IntroPackage';
-				
+
 				if($pack == 2)
 				{
 					$log_package_name = 'FindboPackage';
 				}
-				
+
 				$log_comment = 'enabled by user while purchasing '.$log_package_name;
-				
+
 				$objSeekerPackageLogs = new SeekerPackageLogs([
 							'user_id'=>$userId,
 							'package_status'=>1,
@@ -326,7 +329,7 @@ class PackageController extends Controller
 							'log_comment'=>$log_comment
 						]);
 				$objSeekerPackageLogs->save();
-				
+
 
 
 
@@ -345,26 +348,26 @@ class PackageController extends Controller
 				{
 					$subject = 'FindBo - '.__('seeker_blue_package_name').' '.__('lbl_activated');
 				}
-				
+
 				$objDemo = new \stdClass();
 				$objDemo->subject = $subject;
 				$objDemo->description = $charge_info->description;
 				$objDemo->amount = $charge_info->amount;
 				$objDemo->days = $days;
 				$objDemo->balance_transaction = $charge_info->balance_transaction;
-					
+
 				Mail::to($to)->send(new Register($objDemo));
 			}
-			
+
 			DB::table('seekProperty')
 				->where('userFk','=',$userId)
 				->update([
 					'is_active'=>1
 				]);
-				
+
 			return redirect('packageSuccess');
 
-			
+
 		}
 
 
@@ -429,7 +432,7 @@ class PackageController extends Controller
 		return view('stripe_message',['error_message'=>$error_message]);
 		*/
 	}
-	
-	
+
+
 
 }

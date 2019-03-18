@@ -25,7 +25,7 @@ class ConversationController extends Controller
 		{
 			if ($userId != $objConversation -> user_one && $userId != $objConversation -> user_two)
 			{
-				return redirect("/");
+				return redirect()->back();
 			}
 			else
 			{
@@ -58,7 +58,7 @@ class ConversationController extends Controller
 		}
 		else
 		{
-			return redirect("/");
+			return redirect()->back();
 		}
 	}
 	
@@ -82,6 +82,6 @@ class ConversationController extends Controller
 		
 		$request->session()->flash('message.level', 'success');
 		$request->session()->flash('message.content', 'Data submitted successfully.');
-		return redirect('conversation/'.$conversationId);
+		return redirect()->back();
 	}
 }

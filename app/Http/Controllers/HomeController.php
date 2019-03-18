@@ -81,17 +81,13 @@ class HomeController extends Controller
         }
         CLEAR FINDBOLIG SCRIPT */
 
-
         //dd($properties);
         //$file = 'https://www.findbolig.nu/Findbolig-nu/Find%20bolig/Ledige%20boliger/Boligpraesentation/Boligen.aspx?aid=30781&s=2';
         //$file = file_get_contents('http://www.findbolig.nu/bolig.aspx?aid=23617&amp;s=2');
         //dd(preg_match('#<h1>Bolig ikke fundet</h1>#', $file));
         //dd(DB::select('select id, prop_url from properties where prop_site_name = "findbolig" and status != 3'));
-
-
     }
 
-       
     /**
      * Show the application dashboard.
      *
@@ -111,7 +107,7 @@ class HomeController extends Controller
             'odenseCount' => $this->properties->countWhereCityNameLike('Odense'),
         ]);
     }
-    
+
     public function autoSearch(Request $request)
     {
     	$term = $request->input('term');
@@ -132,8 +128,7 @@ class HomeController extends Controller
     			}
     		}
     	}
-    	
-    	
+
     	//--- second find zipcode ----
     	$objFindZipcode = DB::select("SELECT * FROM zip_code 
 				WHERE code LIKE '".$term."%'
@@ -148,8 +143,6 @@ class HomeController extends Controller
     			}
     		}
     	}
-    	
-    	echo json_encode($arr);
-    	exit;
+    	return json_encode($arr);
     }
 }

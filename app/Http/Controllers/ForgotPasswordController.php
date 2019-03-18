@@ -38,7 +38,7 @@ class ForgotPasswordController extends Controller
 
 		$request->session()->flash('message.level', 'success');
 		$request->session()->flash('message.content', __('messages.reset_email_sent'));
-		return redirect('forgot_password');
+		return redirect()->back();
 	}
 	
 	/*

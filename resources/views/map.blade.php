@@ -114,7 +114,7 @@ $postmonths=__('messages.months');
 				
 					<div class="col-sm-12" style="margin-bottom: 80px;">
 						<i id="filter-close" class="fa fa-minus"></i>
-						<form action="{{ url('map') }}" method="post">
+						<form action="{{ route('home.map') }}" method="post">
 							{{ csrf_field() }}
 							<input type="hidden" name="code" id="code" value="{{ $code }}" />
 							<div class="form-group">
@@ -196,7 +196,7 @@ $postmonths=__('messages.months');
 								
 								<input type="submit" id="refineSubmitBtn" name="refineSubmit" class="btn btn-fullcolor"  value="{{ __('messages.search') }}" />
 								
-								<a href="{{ url('property') }}" class="btn btn-fullcolor" >{{ __('messages.listview') }}</a>
+								<a href="{{ route('home.properties') }}" class="btn btn-fullcolor" >{{ __('messages.listview') }}</a>
 								
 							</div>
 						</form>
@@ -239,7 +239,7 @@ $(document).ready(function(){
 		});
 	    $( "#txtKeywords" ).catcomplete({
 			delay: 0,
-			source: "{{ url('auto_search') }}",
+			source: "{{ route('home.auto_search') }}",
 			select: function (event, ui) { 
 				//alert(ui.item.searchBy); 
 				$("#code").val(ui.item.code);
@@ -308,7 +308,7 @@ $(document).ready(function(){
 					    		"longitude":longitude[i],
 					    		"image":thumbnailArray[i],
 					    		"description":descArray[i],
-					    		"link":'{{ url("property_detail") }}/'+idArray[i],
+					    		"link":'{{ url("bolig_detaljer") }}/'+idArray[i],
 					    		"map_marker_icon":"{{ asset('public/images/markers/green-marker-residential.png') }}"
 					    	});
 	    }

@@ -27,7 +27,7 @@
 			<div class="main col-sm-12 mainpbt">
 			
 				<div class="pricing">
-					<form id="form2" action="{{ url('purchase_property') }}" method="post">
+					<form id="form2" action="{{ route('purchase_property') }}" method="post">
 						
 						
 						<input type="hidden" id="prop_id" name="prop_id" value="{{ $id }}" />
@@ -162,7 +162,7 @@
 
 					function getStandardPackage()
 					{
-						window.location.href = "{{ url('redirect') }}"
+						window.location.href = "{{ route('redirect') }}"
 					}	
         		</script>
         		

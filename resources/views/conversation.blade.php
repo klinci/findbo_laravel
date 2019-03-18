@@ -17,7 +17,7 @@
 				<h1 class="page-title">{{ __('messages.messages') }}</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/')}}">{{ __('messages.lbl_home') }}</a></li>
+					<li><a href="{{ route('home')}}">{{ __('messages.lbl_home') }}</a></li>
 					<li>{{ __('messages.messages') }}</li>
 				</ul>
 			</div>
@@ -71,7 +71,7 @@
 																		{{ date("jS M, Y, h:i A", strtotime($row["message_date"])) }}
 																		<a
 																			target="_blank"
-																			href="{{ route('property_detail.show', $row['propertyId']) }}"
+																			href="{{ route('property_detail.show.withId', $row['propertyId']) }}"
 																			style="float: right;">
 																			{{ __('messages.lbl_view_property') }}
 																		</a>

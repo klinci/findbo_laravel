@@ -24,7 +24,7 @@
 				<h1 class="page-title">Your account has not yet been paid!</h1>
 
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>Your account has not yet been paid!</li>
 				</ul>
 			</div>
@@ -37,7 +37,7 @@
 	<div class="container">
 		 <div class="row green" style="padding-top:70px; padding-bottom:30px; border-bottom:solid 1px #ccc;">
 			<div class="main col-sm-12" style="text-align:center; font-weight:bold;">
-				<h3 style="color: #4D4F56;">Please buy a package first before proceeding by click <a href="{{ url('/'.'package') }}">here</a>.</h3><br/>
+				<h3 style="color: #4D4F56;">Please buy a package first before proceeding by click <a href="{{ route('packages') }}">here</a>.</h3><br/>
 	          	<!-- <h1 style="color: #4D4F56;"> <i class="fa fa-lg fa-spinner fa-spin"></i></h1> -->
 	          	<script type="text/javascript">/*
 	          		window.setTimeout(function(){
@@ -57,39 +57,39 @@
 				<h1 class="page-title">{{ __('messages.lbl_new_property_seeker') }}</h1>
 
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home') }}</a></li>
 					<li>{{ __('messages.lbl_new_property_seeker') }}</li>
 				</ul>
 			</div>
 
 			<div class="col-sm-6">
 				<div class="row pull-right">
-					<?php
-					if((!empty($l_user_id)) && ($l_user_id == $objHomeSeeker->user2) && (!empty($active_pack_id)))
-					{
-						$activeInactiveAction = '0';
-						if($objHomeSeeker->is_active == '0')
-						{
-							$activeInactiveAction = '1';
-						}
-						?>
-						<a class="btn btn-default" href="{{ url('home_seeker_activate/'.$objHomeSeeker->id.'/'.$activeInactiveAction) }}">
-							<?php if($activeInactiveAction == '0') { echo 'Hide requirement'; } else { echo 'Show requirement'; } ?>
-						</a>
-						<?php
-					}
-				/*
-					if((!empty($l_user_id) && ($l_user_id == $objHomeSeeker->user2)) || ($isAdmin==0))
-					{*/
-						?>
 
+						@php
+							$activeInactiveAction = '0';
+							if((!empty($l_user_id)) && ($l_user_id == $objHomeSeeker->user2) && (!empty($active_pack_id))) {
+								if($objHomeSeeker->is_active == '0') {
+									$activeInactiveAction = '1';
+								}
+							}
+						@endphp
+						{{-- <a
+							class="btn btn-default"
+								href="{{ route('home_seeker_activate', [
+									$objHomeSeeker->id,
+									$activeInactiveAction
+								]) }}">
+							@if($activeInactiveAction == '0')
+								Hide requirement
+							@else
+								Show requirement
+							@endif
+						</a> --}}
 						@if(Auth::check() && Auth::user()->id == $objHomeSeeker->userFk)
-
-						<a class="btn btn-default remove-btn" href="{{ url('home_seeker/'.$objHomeSeeker->id.'/edit') }}">
-							<i class="fa fa-edit"></i>
-							{{ __('messages.lbl_edit') }}
-						</a>
-
+							<a class="btn btn-default remove-btn" href="{{ route('home_seeker.edit/', $objHomeSeeker->id) }}">
+								<i class="fa fa-edit"></i>
+								{{ __('messages.lbl_edit') }}
+							</a>
 						@endif
 
 						<?php /*
@@ -181,16 +181,22 @@
 
 						<div class="share-wraper col-sm-12">
 							<h5 style="margin-right: 0px;">{{ __('messages.lbl_share_this_property') }}:</h5>
-							<?php
-							$currentLink = url('home_seeker/'.$objHomeSeeker->id);
-							$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail;
-							?>
+							@php
+								$currentLink = route('home_seeker.show', $objHomeSeeker->id);
+								$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail;
+							@endphp
 
 							<ul class="social-networks">
-								<li><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php echo $currentLink; ?>"><i class="fa fa-facebook"></i></a></li>
-								<li><a target="_blank" href="https://twitter.com/intent/tweet?text=<?php echo $currentLink; ?>"><i class="fa fa-twitter"></i></a></li>
-								<li><a target="_blank" href="https://plus.google.com/share?url=<?php echo $currentLink; ?>"><i class="fa fa-google"></i></a></li>
-								<li><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php echo $currentLink; ?>&description=<?php echo $objHomeSeeker->description; ?>&media=<?php echo $full_path_img_src; ?>"><i class="fa fa-pinterest"></i></a></li>
+
+								<li>
+									<a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ $currentLink }}">
+										<i class="fa fa-facebook"></i>
+									</a>
+								</li>
+
+								<li><a target="_blank" href="https://twitter.com/intent/tweet?text={{ {{ $currentLink }} }}"><i class="fa fa-twitter"></i></a></li>
+								<li><a target="_blank" href="https://plus.google.com/share?url={{ $currentLink }}"><i class="fa fa-google"></i></a></li>
+								<li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ $currentLink }}&description={{ $objHomeSeeker->description }}&media={{ $full_path_img_src }}"><i class="fa fa-pinterest"></i></a></li>
 							</ul>
 
 							<a class="print-button" href="javascript:window.print();" style="padding-left: 10px;">
@@ -205,7 +211,7 @@
 
 						@if((!empty($l_user_id) && ($l_user_id != $objHomeSeeker->user2) && (!empty($is_paid_member))) || ($isAdmin == 0))
 							<h1 class="section-title" id="contact-agent">{{ __('messages.lbl_seeker_detail_msg_1') }}</h1>
-							<form action="{{ url('home_seeker_contact') }}" method="post" class="form-style">
+							<form action="{{ route('home_seeker_contact') }}" method="post" class="form-style">
 								{{ csrf_field() }}
 								<div class="col-sm-12">
 									<select name="propertyid" required class="form-control">
@@ -235,14 +241,14 @@
 							</form>
 						@elseif(empty($l_user_id))
 							<div class="contact-landlord" style="margin-top: 60px;">
-								<a data-id="contactLandlordBtn" data-rd="{{ url('home_seeker/'.$objHomeSeeker->id) }}" href="#" data-toggle="modal" data-target="#loginModal" class="btn btn-fullcolor contact-landlord">
+								<a data-id="contactLandlordBtn" data-rd="{{ route('home_seeker.show', $objHomeSeeker->id) }}" href="#" data-toggle="modal" data-target="#loginModal" class="btn btn-fullcolor contact-landlord">
 									<i class="fa fa-lock"></i> {{ __('messages.postSeeker') }}
 								</a>
 							</div>
 						@elseif(!empty($l_user_id) && ($l_user_id != $objHomeSeeker->user2) && (empty($is_paid_member)))
 							<div class="contact-landlord" style="margin-top: 60px;">
 								<input type="hidden" name="{{ $l_user_id }}" value="dd" />
-								<a href="{{ url('package') }}" class="btn btn-fullcolor contact-landlord">
+								<a href="{{ route('packages') }}" class="btn btn-fullcolor contact-landlord">
 									<i class="fa fa-lock"></i> {{ __('messages.postSeeker') }}
 								</a>
 							</div>
@@ -256,7 +262,7 @@
 								@foreach($arrOfProperty as $row)
 									<li class="col-md-12">
 										<div class="image">
-											<a href="{{ url('home_seeker/'.$row->id) }}"></a>
+											<a href="{{ route('home_seeker.show', $row->id) }}"></a>
 											@if(!empty($row->thumbnail) && ($row->thumbnail!="images/propertyimages/genericThumb.jpg") && file_exists($row->thumbnail))
 												<img src="{{ $row->thumbnail }}" alt="" style="margin-bottom: 0px;" />
 											@else
@@ -270,7 +276,7 @@
 
 										<h3>
 											<span style="width: 67%; display: block; float: right;">
-												<a href="{{ url('home_seeker/'.$row->id) }}">{{ ($row->title!="")?$row->title:$row->name }}</a>
+												<a href="{{ route('home_seeker.show', $row->id) }}"></a>{{ ($row->title!="")?$row->title:$row->name }}</a>
 											</span>
 										</h3>
 										<span style="clear: both;"></span>

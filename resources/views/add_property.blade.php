@@ -13,7 +13,7 @@
 			<div class="col-sm-12">
 				<h1 class="page-title">{{ __('messages.postlisting') }}</h1>
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home') }} </a></li>
 					<li>{{ __('messages.post_ad') }}</li>
 				</ul>
 
@@ -46,7 +46,7 @@
 
 						@if(!Auth::check())
 							<h4 style="color: #74777c; font-weight: normal; padding: 12px 0; text-align: center;">
-								You need to have a Findbo account to post your listing. Create account <a style="font-size: 12px;" href="{{ url('login') }}"> HERE</a>
+								You need to have a Findbo account to post your listing. Create account <a style="font-size: 12px;" href="{{ route('login') }}"> HERE</a>
 							</h4>
 						@endif
 					</ul>

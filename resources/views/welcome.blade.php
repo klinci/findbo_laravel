@@ -108,7 +108,7 @@
 								{{ $aalborgCount }} @lang('messages.rental_properties_caption')
 							</div>
 							<div class="cthbtn">
-								<form action="/property" method="POST" id="aalborg-form">
+								<form action="{{ route('home.properties') }}" method="POST" id="aalborg-form">
 									{{ csrf_field() }}
 									<input type="hidden" name="zip[11]" value="11">
 									<input type="hidden" name="zip[23]" value="23">
@@ -130,7 +130,7 @@
 								<div class="cth3">København</div>
 								<div class="cthtotal">{{ $copenhagenCount }} @lang('messages.rental_properties_caption') </div>
 								<div class="cthbtn">
-									<form action="/property" method="POST" id="copenhagen-form">
+									<form action="{{ route('home.properties') }}" method="POST" id="copenhagen-form">
 										{{ csrf_field() }}
 										<input type="hidden" name="zip[1794]" value="1794">
 										<input type="hidden" name="zip[201]" value="201">
@@ -151,7 +151,7 @@
 									{{ $aarhusCount }} @lang('messages.rental_properties_caption')
 								</div>
 								<div class="cthbtn">
-									<form action="/property" method="POST" id="aarhus-form">
+									<form action="{{ route('home.properties') }}" method="POST" id="aarhus-form">
 										{{ csrf_field() }}
 										<input type="hidden" name="zip[20]" value="20">
 										<input type="hidden" name="zip[544]" value="544">
@@ -167,7 +167,7 @@
 								<div class="cth3">Odense </div>
 								<div class="cthtotal">{{ $odenseCount }} @lang('messages.rental_properties_caption') </div>
 								<div class="cthbtn">
-									<form action="/property" method="POST" id="odense-form">
+									<form action="{{ route('home.properties') }}" method="POST" id="odense-form">
 										{{ csrf_field() }}
 										<input type="hidden" name="zip[128]" value="128">
 										<input type="hidden" name="zip[132]" value="132">
@@ -464,7 +464,7 @@
 					<h3 class="lookingh3">@lang('messages.looking_new_home_label')</h3>
 					<p class="lookingp">@lang('messages.looking_new_home_description')</p>
 					@if(!Auth::check())
-						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">
+						<a href="{{ route('login') }}" class="btn btn-default-color newbtn">
 							@lang('messages.find_house_caption')
 						</a>
 					@else
@@ -603,7 +603,7 @@
 					<h3 class="lookingh3">@lang('messages.have_a_properties_label')</h3>
 					<p class="lookingp">@lang('messages.have_a_properties_description')</p>
 					@if(!Auth::check())
-						<a href="{{ url('login') }}" class="btn btn-default-color newbtn">
+						<a href="{{ route('login') }}" class="btn btn-default-color newbtn">
 							@lang('messages.have_a_properties_label_button')
 						</a>
 					@else

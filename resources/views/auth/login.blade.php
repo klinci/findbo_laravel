@@ -16,7 +16,7 @@
 				<h1 class="page-title">{{  __('messages.signinto_yacconunt') }}</h1>
 
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>{{  __('messages.signinto_yacconunt') }}</li>
 				</ul>
 			</div>
@@ -49,7 +49,7 @@
 						<div class="form-cols form-col">
 							<h1 class="center">{{ __('messages.lbl_create_new_account') }}</h1>
 							<br>
-							<form action="{{ url('register') }}" method="post" class="" name="frmRegister" id="frmRegister">
+							<form action="{{ route('register.post') }}" method="post" class="" name="frmRegister" id="frmRegister">
 								{{ csrf_field() }}
 								<input type="hidden" name="previous_page" value="{{ URL::previous() }}" />
 								<div class="form-group">
@@ -90,7 +90,7 @@
 								<div class="checkbox">
 									<label for="contact">
 										<input type="checkbox" name="contact" id="contact" />
-										{{ __('messages.acceptOur') }} <a href="{{ url('terms_condition') }}">{{ __('messages.termsAndConditions') }}</a>.
+										{{ __('messages.acceptOur') }} <a href="{{ route('terms_condition') }}">{{ __('messages.termsAndConditions') }}</a>.
 									</label>
 								</div>
 
@@ -104,7 +104,7 @@
 							<h1 class="center">{{  __('messages.signinto_yacconunt') }}</h1>
 							<br>
 								<div class="col-sm-12">
-								 <form class="" method="POST" action="{{ url('loginsubmit') }}" name="frmLogin" id="frmLogin">
+								 <form class="" method="POST" action="{{ route('loginsubmit') }}" name="frmLogin" id="frmLogin">
 								 	{{ csrf_field() }}
 								 	<input type="hidden" name="previous_page" value="{{ URL::previous() }}" />
 								 	<div class="form-group">
@@ -129,7 +129,7 @@
 									<br><br>
 									<div class="row">
 										<div class="col-sm-12 text-left">
-											<a class="forgotPass" href="{{ url('forgot_password') }}"> {{  __('messages.forgotmodal') }} </a>
+											<a class="forgotPass" href="{{ route('forgot_password') }}"> {{  __('messages.forgotmodal') }} </a>
 										</div>
 									</div>
 									<br>
@@ -169,7 +169,7 @@
 												<a href="#" style="font-size: 14px; font-weight: bold;" class="btn btn-primary btn-block btn-social btn-facebook" onClick="fblogin();">
 													<i class="fa fa-facebook"></i> {{  __('messages.signinFacebook') }}</a>
 												-->
-												<a href="{{url('/redirect')}}" style="font-size: 14px; font-weight: bold;" class="btn btn-primary btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> {{  __('messages.signinFacebook') }}</a>
+												<a href="{{ route('redirect') }}" style="font-size: 14px; font-weight: bold;" class="btn btn-primary btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> {{  __('messages.signinFacebook') }}</a>
 											</div>
 										</div>
 									</div>
@@ -269,7 +269,7 @@ function CheckEmailRegistered(email)
 {
 	$.ajax({
 		type: "POST",
-		url: "{{ url('check_email_registered') }}",
+		url: "{{ route('check_email_registered') }}",
 		data: {
 						"_token": "{{ csrf_token() }}",
 						"email" : email

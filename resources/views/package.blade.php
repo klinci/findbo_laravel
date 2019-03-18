@@ -66,7 +66,7 @@
 
 					<!-- AUTO-RENEW CONTROL -->
 
-					<form id="form3" action="{{ url('package_auto_renew') }}" method="post" class="center row">
+					<form id="form3" action="{{ route('package_auto_renew') }}" method="post" class="center row">
 						{{ csrf_field() }}
 						<div class="item col-sm-offset-1 col-sm-10" style="border: 1px solid #e3e3e3; border-radius: 4px; padding: 5px; margin-bottom: 40px;">	
 							<input type="hidden" name="autorenew" value="{{ Auth::user()->auto_renew_seek_package == 1 ? 0 : 1 }}" />
@@ -83,7 +83,7 @@
 				
 
 
-				<form id="form2" action="{{ url('purchase_package') }}" method="post" class="row">
+				<form id="form2" action="{{ route('purchase_package') }}" method="post" class="row">
 					{{ csrf_field() }}
 					<div class="pricing" style="margin-top: 50px;">
 						<div class="col-sm-1">

@@ -105,8 +105,9 @@ class RegisterController extends Controller
     {
         $validator = $this->validator($request->all());
 
-        if ($validator->fails())
-            return redirect('/login')->withErrors($validator);
+        if ($validator->fails()) {
+          return redirect(route('login'))->withErrors($validator);
+        }
 
         event(new Registered($user = $this->create($request->all())));
 
@@ -114,7 +115,7 @@ class RegisterController extends Controller
         $this->guard()->login($user);
 
         //return $this->registered($request, $user) ?: redirect($this->redirectPath());
-        return redirect('login/confirm');
+        return redirect(route('login.confirmation'));
     }
 
     /**

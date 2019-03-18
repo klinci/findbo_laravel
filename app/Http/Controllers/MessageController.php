@@ -43,30 +43,28 @@ class MessageController extends Controller
 		]);
 		
 	}
-	
+
 	public function sent(Request $request)
 	{
 		$limit = 10;
 		$page = 1;
-	
+
 		$list_type = "sent";
-		if($request -> input('page'))
-		{
+		if($request -> input('page')) {
 			$page = $request->input('page');
 		}
-	
+
 		$keywords = "";
-		if ($request -> input("keywords"))
-		{
+		if ($request -> input("keywords")) {
 			$keywords = $request -> input("keywords");
 		}
-	
+
 		$totalResult = Messsages::message(0, 0, $list_type, $keywords);
-			
+
 		$pagination = pagination($page, $limit, count($totalResult), 'message');
-			
+
 		$result = Messsages::message($page, $limit, $list_type, $keywords);
-			
+
 		return view('sent', [
 			'result' => $result,
 			'pagination' => $pagination,
@@ -74,18 +72,13 @@ class MessageController extends Controller
 			'page' => $page,
 			'keywords' => $keywords
 		]);
-	
 	}
-	
+
 	public function deleteMsg(Request $request)
 	{
 		$checkbox = $request->input('deleteArray');
 		$checkbox = explode(",",$checkbox);
-		
-		/* echo '<pre>';
-		print_r($checkbox);
-		exit; */
-		
+
 		if (!empty($checkbox) && count($checkbox) > 0)
 		{
 			foreach ($checkbox as $c)
@@ -99,9 +92,9 @@ class MessageController extends Controller
 				->delete();
 			}
 		}
-			
+
 		$request->session()->flash('message.level', 'success');
 		$request->session()->flash('message.content', 'Message deleted successfully.');
-		return redirect('message_inbox');
+		return redirect()->back();
 	}
 }

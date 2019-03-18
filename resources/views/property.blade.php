@@ -18,7 +18,7 @@
 				<ul class="breadcrumb">
 					<li><a href="index.php">{{ __('messages.lbl_home') }}</a></li>
 					<li>
-						<a href="{{ url('property') }}">
+						<a href="{{ route('home.properties') }}">
 							@if($action=='rent')
 								<span id="tlt_rent">{{ __('messages.tlt_rent_properties')}}</span>
 							@else
@@ -36,7 +36,7 @@
 <div class="content">
 	<div class="container">
 		<div class="row">
-			<form action="{{ url('/property') }}" method="post" id="sidebarForm">
+			<form action="{{ route('home.properties') }}" method="post" id="sidebarForm">
 				{{ csrf_field() }}
 				<input type="hidden" name="page" id="page" value="{{ $page }}" />
 				<input type="hidden" name="sortorder" id="sortorder" value="{{ $sortOrder }}" />
@@ -73,7 +73,9 @@
 						</div>
 
 						<div class="view-mode">
-							<a href="{{ url('map') }}" class="btn btn-fullcolor">{{ __('messages.lbl_view_map') }}</a>
+							<a href="{{ route('home.map') }}" class="btn btn-fullcolor">
+								{{ __('messages.lbl_view_map') }}
+							</a>
 						</div>
 
 					</div>
@@ -83,7 +85,7 @@
 								@foreach($result as $proData)
 									<div class="item col-md-4">
 										<div class="image" style="border: 1px solid #e4e4e4;">
-											<a href="{{ url('property_detail/'.$proData->id) }}">
+											<a href="{{ route('property_detail.show.withId', $proData->id) }}">
 												<span class="btn btn-default"><i class="fa fa-file-o"></i> {{ __('messages.lbl_details') }}</span>
 											</a>
 											@if($proData->thumbnail!="")
@@ -109,7 +111,7 @@
 
 										<div class="info">
 											<h3>
-												<a href="{{ url('property_detail/'.$proData->id) }}">{{ ($proData->headline_dk=='')?$proData->headline_eng:$proData->headline_dk }}</a>
+												<a href="{{ route('property_detail.show.withId', $proData->id) }}">{{ ($proData->headline_dk=='')?$proData->headline_eng:$proData->headline_dk }}</a>
 												<small>{{ ($proData->city_name!='')?$proData->city_name:'' }}</small>
 											</h3>
 
@@ -463,7 +465,7 @@ $(document).ready(function()
 		});
 	    $( "#txtKeywords" ).catcomplete({
 			delay: 0,
-			source: "{{ url('auto_search') }}",
+			source: "{{ route('home.auto_search') }}",
 			select: function (event, ui) {
 				//alert(ui.item.searchBy);
 				$("#code").val(ui.item.code);

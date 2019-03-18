@@ -17,7 +17,7 @@
 				<h1 class="page-title">Findbo - {{ __('messages.lbl_how_it_works') }}</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/')}}">{{ __('messages.lbl_home') }}</a></li>
+					<li><a href="{{ route('home')}}">{{ __('messages.lbl_home') }}</a></li>
 					<li>{{ __('messages.lbl_how_it_works') }}</li>
 				</ul>
 			</div>
@@ -35,8 +35,8 @@
 				</div>
 				<div class="col-sm-5" data-animation-direction="from-left" data-animation-delay="200">
 					<p>Det er nemt og hurtigt at oprette en konto på findbo.dk. Du kan tilmelde dig ved hjælp af din Facebook konto eller ved at registrere dine personlige oplysninger gennem tilmeldingsformularen. Du kan gå i gang med at søge, oprette eller organisere annoncer med det samme.</p>
-					<p>Du har mulighed for at oprette dig som <strong>boligsøgende</strong> eller <strong>boligudbyder</strong>. Du kan til enhver tid opgradere din konto og benytte fordelene af de forskellige <a href="{{ url('price')}}">pakker</a> på findbo.dk.</p>
-					<a href="{{ url('login') }}" class="btn btn-fullcolor">Registrer Dig Nu!</a>
+					<p>Du har mulighed for at oprette dig som <strong>boligsøgende</strong> eller <strong>boligudbyder</strong>. Du kan til enhver tid opgradere din konto og benytte fordelene af de forskellige <a href="{{ route('prices')}}">pakker</a> på findbo.dk.</p>
+					<a href="{{ route('login') }}" class="btn btn-fullcolor">Registrer Dig Nu!</a>
 				</div>
 				
 				<div class="col-sm-7">
@@ -52,8 +52,8 @@
 				<div class="col-sm-5" data-animation-direction="from-right" data-animation-delay="200" >
 					<p>Findbo.dk har en brugervenlig formular til at annoncere boliger til leje eller salg. Indtast informationer om din bolig med placering, størrelse, faciliteter og billeder. Din bolig er klar til at blive offentliggjort og blivet set af boligsøgende.</p>
 					<p>Findbo.dk tilbyder nyttige features til at oprette og styre dine boliger. Vi hjælper gerne, hvis der er vanskeligheder eller problemer ved brug af vores ydelser.</p>
-					<p>Find din drømmebolig på en nem måde – i hele Danmark. Vi har gjort det nemt for dig at søge og sortere efter boliger ved hjælp af søgefunktionen og <a href="{{ url('map') }}">mapvisning</a>.</p>
-					<a href="{{ url('property') }}" class="btn btn-fullcolor">FIND DET PERFEKTE HJEM</a>
+					<p>Find din drømmebolig på en nem måde – i hele Danmark. Vi har gjort det nemt for dig at søge og sortere efter boliger ved hjælp af søgefunktionen og <a href="{{ route('home.map') }}">mapvisning</a>.</p>
+					<a href="{{ route('home.properties') }}" class="btn btn-fullcolor">FIND DET PERFEKTE HJEM</a>
 				</div>
 				
 				<div class="col-sm-12">

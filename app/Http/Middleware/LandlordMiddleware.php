@@ -15,9 +15,12 @@ class LandlordMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
+    public function handle($request, Closure $next)
+    {
         if (Auth::check() && (Auth::user()->userType == 1 || Auth::user()->isAdmin == 'admin'))
+        {
             return $next($request);
+        }
         return redirect('/');
     }
 }

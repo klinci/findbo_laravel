@@ -303,9 +303,12 @@ class PropertyController extends Controller
 
 	public function propertyDetail($id)
 	{
+
 		$objProperty = Properties::getPropertyById($id);
+
 		if (!$objProperty) {
-			return redirect('property_detail');
+			return redirect()->back();
+			// return redirect('property_detail');
 		}
 
 		$objGallery = Gallery::getGalleryByPropertyId($id);
@@ -942,14 +945,12 @@ class PropertyController extends Controller
 			return redirect("property");
 		}
 		*/
-		return redirect("property");
+		// return redirect("property");
+		return redirect()->back();
 	}
 
 	public function propertyPayment($id,$pid)
 	{
-		/* echo "<br>===>".$id.'===='.$pid;
-		exit; */
-
 		if($id > 0 && $pid > 0)
 		{
 			$objFreePackage = DB::table('payment')
@@ -968,7 +969,7 @@ class PropertyController extends Controller
 		}
 		else
 		{
-			return redirect("/");
+			return redirect()->back();
 		}
 	}
 
@@ -1108,7 +1109,7 @@ class PropertyController extends Controller
 
 				Mail::to($to)->send(new PropertyPurchase($objDemo));
 
-				return redirect('redirect');
+				return redirect(route('redirect'));
 			}
 		}
 		catch(\Stripe\Error\Card $e)
@@ -1208,7 +1209,7 @@ class PropertyController extends Controller
 	{
 		$objProperty = Properties::find($id);
 		if (!$objProperty) {
-			return redirect('property_detail');
+			return redirect()->back();
 		}
 		$objArea = Area::all();
 		$objRentalPeriod = Rentalperiod::all();
@@ -1755,8 +1756,8 @@ class PropertyController extends Controller
 				]);
 			}
 		}
-
-		return redirect("property_detail/".$propertyId);
+		return redirect()->back();
+		// return redirect("property_detail/".$propertyId);
 	}
 
 	/**
@@ -1805,7 +1806,6 @@ class PropertyController extends Controller
 	public function deleteProperty(Request $request)
 	{
 		$id = $request->input('forDelete');
-
 		$objGallery = DB::table('gallery')
 						->where('property_id','=',$id)
 						->get();
@@ -1818,10 +1818,9 @@ class PropertyController extends Controller
 					unlink($path);
 			}
 		}
-
 		$objProperty = new Properties();
 		$objProperty->deleteProperty($id);
-
-		return redirect('myads');
+		// return redirect('myads');
+		return redirect()->back();
 	}
 }

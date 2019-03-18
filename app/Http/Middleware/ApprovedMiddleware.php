@@ -16,8 +16,9 @@ class ApprovedMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        if (Auth::user()->is_approved == 0 && Auth::user()->userType == 1)
-            return redirect('/notapproved');
+        if (Auth::user()->is_approved == 0 && Auth::user()->userType == 1) {
+            return redirect(route('notapproved'));
+        }
         return $next($request);
     }
 }

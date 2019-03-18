@@ -39,7 +39,7 @@ class ContactUsRequest extends FormRequest
      * @return void
      */
     protected function failedValidation(Validator $validator) {
-        throw new HttpResponseException(redirect('contact')->withErrors($validator));
+        throw new HttpResponseException(redirect()->back()->withErrors($validator));
     }
 
 }

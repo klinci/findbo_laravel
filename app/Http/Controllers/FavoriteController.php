@@ -11,20 +11,14 @@ class FavoriteController extends Controller
 {
 	public function index()
 	{
-
 		$userId = Auth::user()->id;
 		$objFavorite = Wishlist::favoriteProperty($userId);
 		return view('favorite',['objFavorite'=>$objFavorite]);
-
 	}
 	
 	public function removeToWishlist(Request $request)
 	{
-		$id = $request->input('id');
-		
-		Wishlist::destroy($id);
-		
-		echo 1;
-		exit;
+		Wishlist::destroy($request->input('id'));
+		return 1;
 	}
 }

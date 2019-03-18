@@ -16,8 +16,8 @@ class ActivatedMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        if (Auth::user()->active == 1)
+        if (Auth::user()->active == 1 || Auth::user()->token == 1)
             return $next($request);
-        return redirect('/notactivated');
+        return redirect(route('notactivated'));
     }
 }

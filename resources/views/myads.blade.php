@@ -17,9 +17,9 @@
 				<h1 class="page-title">{{ __('messages.myproperties') }}</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home') }}</a></li>
 					<li>
-						<a href="{{ url('myads') }}">
+						<a href="{{ route('myads') }}">
 							<span id="tlt_rent">{{ __('messages.myproperties')}}</span>
 						</a>
 					</li>
@@ -33,7 +33,7 @@
 <div class="content">
 	<div class="container">
 		<div class="row">
-			<form action="{{ url('myads') }}" method="post" id="sidebarForm">
+			<form action="{{ route('myads') }}" method="post" id="sidebarForm">
 				{{ csrf_field() }}
 				<input type="hidden" name="page" id="page" value="{{ $page }}" />
 				<input type="hidden" name="sortorder" id="sortorder" value="{{ $sortOrder }}" />
@@ -81,17 +81,17 @@
 								@foreach($result as $proData)
 									<div class="item col-md-4">
 										<div class="image" style="border: 1px solid #e4e4e4;">
-											<a href="{{ url('property_detail/'.$proData->id) }}">
+											<a href="{{ route('property_detail.show.withId', $proData->id) }}">
 												<span class="btn btn-default"><i class="fa fa-file-o"></i> {{ __('messages.lbl_details') }}</span>
 											</a>
 											@if($proData->thumbnail!="")
 												@if(file_exists($proData->thumbnail))
-													<img src="{{ $proData->thumbnail }}" alt="..." style="width: 263px; height:230px;" />
+													<img src="{{ $proData->thumbnail }}" alt="{{ $proData->headline_dk }}" style="width: 263px; height:230px;" />
 												@else
-													<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="..." style="width: 263px; height:230px;" />
+													<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="{{ $proData->headline_dk }}" style="width: 263px; height:230px;" />
 												@endif
 											@else
-												<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="..." style="width: 263px; height:230px;" />
+												<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="{{ $proData->headline_dk }}" style="width: 263px; height:230px;" />
 											@endif
 										</div>
 										
@@ -107,7 +107,7 @@
 										
 										<div class="info">
 											<h3>
-												<a href="{{ url('property_detail/'.$proData->id) }}">{{ ($proData->headline_dk=='')?$proData->headline_eng:$proData->headline_dk }}</a>
+												<a href="{{ route('property_detail.show.withId', $proData->id) }}">{{ ($proData->headline_dk=='')?$proData->headline_eng:$proData->headline_dk }}</a>
 												<small>{{ ($proData->city_name!='')?$proData->city_name:'' }}</small>
 											</h3>
 											

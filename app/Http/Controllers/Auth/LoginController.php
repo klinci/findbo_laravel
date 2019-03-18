@@ -80,7 +80,7 @@ class LoginController extends Controller
 					//return 'oops something happend : email - ' . $request->password;
 					$request->session()->flash('message.level', 'danger');
 					$request->session()->flash('message.content', 'Invalid credentails.');
-					return redirect('login');
+					return redirect(route('login'));
 				}
 			}
 			else
@@ -88,7 +88,7 @@ class LoginController extends Controller
 				//return 'oops something happend : email - ' . $request->password;
 				$request->session()->flash('message.level', 'danger');
 				$request->session()->flash('message.content', 'Invalid credentails.');
-				return redirect('login');
+				return redirect(route('login'));
 			}
 		}
 		else
@@ -96,7 +96,7 @@ class LoginController extends Controller
 			$request->session()->flash('message.level', 'danger');
 			$request->session()->flash('message.content', 'Invalid credentails.');
 			//return redirect()->route('login');
-			return redirect('login');
+			return redirect(route('login'));
 		}
 	}
 	

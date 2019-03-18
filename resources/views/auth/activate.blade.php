@@ -11,7 +11,7 @@
 				<h1 class="page-title">Thank you for activating your account !</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>Activate</li>
 				</ul>
 			</div>
@@ -24,7 +24,7 @@
 	<div class="container">
 		 <div class="row green" style="padding-top:70px; padding-bottom:30px; border-bottom:solid 1px #ccc;">
 			<div class="main col-sm-12" style="text-align:center; font-weight:bold;">
-				<h3 style="color: #4D4F56;">You have successfully activated your account! @if(!Auth::check()) Click <b><a href="{{ url('login') }}">here</a></b> to sign in. @endif</h3>
+				<h3 style="color: #4D4F56;">You have successfully activated your account! @if(!Auth::check()) Click <b><a href="{{ route('login') }}">here</a></b> to sign in. @endif</h3>
 	          	<br/>
 	          	<!-- <h1 style="color: #4D4F56;"> <i class="fa fa-lg fa-spinner fa-spin"></i></h1> -->
 	          	<script type="text/javascript">/*

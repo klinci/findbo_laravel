@@ -16,7 +16,7 @@
 				<h1 class="page-title">{{ __('messages.contactus') }}</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/')}}">{{ __('messages.lbl_home') }}</a></li>
+					<li><a href="{{ route('home')}}">{{ __('messages.lbl_home') }}</a></li>
 					<li>{{ __('messages.contactus') }}</li>
 				</ul>
 			</div>

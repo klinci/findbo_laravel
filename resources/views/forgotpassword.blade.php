@@ -16,7 +16,7 @@
 				<h1 class="page-title">{{  __('messages.title_forgot_password') }}</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+					<li><a href="{{ route('/') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>{{  __('messages.title_forgot_password') }}</li>
 				</ul>
 			</div>

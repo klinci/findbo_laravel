@@ -16,7 +16,7 @@
                 <h1 class="page-title">{{  __('messages.title_forgot_password') }}</h1>
                 
                 <ul class="breadcrumb">
-                    <li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
+                    <li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
                     <li>{{  __('messages.title_forgot_password') }}</li>
                 </ul>
             </div>
@@ -45,7 +45,7 @@
                         <div class="form-col">
                             <h1 class="center">{{ __('messages.lbl_create_new_account') }}</h1>
                             <br>
-                            <form action="{{ url('submit_forgotpwd') }}" method="post" class="" name="frmForgotPwd" id="frmForgotPwd">
+                            <form action="{{ route('submit_forgotpwd') }}" method="post" class="" name="frmForgotPwd" id="frmForgotPwd">
                                 {{ csrf_field() }}
 
                                 <div class="form-group">

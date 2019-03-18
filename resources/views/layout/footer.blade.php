@@ -7,7 +7,7 @@
 				<span class="txns">Newsletter</span>
 			</div>
 			<div class="col-md-8 col-sm-8 col-xs-12 newsltrtxtbx" style="margin-top: 18px;">
-				<form action="{{ url('/newsletter')}}" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate> <!-- //findbo.us9.list-manage.com/subscribe/post-json?u=8c47f955c01c91de718703c52&amp;id=a99afcc9c5&c=? -->
+				<form action="{{ route('newsletter.post') }}" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate> <!-- //findbo.us9.list-manage.com/subscribe/post-json?u=8c47f955c01c91de718703c52&amp;id=a99afcc9c5&c=? -->
 					{{ csrf_field() }}
 					<div class="form-group has-success has-feedback">
 						<label class="control-label lblweeklynws">
@@ -103,36 +103,39 @@
 			<div class="col-md-2 col-md-offset-3 col-sm-3 col-xs-12">
 				<h3 class="footertitle">About</h3>
 				<ul class="lists">
-					<li><a href="{{ url('terms_condition') }}">{{ __('messages.title_terms_condition') }}</a></li>
-					<li><a href="{{ url('about') }}">Om Findbo.dk</a></li>
-					<li><a href="{{ url('faq') }}">FAQ</a></li>
-					<li><a href="{{ url('how_it_works') }}">Hvordan virker det</a></li>
+					<li>
+						<a href="{{ route('terms_condition') }}">
+							{{ __('messages.title_terms_condition') }}
+						</a>
+					</li>
+					<li><a href="{{ route('about') }}">Om Findbo.dk</a></li>
+					<li><a href="{{ route('faq') }}">FAQ</a></li>
+					<li><a href="{{ route('home.how_it_works') }}">Hvordan virker det</a></li>
 				</ul>
 			</div>
 			<div class="col-md-2 col-sm-3 col-xs-12">
 				<h3 class="footertitle">Tenant</h3>
 				<ul class="lists">
-					<li><a href="{{ url('property') }}">
+					<li><a href="{{ route('home.properties') }}">
 						{{-- Search Properties --}}
 						@lang('messages.search_properties_caption')
 					</a></li>
 					@if(Auth::check())
 						@php
-							$_url = url('add_property')
+							$_url = route('property.create')
 						@endphp
 					@else
 						@php
-							$_url = url('login')
+							$_url = route('login')
 						@endphp
 					@endif
 					<li>
 						<a href="{{ $_url }}">
-							{{-- Create Teanant ad --}}
 							@lang('messages.create_tenant_caption')
 						</a>
 					</li>
-					<li><a href="{{ url('blog') }}">Blog</a></li>
-					<li><a href="{{ url('contact') }}">{{ __('messages.contactus') }}</a></li>
+					<li><a href="{{ route('blog') }}">Blog</a></li>
+					<li><a href="{{ route('home.contact') }}">{{ __('messages.contactus') }}</a></li>
 				</ul>
 			</div>
 			<!-- <div class="col-md-2 col-sm-3 col-xs-12">

@@ -16,7 +16,7 @@
 				<h1 class="page-title">{{ __('messages.messages') }}</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }} </a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home') }} </a></li>
 					<li>{{ __('messages.messages') }}</li>
 				</ul>
 			</div>
@@ -31,7 +31,7 @@
 				
 					<!-- BEGIN MAIN CONTENT -->
 					<div class="main col-sm-12">
-						<form action="{{ url('message_inbox') }}" method="post" name="frmInbox" id="frmInbox">
+						<form action="{{ route('message_inbox') }}" method="post" name="frmInbox" id="frmInbox">
 							{{ csrf_field() }}
 							<input type="hidden" name="page" id="page" value="{{ $page }}" />
 							<div class="col-md-12" style="margin-bottom: 5px;">
@@ -108,8 +108,8 @@
 						<!-- BEGIN TABS -->
 						<div class="col-md-12">
 							<ul class="nav nav-tabs tabs-left">
-								<li class="active"><a href="{{ url('message_inbox') }}" ><i class="fa fa-inbox"> {{ __('messages.lbl_inbox') }}</i></a></li>
-								<li class=""><a href="{{ url('message_sent') }}" ><i class="fa fa-envelope-o"> {{ __('messages.lbl_sent') }}</i></a></li>
+								<li class="active"><a href="{{ route('message_inbox') }}" ><i class="fa fa-inbox"> {{ __('messages.lbl_inbox') }}</i></a></li>
+								<li class=""><a href="{{ route('message_sent') }}" ><i class="fa fa-envelope-o"> {{ __('messages.lbl_sent') }}</i></a></li>
 							</ul>
 
 							<div class="tab-content tabs-left">
@@ -126,7 +126,7 @@
 															</div>
 															
 															<div class="msg_container">
-																<a href="{{ url('conversation/'.$res['c_id']) }}">
+																<a href="{{ route('conversation', $res['c_id']) }}">
 																	<div class="conv_header">
 																		<span class="from">{{ $res['c_title'] }}</span>		
 																		<span class="pull-right new {{ (($res['is_seen'] == 'false') && ($list_type=='inbox'))?'':'hdn' }}">
@@ -179,7 +179,7 @@
 		</div>
 		
 		<div style="display: none;">
-			<form id="deleteForm" action="{{ url('delete_msg') }}" method="post">
+			<form id="deleteForm" action="{{ route('delete_msg') }}" method="post">
 				{{ csrf_field() }}
 				<input type="hidden" name="deleteArray" id="deleteArray" value="" />
 				<input type="hidden" name="deleteMsgs" value="yes" />			

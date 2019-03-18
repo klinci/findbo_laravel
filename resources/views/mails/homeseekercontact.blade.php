@@ -9,7 +9,7 @@
 			<div>{{ __('messages.lbl_dear') }} {{ $receiver_fname }},</div><br/>
 			<div>{{ __('messages.email_msg_seek_info_2') }} {{ $sender_fname }}.</div><br/>
 			<div>{{ __('messages.email_msg_seek_info_3') }} :<br/>
-			<a href="{{ url('message_inbox') }}">{{ url('message_inbox') }}</a>
+			<a href="{{ route('message_inbox') }}">{{ route('message_inbox') }}</a>
 			</div><br/>
 		</div>
 		<div style='color:#586261; font-size:16px; font-weight:300; padding-left:10px; '>

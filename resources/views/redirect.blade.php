@@ -27,6 +27,6 @@
 sleep(2);
 ?>
 <script type="text/javascript">
-window.location.href="{{ url('myads') }}";
+window.location.href="{{ route('myads') }}";
 </script>
 @endsection

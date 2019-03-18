@@ -18,7 +18,8 @@ class MyProfileController extends Controller
      *
      * @return  void
     */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -27,16 +28,18 @@ class MyProfileController extends Controller
     *
     * @return  void
     */
-	public function index() {
+	public function index()
+	{
 		return view('myprofile', ['objUser' => Auth::user()]);
 	}
-	
+
 	/**
 	* Updates users profile information.
 	*
 	* @param  App\Http\Requests\ProfileUpdateRequest  $request
 	*/
-	public function updateprofile(ProfileUpdateRequest $request) {
+	public function updateprofile(ProfileUpdateRequest $request)
+	{
 
 		DB::table('users')
 			->where('id', Auth::id())
@@ -52,9 +55,9 @@ class MyProfileController extends Controller
 			// 'Profile updated successfully.'
 			\Lang::get('messages.udpate_profile_message')
 		);
-		return redirect('myprofile');
+		return redirect()->back();
 	}
-	
+
 	/**
 	* Updates users password.
 	*
@@ -73,7 +76,7 @@ class MyProfileController extends Controller
 			$request->session()->flash('message.level', 'danger');
 			$request->session()->flash('message.content', 'Old password does not match with database.');
 		}
-		return redirect('myprofile');
+		return redirect()->back();
 	}
 
 }

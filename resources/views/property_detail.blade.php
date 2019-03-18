@@ -49,7 +49,7 @@ else
 	<?php
 }
 ?>
-<meta property="og:url" content="{{ url('property_detail/'.$objProperty->id) }}" />
+<meta property="og:url" content="{{ route('property_detail.show.withId', $objProperty->id) }}" />
 <meta property="og:title" content="{{ ($objProperty->headline_dk!='')?$objProperty->headline_dk:$objProperty->headline_eng }}" />
 @endsection
 
@@ -95,9 +95,9 @@ if($location1 == "" && $location2 == "")
 				<h1 class="page-title">{{ __('messages.propertydettails') }}</h1>
 
 				<ul class="breadcrumb">
-					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
+					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home') }}</a></li>
 					<li>
-						<a href="{{ url('property') }}">
+						<a href="{{ route('home.properties') }}">
 							@if($objProperty->action == "rent")
 								{{ __('messages.lbl_rent_properties') }}
 							@elseif($objProperty->action == "buy")
@@ -111,7 +111,7 @@ if($location1 == "" && $location2 == "")
 			<div class="col-sm-6">
 				<div class="row pull-right">
 					@if(Auth::check() && Auth::id() == $objProperty->user_id)
-						<form action="{{ url('delete_property') }}" method="POST" style="display: inline;" onsubmit="javascript:return confirm('are sure to remove this property?');">
+						<form action="{{ route('property.delete') }}" method="POST" style="display: inline;" onsubmit="javascript:return confirm('are sure to remove this property?');">
 							{{ csrf_field() }}
 							<input type="hidden" value="{{ $objProperty->id }}>" name="forDelete">
 							<button type="submit" name="delete" class="btn btn-default remove-btn">
@@ -120,7 +120,7 @@ if($location1 == "" && $location2 == "")
 							</button>
 						</form>
 
-						<a class="btn btn-default remove-btn" href="{{ url('property_edit/'.$objProperty->id) }}">
+						<a class="btn btn-default remove-btn" href="{{ route('property_edit', $objProperty->id) }}">
 							<i class="fa fa-edit"></i>
 							{{ __('messages.lbl_edit') }}
 						</a>
@@ -273,7 +273,7 @@ if($location1 == "" && $location2 == "")
 
 				@if(Auth::check() && $active_pack_id==0)
 					<div class="contact-landlord">
-						<a href="{{ url('package/'.$objProperty->id) }}" class="btn btn-fullcolor contact-landlord">
+						<a href="{{ route('package.show', $objProperty->id) }}" class="btn btn-fullcolor contact-landlord">
 							<i class="fa fa-lock"></i> {{ __('messages.postLandlord') }}
 						</a>
 					</div>
@@ -281,7 +281,7 @@ if($location1 == "" && $location2 == "")
 
 				@if(!Auth::check())
 					<div class="contact-landlord">
-						<a data-id="contactLandlordBtn" href="{{ url('login') }}" class="btn btn-fullcolor contact-landlord">
+						<a data-id="contactLandlordBtn" href="{{ route('login') }}" class="btn btn-fullcolor contact-landlord">
 							<i class="fa fa-lock"></i> {{ __('messages.postLandlord') }}
 						</a>
 					</div>
@@ -494,7 +494,7 @@ if($location1 == "" && $location2 == "")
 					<h5 style="margin-right: 0px;">{{ __('messages.lbl_share_this_property') }}:</h5>
 					<?php
 					//$currentLink = 'https://'.$_SERVER['HTTP_HOST'].'/bolig-detaljer.php?id='.$objProperty->id;
-					$currentLink = url('property_detail/'.$objProperty->id);
+					$currentLink = route('property_detail.show.withId', $objProperty->id);
 					//$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail;
 					$full_path_img_src = asset('public/' . $objProperty->thumbnail);
 					$pin_desc = str_replace('"',"'",$description);
@@ -645,7 +645,7 @@ if($location1 == "" && $location2 == "")
 							</div>
 
 							<div class="modal-body">
-								<form id="reportForm" action="{{ url('send_report_email') }}" method="post">
+								<form id="reportForm" action="{{ route('send_report_email') }}" method="post">
 									{{ csrf_field() }}
 									<div class="row">
 										<div class="col-sm-4 text-right" style="margin-top: 10px;">{{ __('messages.prop_report_msg_2') }} :</div>
@@ -722,7 +722,7 @@ if($location1 == "" && $location2 == "")
 							@foreach($relatedProperty as $rp)
 								<div class="item col-md-10 it-sid">
 									<div class="image" style="border: 1px solid #e4e4e4;">
-										<a href="{{ url('property_detail/'.$rp->id) }}">
+										<a href="{{ route('property_detail.show.withId', $rp->id) }}">
 											<h3>{{ (!empty($rp->headline_dk))?$rp->headline_dk:$rp->headline_eng }}</h3>
 											<span class="location">{{ (!empty($rp->city_name))?$rp->city_name:'' }}</span>
 										</a>
@@ -842,7 +842,7 @@ function showHint(str, str1)
 {
 	$.ajax({
 		type : "POST",
-        url	 : "{{ url('add_remove_wishlist') }}",
+        url	 : "{{ route('add_remove_wishlist') }}",
         data : "q="+str+"&i="+str1,
         global: false,
 		cache: false,
@@ -920,7 +920,7 @@ function closePackageNotification()
 		              		"longitude":<?php echo json_encode($location2); ?>,
 		              		"image":"{{ $thumbnail }}",
 		              		"description":"<?php echo $map_desc.'...'; ?>",
-		              		"link":"{{ url('property_detail/'.$objProperty->id) }}",
+		              		"link":"{{ route('property_detail.show.withId', $objProperty->id) }}",
 		              		"map_marker_icon":"{{ asset('public/images/markers/green-marker-residential.png') }}"
 		              	}];
 	Cozy.propertiesMap(currentProperty, 'property_location', 0);

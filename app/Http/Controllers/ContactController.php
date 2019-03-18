@@ -20,7 +20,7 @@ class ContactController extends Controller
         $mailer -> sendContactUsMail($request->all());
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', __('messages.msgSent').'<br>'.__('messages.supportMsg'));
-        return redirect('contact');
+        return redirect()->back();
     }
     
     /*
