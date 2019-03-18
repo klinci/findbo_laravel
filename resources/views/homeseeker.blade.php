@@ -8,7 +8,7 @@
 	<meta property="og:title" content="{{ $objHomeSeeker->title }}" />
 	<meta
 		property="og:url"
-		content="{{ route('home_seeker.show/', $objHomeSeeker->id) }}">
+		content="{{ route('home_seeker.show', $objHomeSeeker->id) }}">
 	<meta property="og:image" content="{{ asset($objHomeSeeker->thumbnail) }}" />
 	<meta property="og:description" content="{{ $objHomeSeeker->description }}"/>
 @endsection

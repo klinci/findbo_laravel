@@ -3,8 +3,8 @@
 @section('pageTitle', 'Favoritter')
 
 @section('meta_tags')
-<meta name="keywords" content="{{ __('messages.meta_keyword_favorite') }}"> 
-<meta name="description" content="{{ __('messages.meta_desc_favorite') }}"> 
+<meta name="keywords" content="{{ __('messages.meta_keyword_favorite') }}">
+<meta name="description" content="{{ __('messages.meta_desc_favorite') }}">
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<h1 class="page-title">{{ __('messages.lbl_favorites') }}</h1>
-				
+
 				<ul class="breadcrumb">
 					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home') }}</a></li>
 					<li><a href="#">{{ __('messages.lbl_favorites') }}</a></li>
@@ -27,10 +27,10 @@
 <div class="content">
 	<div class="container">
 		<div class="row">
-		
+
 			<!-- BEGIN MAIN CONTENT -->
 			<div class="main col-sm-12 mainpbt">
-			
+
 				<div id="property-listing" class="grid-style1 clearfix">
 					@if(!empty($objFavorite) && count($objFavorite)>0)
 						@foreach($objFavorite as $favorite)
@@ -44,15 +44,15 @@
 										@endif
 										<span class="location"><?php echo $favorite->city_name; ?></span>
 									</a>
-									@if(file_exists($favorite->thumbnail) && $favorite->thumbnail!="")
-										<img src="{{ asset($favorite->thumbnail) }}" alt="..." width="230" height="237" />
+									@if(file_exists('public/' . $favorite->thumbnail) && $favorite->thumbnail!="")
+										<img src="{{ asset('public/' . $favorite->thumbnail) }}" alt="..." width="230" height="237" />
 									@else
 										<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="Bolig billeder - Findbo" />
 									@endif
 								</div>
 								<div class="price">
 									<i class="fa fa-home"></i>{{ ($favorite->action == 'rent')?__('messages.lbl_for_rent'):__('messages.lbl_for_sale') }}
-									<span>{{ number_format($favorite->price,0,',','.') }} kr {{ ($favorite->action=='rent')?'/md':''}}</span>
+									<span>{{ number_format($favorite->price_usd,0,',','.') }} kr {{ ($favorite->action=='rent')?'/md':''}}</span>
 									<!-- <span>{{ number_format($favorite->price_usd/1000,3).' kr' }} {{ ($favorite->action == 'rent')?'/md':'' }}</span> -->
 								</div>
 								<ul class="amenities">
@@ -70,8 +70,8 @@
 						<div class="row center"><label>{{ __('messages.noResults') }}</label></div>
 					@endif
 				</div>
-				
-			</div>	
+
+			</div>
 			<!-- END MAIN CONTENT -->
 
 		</div>

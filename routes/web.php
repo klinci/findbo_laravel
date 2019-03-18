@@ -83,7 +83,7 @@ Route::get('/property_detail', 'PropertyController@noProperty');
 Route::get('/home_seeker/create', 'HomeSeekerController@create');
 Route::post('/home_seeker_contact', 'HomeSeekerController@contact');
 Route::get('/home_seeker/{homeseeker}/activate/{act}', 'HomeSeekerController@activate')->middleware('can:update,homeseeker');
-Route::get('/home_seeker/{id}/edit', 'HomeSeekerController@edit');
+Route::get('/home_seeker/{id}/edit', 'HomeSeekerController@edit')->name('home_seeker.edit');
 Route::put('/home_seeker/{homeseeker}', 'HomeSeekerController@update')->middleware('can:update,homeseeker');
 Route::get('/home_seeker/{id}', 'HomeSeekerController@index')
 ->name('home_seeker.show');

@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<h1 class="page-title">@lang('messages.register_thanks_message')</h1>
-				
+
 				<ul class="breadcrumb">
 					<li><a href="{{ url('/') }}">{{ __('messages.lbl_home')}} </a></li>
 					<li>@lang('messages.register_thanks_message')</li>

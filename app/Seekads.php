@@ -11,7 +11,7 @@ class Seekads extends Model
 	protected $fillable = [
 		'profileType','civilStatus','title','description','name','age','phone','phone2','email','location','maxRent','minArea','minRooms','type','rentalPeriod','userFk','date','thumbnail','thumbnail_large','is_active'
 	];
-	
+
 	public function getAllSeekProperty($start="",$limit="",$search="",$keyword="",$fromDate="",$toDate="",$status="",$pid="")
 	{
 		if($start=="" && $limit=="")
@@ -59,7 +59,7 @@ class Seekads extends Model
 		else
 		{
 			//echo '<br>===>'.$keyword.'==='.$fromDate.'=='.$toDate.'=='.$status.'==='.$pid;
-	
+
 			$properties = DB::table('seekProperty')
 					->select('seekProperty.*', 'users.fname', 'users.lname', 'areas.name')
 					->join('users', 'seekProperty.userFk', '=', 'users.id')
@@ -103,7 +103,7 @@ class Seekads extends Model
 					//->toSql();
 					->get();
 			//dd($properties);
-	
+
 			/* $properties = DB::table('properties')
 			 ->select('properties.*', 'users.fname', 'users.lname')
 			->join('users', 'properties.user_id', '=', 'users.id')
@@ -111,18 +111,18 @@ class Seekads extends Model
 			->limit($limit)
 			->orderBy('id','desc')
 			->get(); */
-	
-	
+
+
 		}
-			
+
 		return $properties;
 	}
-	
+
 	public function deleteProperty($id)
 	{
 		DB::table('seekProperty')->where('id', $id)->delete();
 	}
-	
+
 	public function getUserSeekProperty($userId)
 	{
 		$objSeekProperty = DB::table('seekProperty')
@@ -133,11 +133,11 @@ class Seekads extends Model
 					->orderBy('seekProperty.id','DESC');
 		return $objSeekProperty;
 	}
-	
+
 	public function getNewHomeSeeker()
 	{
 		$today_date = date('Y-m-d H:i:s');
-		
+
 		$objHomeSeeker = DB::table('seekProperty')
 						->select('seekProperty.*')
 						->join('users','seekProperty.userFk','=','users.id')
@@ -153,7 +153,7 @@ class Seekads extends Model
 		//dd($objHomeSeeker);
 		return $objHomeSeeker;
 	}
-	
+
 	public static function getHomeSeekerById($id)
 	{
 		$objHomeSeek = DB::table('seekProperty')
@@ -164,15 +164,15 @@ class Seekads extends Model
 					->first();
 		return $objHomeSeek;
 	}
-	
+
 	public static function getHomeSeekerPropertyByLocation($locationId,$id)
 	{
 		$r_properties = array();
-		
+
 		if($locationId!="")
 		{
 			$objHomeSeekProp = self::getHomeSeekerPropertyByLocationwise($id,$locationId);
-			
+
 			if(!empty($objHomeSeekProp) && count($objHomeSeekProp)>0)
 			{
 				foreach($objHomeSeekProp as $prop)
@@ -181,7 +181,7 @@ class Seekads extends Model
 				}
 			}
 		}
-		
+
 		if(!empty($r_properties) && count($r_properties) < 5)
 		{
 			$objHomeSeekProp1 = self::getHomeSeekerPropertyByLocationwise($id);
@@ -195,7 +195,7 @@ class Seekads extends Model
 		}
 		return $r_properties;
 	}
-	
+
 	public static function getHomeSeekerPropertyByLocationwise($id,$locationId='')
 	{
 		if($locationId!='')
@@ -223,8 +223,8 @@ class Seekads extends Model
 						->limit(5)
 						->get();
 		}
-		
-	
+
+
 		return $objHomeSeekProp;
 	}
 }

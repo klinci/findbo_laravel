@@ -194,6 +194,10 @@ class HomeSeekerController extends Controller
 			if(Auth::check() && ((Auth::user()->userType == '2' && Auth::user()->seek_package_id > 0) || Auth::user()->isAdmin == 'admin'))
 			{
 					$objArea = Area::all();
+
+					$seekAds = Seekads::where('userFk', Auth::user()->id)->first();
+					if($seekAds) return redirect()->route('home_seeker.edit', $seekAds->id);
+					
 					return view('create_ads', [
 						'objArea' => $objArea,
 					]);
