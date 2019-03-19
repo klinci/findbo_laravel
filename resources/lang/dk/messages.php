@@ -929,6 +929,7 @@ return [
 	'auto_renew_failure_msg_1_1' => 'annulleret.',
 	'auto_renew_failure_msg_2' => 'For at abonnere igen, beder vi dig at besøge',
 	'auto_renew_failure_msg_3' => 'Forny din pakke',
+	'auto_renew_success' => 'Den automatiske fornyelse er deaktiveret',
 
 	'facebook_login_err_msg_1' => 'Facebook E-mail ID er påkrævet',
 

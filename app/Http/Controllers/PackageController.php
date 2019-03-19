@@ -103,7 +103,7 @@ class PackageController extends Controller
 		}
 
 		$request->session()->flash('message.level', 'success');
-		$request->session()->flash('message.content', 'Auto renew submitted successfully.');
+		$request->session()->flash('message.content', \Lang::get('messages.auto_renew_success'));
 		// return redirect('package');
 		return redirect()->back();
 	}
