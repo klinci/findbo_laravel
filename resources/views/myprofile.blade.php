@@ -3,8 +3,8 @@
 @section('pageTitle', __('messages.title_my_profile'))
 
 @section('meta_tags')
-<meta name="keywords" content="{{ __('messages.meta_keyword_myprofile') }}"> 
-<meta name="description" content="{{ __('messages.meta_desc_myprofile') }}"> 
+<meta name="keywords" content="{{ __('messages.meta_keyword_myprofile') }}">
+<meta name="description" content="{{ __('messages.meta_desc_myprofile') }}">
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<h1 class="page-title">{{ Auth::user()->fname}}'s {{ __('messages.lbl_profile') }} {{ __('messages.lbl_edit') }}</h1>
-				
+
 				<ul class="breadcrumb">
 					<li><a href="index.php">{{ __('messages.lbl_home') }} </a></li>
 					<li>{{ __('messages.editprofile') }}</li>
@@ -33,10 +33,10 @@
 					<div class="profileTitle">
 						<div> <h1 class="center">{{ __('messages.contactsettings') }} </h1></div>
 					</div>
-					
+
 					@if(session()->has('message.level'))
 						<div class="col-md-12">
-							<div class="alert alert-{{ session('message.level') }}"> 
+							<div class="alert alert-{{ session('message.level') }}">
 						    {!! session('message.content') !!} dasdasd
 						    </div>
 						</div>
@@ -53,7 +53,7 @@
 				                    <p class="profileInput"> <input class="form-control" type="text" value="{{ $objUser->fname }}" name="fname" id="fname"> </p>
 				                </div>
 			              	</div>
-			              	
+
 			              	<div class="row">
 				                <div class="col-sm-3 col-sm-offset-2 text-right">
 				                 <p class="profileLabel">  {{ __('messages.lastname') }}</p>
@@ -62,7 +62,7 @@
 				                    <p class="profileInput"> <input class="form-control" type="text" value="{{ $objUser->lname }}" name="lname" id="lname"> </p>
 				                </div>
 			              	</div>
-			              	
+
 			              	<div class="row">
 				                <div class="col-sm-3 col-sm-offset-2 text-right">
 				                 <p class="profileLabel">  {{ __('messages.phoneNr') }}</p>
@@ -71,7 +71,7 @@
 				                    <p class="profileInput"> <input class="form-control" type="text" value="{{ $objUser->phone }}" name="phone" id="phone"> </p>
 				                </div>
 			              	</div>
-			              	
+
 			              	<div class="row">
 				                <div class="col-sm-4 col-sm-offset-1 text-right">
 				                	<p class="profileLabel">  {{ __('messages.emailAddress') }}</p>
@@ -80,7 +80,7 @@
 				                    <p class="profileInput"> <input class="form-control" type="text" value="{{ $objUser->email }}" name="email" readonly="readonly" > </p>
 				                </div>
 			              	</div>
-			              	
+
 			              	<div class="row">
 			              		<div class="col-sm-4 col-sm-offset-1 text-right">
 			              		</div>
@@ -91,12 +91,12 @@
 						</form>
 					</div>
 				</div>
-				
+
 				<div class="profileBox login">
 					<div class="profileTitle">
 						<div> <h1 class="center">{{ __('messages.change_password') }} </h1></div>
 					</div>
-					
+
 					<div class="profileBody">
 						<form action="{{ route('updatepassword') }}" method="post" name="frmPassword" id="frmPassword">
 							{{ csrf_field() }}
@@ -109,7 +109,7 @@
 								</div>
 								<div class="col-sm-7 col-sm-offset-5"></div>
 							</div>
-							
+
 							<div class="row">
 			                    <div class="col-sm-3 col-sm-offset-2 text-right">
 			                    	<p class="profileLabel"> {{ __('messages.New_password') }} </p>
@@ -118,7 +118,7 @@
 			                        <p class="profileInput"> <input class="form-control" type="password" name="new_password" id="new_password"> </p>
 			                    </div>
 		                  	</div>
-		                  	
+
 		                  	<div class="row">
 			                    <div class="col-sm-3 col-sm-offset-2 text-right">
 			                    	<p class="profileLabel">{{ __('messages.confirm_password') }}</p>
@@ -128,12 +128,12 @@
 			                        <div class="profileInput" style="float:right"> <input type="submit" class="btn btn-fullcolor" name="passSubmit" value="{{ __('messages.change_password') }}" style="font-weight:bold;"> </div>
 			                    </div>
 			                </div>
-							
+
 						</form>
 					</div>
-					
+
 				</div>
-			</div>	
+			</div>
 		</div>
 	</div>
 </div>
@@ -189,22 +189,22 @@ $(document).ready(function(){
 		},
 		messages: {
 			"old_password": {
-				required: "Venlingst indtast din gamle adgangskode"
+				required: "Venligst indtast din gamle adgangskode"
 			},
 			"new_password": {
-				required: "Venlingst indtast dine nye adgangskode",
+				required: "Venligst indtast dine nye adgangskode",
 				minlength: "Password min length must be greater than or equal to 8 character.",
 				maxlength: "Password max length must be less than or equal to 16 character."
 			},
 			"confirmpassword": {
-				required: "Please enter confirm password.",
+				required: "Venligst at bekræfte din nye dine nye adgangskode",
 				equalTo: "Password and confirm password must be same.",
 				minlength: "Confirm password min length must be greater than or equal to 8 character.",
 				maxlength: "Confirm password max length must be less than or equal to 16 character."
 			}
 		}
 	});
-	
+
 });
 </script>
 @endsection

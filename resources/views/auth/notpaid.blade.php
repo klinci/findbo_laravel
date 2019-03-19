@@ -8,11 +8,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1 class="page-title">Your account has not yet been paid!</h1>
+				<h1 class="page-title">{{ __('messages.lbl_not_paid')}}</h1>
 
 				<ul class="breadcrumb">
 					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
-					<li>Your account has not yet been paid!</li>
+					<li>{{ __('messages.lbl_not_paid')}}</li>
 				</ul>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 	<div class="container">
 		 <div class="row green" style="padding-top:70px; padding-bottom:30px; border-bottom:solid 1px #ccc;">
 			<div class="main col-sm-12" style="text-align:center; font-weight:bold;">
-				<h3 style="color: #4D4F56;">Please buy a package first before proceeding by click <a href="{{ route('packages') }}">here</a>.</h3><br/>
+				<h3 style="color: #4D4F56;">{{ __('messages.buy_packages_description')}} <a href="{{ route('packages') }}">{{ __('messages.here')}}</a>.</h3><br/>
 	          	<!-- <h1 style="color: #4D4F56;"> <i class="fa fa-lg fa-spinner fa-spin"></i></h1> -->
 	          	<script type="text/javascript">/*
 	          		window.setTimeout(function(){

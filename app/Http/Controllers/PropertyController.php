@@ -366,7 +366,7 @@ class PropertyController extends Controller
 		$objRentalPeriod = Rentalperiod::all();
 
 		$objZipCode = Zipcode::all();
-
+		
 		return view('add_property',['objArea'=>$objArea,'objRentalPeriod'=>$objRentalPeriod,'objZipCode'=>$objZipCode]);
 	}
 

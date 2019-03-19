@@ -1041,6 +1041,8 @@ return [
 	'register_thanks_message' => 'Tak for din registering!',
 	'message_confirmation' => 'En email er blevet sendt til dig som beskræftelse på at du har oprettet en brugerkonto hos Findbo.dk',
 
-	'number_phone_required_message' => 'Venlingst indtast din telefonnummer',
-	''
+	'number_phone_required_message' => 'Venligst indtast din telefonnummer',
+	'lbl_not_paid' => 'Der kan ikke oprette en boligsøgeannonce',
+	'buy_packages_description' => 'Venligst at købe en pakke før der kan oprettes en boligsøgeannonce. Klik',
+	'here' => 'her',
 ];
