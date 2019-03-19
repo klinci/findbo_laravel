@@ -158,9 +158,14 @@ Route::post('kommunikation_sendt', 'ConversationController@submitMsg')
 
 
 Route::get('omdirigere','SocialAuthFacebookController@redirect')
-  ->name('redirect');
+ ->name('redirect');
 Route::get('kald_tilbage','SocialAuthFacebookController@callback')
-  ->name('callback');
+ ->name('callback');
+
+// Route::get('omdirigere','Auth\LoginController@redirectToProvider')
+//   ->name('redirect');
+// Route::get('kald_tilbage','Auth\LoginController@handleProviderCallback')
+//   ->name('callback');
 
 Route::post('nyhedsbrev', 'NewsletterController@store')
   ->name('newsletter.post');
