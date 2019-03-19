@@ -3,8 +3,8 @@
 @section('pageTitle', __('messages.title_welcome'))
 
 @section('meta_tags')
-<meta name="keywords" content="{{ __('messages.meta_keyword_home_page') }}"> 
-<meta name="description" content="{{ __('messages.meta_desc_home_page') }}"> 
+<meta name="keywords" content="{{ __('messages.meta_keyword_home_page') }}">
+<meta name="description" content="{{ __('messages.meta_desc_home_page') }}">
 @endsection
 
 @section('content')
@@ -31,7 +31,7 @@
 				<h2 class="slider-title">{{  __('messages.lbl_find_home') }}</h2>
 				<div class="slider-subtitle">{{  __('messages.lbl_with') }} <strong>Findbo</strong> {{  __('messages.lbl_located_denmark') }}</div>
 			</div>
-			
+
 			<form id="homePageSearchForm" action="{{ route('home.properties') }}" method="post">
 				{{ csrf_field() }}
 				<div id="home-search-buttons" class="col-sm-6 col-sm-offset-3" data-animation-direction="from-bottom" data-animation-delay="50">
@@ -46,8 +46,8 @@
 						<span class="input-group-btn" style="width:0px;"></span>
 						<button class="btn btn-default" type="submit" name="submitKeyword"><i class="fa fa-search"></i>{{ __('messages.search') }}</button>
 					</div>  -->
-					
-					
+
+
 					<div class="input-group br">
 						<input class="form-control search" name="keywords" placeholder="{{ __('messages.msg_homepage_2') }}" id="home_search" type="text">
 						<span class="input-group-btn" style="width:0px;"></span>
@@ -72,8 +72,8 @@
 			            	</div>
 		        		</span>
 		    		</div>
-	
-					
+
+
 					<?php /*<div class="input-group">
 						<input type="text" placeholder="{{ __('messages.msg_homepage_2') }}" name="keywords" id="home_search" class="form-control" />
 						<span class="input-group-btn">
@@ -91,14 +91,14 @@
 <div class="content">
 	<div class="container">
 		<div class="row">
-		
+
 			<!-- BEGIN MAIN CONTENT -->
 			<div class="main col-sm-12">
 				<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">
 					{{-- Selected cities in Danmark --}}
 					@lang('messages.wellcome_danmark_caption')
 				</h1>
-				
+
 				<div class="row">
 					<div class="col-md-6 col-sm-6 img1">
 						<div class="ctinfo">
@@ -186,7 +186,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -197,7 +197,7 @@
 <div class="content">
 	<div class="container">
 		<div class="row">
-		
+
 			<!-- BEGIN MAIN CONTENT -->
 			<div class="main col-sm-12">
 				<h1 class="section-title" data-animation-direction="from-bottom" data-animation-delay="50">{{  __('messages.lbl_features') }}</h1>
@@ -252,7 +252,7 @@
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_for_rent_or_sale') }}</h3>
 					<p class="featuredesc1">{{ __('messages.feature_rent_or_sale') }}</p><br>
-					<a href="{{ route('home.how_it_works') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
+					<a href="{{ route('home.how_it_works') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a>
 				</div>
 				<div class="feature col-sm-4 findbofts" data-animation-direction="from-bottom" data-animation-delay="450">
 					<!-- <i class="fa fa-bullhorn"></i> -->
@@ -310,7 +310,7 @@
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_real_ads') }}</h3>
 					<p class="featuredesc1">{{ __('messages.feature_real_ads')}}</p>
-					<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
+					<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a>
 				</div>
 				<div class="feature col-sm-4 findbofts" data-animation-direction="from-bottom" data-animation-delay="650">
 					<!-- <i class="fa fa-map-marker"></i> -->
@@ -352,9 +352,9 @@
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_map_vision') }}</h3>
 					<p class="featuredesc1">{{ __('messages.feature_map_vision') }}</p>
-					<a href="{{ route('home.map') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a> 
+					<a href="{{ route('home.map') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a>
 				</div>
-			</div>					
+			</div>
 		</div>
 	</div>
 </div>
@@ -371,11 +371,11 @@
 				</div>
 				<div class="col-sm-12 col-md-10 col-md-offset-2">
 					@foreach($newHomeSeeker as $homeSeeker)
-						
+
 						<?php
 						$seek_prop_id		= $homeSeeker->id;
 						$seek_prop_headline	= $homeSeeker->title;
-						
+
 						$seotitle = preg_replace('~[^\\pL0-9_]+~u', '-', $seek_prop_headline);
 						$seotitle = trim($seotitle, "-");
 						$seotitle = iconv("utf-8", "us-ascii//TRANSLIT", $seotitle);
@@ -402,7 +402,7 @@
 <div class="content">
 	<div class="container">
 		<div class="row">
-		
+
 			<!-- BEGIN MAIN CONTENT -->
 			<div class="main col-sm-12 col-md-offset-2	col-sm-offset-1"> <!-- main -->
 
@@ -469,7 +469,7 @@
 						</a>
 					@else
 						<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">@lang('messages.find_house_caption')</a>
-					@endif 
+					@endif
 				</div>
 				<div class="feature col-md-4 col-sm-5 findbofts" data-animation-direction="from-bottom" data-animation-delay="450">
 					<!-- <i class="fa fa-bullhorn"></i> -->
@@ -531,27 +531,27 @@
 								C96,89,95.6,89.1,95,89.1H93.8L93.8,89.1z"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="105.6,84.9 99.8,84.9 99.8,92.9 105.7,92.9 105.7,91.3 101.6,91.3 101.6,89.7 105.2,89.7 
+							<polygon class="Layer_2" fill="#303C42" points="105.6,84.9 99.8,84.9 99.8,92.9 105.7,92.9 105.7,91.3 101.6,91.3 101.6,89.7 105.2,89.7
 								105.2,88.1 101.6,88.1 101.6,86.5 105.6,86.5 105.6,84.9 		"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="105.6,84.9 99.8,84.9 99.8,92.9 105.7,92.9 105.7,91.3 101.6,91.3 101.6,89.7 105.2,89.7 
+							<polygon class="Layer_2" fill="#303C42" points="105.6,84.9 99.8,84.9 99.8,92.9 105.7,92.9 105.7,91.3 101.6,91.3 101.6,89.7 105.2,89.7
 								105.2,88.1 101.6,88.1 101.6,86.5 105.6,86.5 105.6,84.9 		"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="114.7,84.9 112.9,84.9 112.9,90.1 109,84.9 107.3,84.9 107.3,92.9 109.1,92.9 109.1,87.9 
+							<polygon class="Layer_2" fill="#303C42" points="114.7,84.9 112.9,84.9 112.9,90.1 109,84.9 107.3,84.9 107.3,92.9 109.1,92.9 109.1,87.9
 								112.9,92.9 114.7,92.9 114.7,84.9 		"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="114.7,84.9 112.9,84.9 112.9,90.1 109,84.9 107.3,84.9 107.3,92.9 109.1,92.9 109.1,87.9 
+							<polygon class="Layer_2" fill="#303C42" points="114.7,84.9 112.9,84.9 112.9,90.1 109,84.9 107.3,84.9 107.3,92.9 109.1,92.9 109.1,87.9
 								112.9,92.9 114.7,92.9 114.7,84.9 		"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="87,96.8 85.2,96.8 85.2,100.1 82,100.1 82,96.8 80.2,96.8 80.2,104.8 82,104.8 82,101.7 
+							<polygon class="Layer_2" fill="#303C42" points="87,96.8 85.2,96.8 85.2,100.1 82,100.1 82,96.8 80.2,96.8 80.2,104.8 82,104.8 82,101.7
 								85.2,101.7 85.2,104.8 87,104.8 87,96.8 		"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="87,96.8 85.2,96.8 85.2,100.1 82,100.1 82,96.8 80.2,96.8 80.2,104.8 82,104.8 82,101.7 
+							<polygon class="Layer_2" fill="#303C42" points="87,96.8 85.2,96.8 85.2,100.1 82,100.1 82,96.8 80.2,96.8 80.2,104.8 82,104.8 82,101.7
 								85.2,101.7 85.2,104.8 87,104.8 87,96.8 		"/>
 						</g>
 						<g>
@@ -591,11 +591,11 @@
 								l0.9-1.3c-0.4-0.3-0.9-0.6-1.4-0.8C110.8,96.7,110.3,96.6,109.8,96.6L109.8,96.6z"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="120.3,96.8 114.5,96.8 114.5,104.8 120.4,104.8 120.4,103.2 116.3,103.2 116.3,101.6 119.9,101.6 
+							<polygon class="Layer_2" fill="#303C42" points="120.3,96.8 114.5,96.8 114.5,104.8 120.4,104.8 120.4,103.2 116.3,103.2 116.3,101.6 119.9,101.6
 								119.9,100 116.3,100 116.3,98.4 120.3,98.4 120.3,96.8 		"/>
 						</g>
 						<g>
-							<polygon class="Layer_2" fill="#303C42" points="120.3,96.8 114.5,96.8 114.5,104.8 120.4,104.8 120.4,103.2 116.3,103.2 116.3,101.6 119.9,101.6 
+							<polygon class="Layer_2" fill="#303C42" points="120.3,96.8 114.5,96.8 114.5,104.8 120.4,104.8 120.4,103.2 116.3,103.2 116.3,101.6 119.9,101.6
 								119.9,100 116.3,100 116.3,98.4 120.3,98.4 120.3,96.8 		"/>
 						</g>
 					</g>
@@ -610,9 +610,9 @@
 						<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">
 							@lang('messages.have_a_properties_label_button')
 						</a>
-					@endif 
+					@endif
 				</div>
-			</div>					
+			</div>
 		</div>
 	</div>
 </div>
@@ -646,8 +646,8 @@ $(document).ready(function(){
   $( "#home_search" ).catcomplete({
 		delay: 0,
 		source: "{{ route('home.auto_search') }}",
-		select: function (event, ui) { 
-			//alert(ui.item.searchBy); 
+		select: function (event, ui) {
+			//alert(ui.item.searchBy);
 			$("#code").val(ui.item.code);
 			$(this).val(ui.item.label);
 			$('#homePageSearchForm').submit();

@@ -71,7 +71,7 @@ return [
 	'msg_for_sale'				=> 'Denne ejendom er til salg',
 	'msg_for_rent'				=> 'Denne ejendom er til leje',
 	'lbl_contact'				=> 'Kontakt',
-	'lbl_find_home'				=> 'Find det perfekte hjem',
+	'lbl_find_home'				=> 'Find et godt sted at bo',
 	'lbl_with'					=> 'Med',
 	'lbl_without'				=> 'Uden',
 	'lbl_located_denmark'		=> 'i hele Danmark',
