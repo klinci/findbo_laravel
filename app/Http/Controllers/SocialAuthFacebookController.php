@@ -8,7 +8,7 @@ use App\Services\SocialFacebookAccountService;
 
 class SocialAuthFacebookController extends Controller
 {
-    
+
     /**
     * Create a redirect method to facebook api.
     *

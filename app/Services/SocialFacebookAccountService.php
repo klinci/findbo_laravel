@@ -14,7 +14,7 @@ class SocialFacebookAccountService {
 						->first();
 
 		if ($account) {
-			return $account -> user();
+			return $account->user();
 		} else {
 
 			$account = new SocialFacebookAccount([
@@ -39,7 +39,7 @@ class SocialFacebookAccountService {
 			$account -> user() -> associate($user);
 			$account -> save();
 
-			return $user;
+			return $account->user();
 
 		}
 
