@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class Package extends Mailable
 {
 	use Queueable, SerializesModels;
-	
+
 	public $demo;
 
 	/**
@@ -31,7 +31,7 @@ class Package extends Mailable
 	public function build()
 	{
 		$this->subject = $this->demo->subject;
-		
+
 		return $this->view('mails.package')
 					->with([
 						'description'=>$this->demo->description,
@@ -39,6 +39,6 @@ class Package extends Mailable
 						'days'=>$this->demo->days,
 						'balance_transaction'=>$this->demo->balance_transaction,
 					]);
-		
+
 	}
 }

@@ -750,7 +750,8 @@ return [
 	'lbl_send_mail_to_reset_pwd' => 'Vi sender en e-mail for at nulstille kodeord',
 
 	'lbl_buy_package'		=> 'Køb pakke',
-	'seeker_green_package_name'	=> 'Din IntroPakke er',
+	'seeker_green_package_name_subject'	=> 'Din IntroPakke er',
+	'seeker_green_package_name'	=> 'IntroPakken',
 	'seeker_blue_package_name'	=> 'FindboPakken',
 
 	'lbl_expires_on'				=> 'Udløber om',

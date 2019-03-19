@@ -93,8 +93,8 @@
 			$mailer = $this -> getMailer();
 
 			$name = $package->id == 1 ?
-						__('seeker_green_package_name') . ' ' . __('lbl_activated') :
-						__('seeker_blue_package_name') . ' ' . __('lbl_activated');
+						__('messages.seeker_green_package_name_subject') . ' ' . __('messages.lbl_activated') :
+						__('messages.seeker_blue_package_name') . ' ' . __('messages.lbl_activated');
 
 			$mailer -> Subject = 'FindBo - ' . $name;
 			$mailer -> addAddress($charge -> source->name);
