@@ -468,18 +468,18 @@ class PropertyController extends Controller
 		}
 
 		$arrOfParams = array(
-				'code'=>$getCode,
-				'keyword'=>$keyword,
-				'sortBy'=>$sortBy,
-				'sort_order'=>$sortOrder,
-				'price'=>$price,
-				'type'=>$getType,
-				'minPrice'=>$getMinPrice,
-				'maxPrice'=>$getMaxPrice,
-				'minArea'=>$getMinArea,
-				'maxArea'=>$getMaxArea,
-				'minRooms'=>$getMinRooms,
-				'maxRooms'=>$getMaxRooms,
+				'code' => $getCode,
+				'keyword' => $keyword,
+				'sortBy' => $sortBy,
+				'sort_order' => $sortOrder,
+				'price' => $price,
+				'type' => $getType,
+				'minPrice' => $getMinPrice,
+				'maxPrice' => $getMaxPrice,
+				'minArea' => $getMinArea,
+				'maxArea' => $getMaxArea,
+				'minRooms' => $getMinRooms,
+				'maxRooms' => $getMaxRooms,
 		);
 
 
@@ -506,447 +506,330 @@ class PropertyController extends Controller
 
 	public function insertProperty(Request $request)
 	{
-		$headline_dk = $request->input('headline_dk'); // In the database headline_dk
-		$headline_eng = $request->input('headline_eng'); // In the database headline_eng
 
-		if(empty($headline_eng))
-		{
+		$headline_dk = $request->headline_dk;
+		$headline_eng = $request->headline_eng;
+		$text_dk = $request->text_dk; // in the database description_dk
+		$text_eng = $request->text_eng; // in the database description_eng
+		$areas = $request->areas; // area_id in database
+		$zipcode = $request->city; // zip_code_id in database
+		$address = $request->address; // address in database
+		$location1 = $request->location1; // location1 in database
+		$location2 = $request->location2; // location2 in database
+		$housenum = $request->housenum; // housenum in database
+		$position = $request->position;
+		$floor = $request->floor;
+		$propertyPosition = "$position, $floor"; // floor in database
+		$company_name = $request->company_name;
+		$country1 = $request->country1;
+		$number1 = $request->number1;
+		$phone1 = "$country1$number1"; // phonenumber1
+		$number2 = $request->number2;
+		$country2 = $request->country2;
+		$phone2 = "$country2.$number2"; // phonenumber2
+		$vacant = $request->vacant; // vacant in database
+		$action = $request->action; // action in database
+		$email = $request->emailadd; // action in database
+		$propertyURL = trim($request->txtURL); // action in database
+		$email2 = $request->emailadd2;
+		$groundarea = $request->groundarea;
+		$year = $request->year;
+		$payment = $request->payment;
+		$gross = $request->gross;
+		$net = $request->net;
+		$downpayment = $request->downpayment;
+		$type = $request->type;  // type in database
+		$rentalperiod = $request->rentalperiod; // rentalperiod in the database
+		$size = $request->size;  // size in database
+		$rooms = $request->rooms; // rooms in database
+		$bathroom = 0;//$_POST['bathroom'];  // bathroom in the database
+		$bedroom = 0; //$_POST['bedroom'];  // bedroom in the database
+		$rent = $request->rent; // price in database
+		$deposit = $request->deposit;
+		$depositValue = $request->depositValue;
+		$totalDeposit = "DKK $depositValue"; // rentDeposit in the database
+		$prepaid = $request->prepaid;
+		$prepaidValue = $request->prepaidValue;
+		$totalPrepaid = "$prepaid: $prepaidValue"; //prepaidRent in the database
+		$expenses = 0;
+		$lift = "0";
+		$energy = "N/A";
+
+		$petcommnet = $request->petcomment;
+		$openHouseDate = $request->openHouseDate;
+		$openHouseStartTime = $request->openHouseStartTime;
+		$openHouseEndTime = $request->openHouseEndTime;
+		$openHouseAddress = $request->openHouseAddress;
+		$openHouseComment = $request->openHouseComment;
+
+		if(empty($headline_eng)) {
 			$headline_eng = $headline_dk;
 		}
 
-		$text_dk = $request->input('text_dk'); // in the database description_dk
-
-		$text_eng = $request->input('text_eng'); // in the database description_eng
-
-		if(empty($text_eng))
-		{
+		if(empty($text_eng)) {
 			$text_eng = $text_dk;
 		}
 
-		$areas = $request->input('areas'); // area_id in database
-		$zipcode = $request->input('city'); // zip_code_id in database
-		$address = $request->input('address'); // address in database
-		$location1 = $request->input('location1'); // location1 in database
-		$location2 = $request->input('location2'); // location2 in database
-		$housenum = $request->input('housenum'); // housenum in database
-		$position = $request->input('position');
-		$floor = $request->input('floor');
-		$propertyPosition = "$position, $floor"; // floor in database
-		$company_name = $request->input('company_name');
-		$country1 = $request->input('country1');
-		$number1 = $request->input('number1');
-		$phone1 = "$country1$number1"; // phonenumber1
-		$number2 = $request->input('number2');
-		$country2 = $request->input('country2');
-		$phone2 = "$country2$number2"; // phonenumber2
-		$vacant = $request->input('vacant'); // vacant in database
-		$action = $request->input('action'); // action in database
-
-		$email = $request->input('emailadd'); // action in database
-		$propertyURL = trim($request->input('txtURL')); // action in database
-
-		$email2 = $request->input('emailadd2');
-		$groundarea = $request->input('groundarea');
-		$year = $request->input('year');
-		if(empty($request->input('energy')))
-		{
-			$energy = "N/A";
-		}
-		else
-		{
-			$energy = $request->input('energy');
+		if(!empty($request->energy)) {
+			$energy = $request->energy;
 		}
 
-		$payment = $request->input($_POST['payment']);
-		$gross = $request->input('gross');
-		$net = $request->input('net');
-		$downpayment = $request->input('downpayment');
-
-		if(!empty($request->input('vacantDate')))
-		{
-			$vacantDate = $request->input('vacantDate');
+		if(!empty($request->vacantDate)) {
+			$vacantDate = $request->vacantDate;
 			$vacantDate = date("Y-m-d", strtotime($vacantDate));
-		}
-		else
-		{
+		} else {
 			$vacantDate  = "0000-00-00";
 		}
 
-		if(!empty($request->input('sharefriendly'))){
-			$sharefriendly = $request->input('sharefriendly');
-		}
-		else{
+		if(!empty($request->sharefriendly)) {
+			$sharefriendly = $request->sharefriendly;
+		} else {
 			$sharefriendly = "0";
 		}
 
-		if(!empty($request->input('handicapfriendly'))){
-			$handicapfriendly = $request->input('handicapfriendly');
-		}
-		else{
+		if(!empty($request->handicapfriendly)) {
+			$handicapfriendly = $request->handicapfriendly;
+		} else {
 			$handicapfriendly = "0";
 		}
 
-		$type = $request->input('type');  // type in database
-		$rentalperiod = $request->input('rentalperiod'); // rentalperiod in the database
-
-		if(!empty($request->input('youthhousing'))){
-			$youthhousing = $request->input('youthhousing');
-		}
-		else{
+		if(!empty($request->youthhousing)) {
+			$youthhousing = $request->youthhousing;
+		} else {
 			$youthhousing = "0";
 		}
 
-		if(!empty($request->input('pets')))
-		{
-			$pets = $request->input('pets'); // pets in the database varchar yes, no, contact landowner
-		}
-		else
-		{
+		if(!empty($request->pets)) {
+			$pets = $request->pets;
+		} else {
 			$pets = 1;
 		}
 
-		if(!empty($request->input('seniorfriendly'))){
-			$seniorfriendly = $request->input('seniorfriendly'); // seniorfriendly in the database varchar yes, no, contact landowner
-		}
-		else
-		{
+		if(!empty($request->seniorfriendly)) {
+			$seniorfriendly = $request->seniorfriendly;
+		} else {
 			$seniorfriendly = 0;
 		}
 
-		$size = $request->input('size');  // size in database
-		$rooms = $request->input('rooms'); // rooms in database
-		$bathroom = 0;//$_POST['bathroom'];  // bathroom in the database
-		$bedroom = 0; //$_POST['bedroom'];  // bedroom in the database
-		$rent = $request->input('rent'); // price in database
-		$deposit = $request->input('deposit');
-		$depositValue = $request->input('depositValue');
-		$totalDeposit = "DKK $depositValue"; // rentDeposit in the database
-		$prepaid = $request->input('prepaid');
-		$prepaidValue = $request->input('prepaidValue');
-		$totalPrepaid = "$prepaid: $prepaidValue"; //prepaidRent in the database
-		$expenses = 0;
-		if($request->input('expenses') > 0)
-		{
-			$expenses = $request->input('expenses'); // expneses in the database
+		if($request->expenses > 0) {
+			$expenses = $request->expenses; // expneses in the database
 		}
-		$petcommnet = $request->input('petcomment');
-		$openHouseDate = $request->input('openHouseDate');
-		$openHouseStartTime = $request->input('openHouseStartTime');
-		$openHouseEndTime = $request->input('openHouseEndTime');
-		$openHouseAddress = $request->input('openHouseAddress');
-		$openHouseComment = $request->input('openHouseComment');
 
-
-
-		if(!empty($request->input('openHouseDate')))
-		{
-			$openHouseDate = $request->input('openHouseDate');
+		if(!empty($request->openHouseDate)) {
+			$openHouseDate = $request->openHouseDate;
 			$openHouseDate= date("Y-m-d", strtotime($openHouseDate));
-		}
-		else{
+		} else {
 			$openHouseDate = '0000-00-00';
 		}
 
-		if(!empty($request->input('openHouseStartTime')))
-		{
-			$openHouseStartTime = $request->input('openHouseStartTime');
-		}
-		else{
+		if(!empty($request->openHouseStartTime)) {
+			$openHouseStartTime = $request->openHouseStartTime;
+		} else {
 			$openHouseStartTime = "";
 		}
 
-		if(!empty($request->input('openHouseEndTime')))
-		{
-			$openHouseEndTime = $request->input('openHouseEndTime');
-		}
-		else
-		{
+		if(!empty($request->openHouseEndTime)) {
+			$openHouseEndTime = $request->openHouseEndTime;
+		} else {
 			$openHouseEndTime = "";
 		}
 
-		if(!empty($request->input('openHouseAddress')))
-		{
-			$openHouseAddress = $request->input('openHouseAddress');
-		}
-		else
-		{
+		if(!empty($request->openHouseAddress)) {
+			$openHouseAddress = $request->openHouseAddress;
+		} else {
 			$openHouseAddress = "";
 		}
 
 		//-------------
-
-		if(!empty($request->input('openHouseComment'))){
-			$openHouseComment = $request->input('openHouseComment');
-		}
-		else{
-			$openHouseComment = "";
+		$openHouseComment = "";
+		if(!empty($request->openHouseComment)) {
+			$openHouseComment = $request->openHouseComment;
 		}
 
-		if(!empty($request->input('emailadd2'))){
-			$email2 = $request->input('emailadd2');
-		}
-		else{
-			$email2 = "Not specified";
+		$email2 = "Not specified";
+		if(!empty($request->emailadd2)) {
+			$email2 = $request->emailadd2;
 		}
 
-		if(!empty($request->input('balcony'))){
-			$balcony = $request->input('balcony');
-		}
-		else{
-			$balcony = "0";
+		$balcony = "0";
+		if(!empty($request->balcony)) {
+			$balcony = $request->balcony;
 		}
 
 		$garage = '0';
-		if(!empty($request->input('garage')))
-		{
+		if(!empty($request->input('garage'))) {
 			$garage = $request->input('garage');
 		}
 
-		if(!empty($request->input('lift')))
-		{
-			$lift = $request->input('lift');
+		if(!empty($request->lift)) {
+			$lift = $request->lift;
 		}
-		else
-		{
-			$lift = "0";
+
+		$lift = "0";
+		if(!empty($request->lift)) {
+			$lift = $request->lift;
 		}
 
 		$parking_place = '0';
-
-		if(!empty($request->input('garden')))
-		{
-			$garden = $request->input('garden');
-		}
-		else
-		{
-			$garden = "0";
+		$garden = "0";
+		if(!empty($request->garden)) {
+			$garden = $request->garden;
 		}
 
-		if(!empty($request->input('scenic')))
-		{
-			$scenic = $request->input('scenic');
-		}
-		else
-		{
-			$scenic = "0";
+		$scenic = "0";
+		if(!empty($request->scenic)) {
+			$scenic = $request->scenic;
 		}
 
-		if(!empty($request->input('sea')))
-		{
-			$sea = $request->input('sea');
-		}
-		else
-		{
-			$sea = "0";
+		$sea = "0";
+		if(!empty($request->sea)) {
+			$sea = $request->sea;
 		}
 
-		if(!empty($request->input('nearsea')))
-		{
-			$nearsea = $request->input('nearsea');
-		}
-		else
-		{
-			$nearsea = "0";
+		$nearsea = "0";
+		if(!empty($request->nearsea)) {
+			$nearsea = $request->nearsea;
 		}
 
-		if(!empty($request->input('nearforest')))
-		{
-			$nearforest = $request->input('nearforest');
-		}
-		else
-		{
-			$nearforest = "0";
+		$nearforest = "0";
+		if(!empty($request->nearforest)) {
+			$nearforest = $request->nearforest;
 		}
 
-		if(!empty($request->input('businesscontact')))
-		{
-			$businesscontact = $request->input('businesscontact');
-		}
-		else
-		{
-			$businesscontact = "0";
+		$businesscontact = "0";
+		if(!empty($request->businesscontact)) {
+			$businesscontact = $request->businesscontact;
 		}
 
 		$furnished = 0;
-		if(!empty($request->input('furnished')))
-		{
-			$furnished = $_POST['furnished'];
+		if(!empty($request->furnished)) {
+			$furnished = $request->furnished;
 		}
 
 		$basement = 0;
-		if(!empty($request->input('basement')))
-		{
-			$basement = $_POST['basement'];
+		if(!empty($request->basement)) {
+			$basement = $request->basement;
 		}
 
 		$entryphone = 0;
-		if(!empty($request->input('entryphone')))
-		{
-			$entryphone = $request->input('entryphone');
+		if(!empty($request->entryphone)) {
+			$entryphone = $request->entryphone;
 		}
 
-		if(!empty($request->input('businesscontract')))
-		{
-			$businesscontract = $request->input('businesscontract');
-		}
-		else
-		{
-			$businesscontract = "0";
+		$businesscontract = "0";
+		if(!empty($request->businesscontract)) {
+			$businesscontract = $request->businesscontract;
 		}
 
 		$date = date("Y-m-d");
-
-		$pack = $request->input('package_type_id');
+		$pack = $request->package_type_id;
 
 		$objProperty = Properties::create([
-				'package_type_id'=>$pack,
-				'downpayment'=>$downpayment,
-				'openHouseDate'=>$openHouseDate,
-				'openHouseStartTime'=>$openHouseStartTime,
-				'openHouseEndTime'=>$openHouseEndTime,
-				'openHouseAddress'=>$openHouseAddress,
-				'openHouseComment'=>$openHouseComment,
-				'user_id'=>Auth::user()->id,
-				'vacantDate'=>$vacantDate,
-				'company_name'=>$company_name,
-				'email'=>$email,
-				'email2'=>$email2,
-				'groundarea'=>$groundarea,
-				'year'=>$year,
-				'energy'=>$energy,
-				'payment'=>$payment,
-				'gross'=>$gross,
-				'net'=>$net,
-				'location1'=>$location1,
-				'location2'=>$location2,
-				'action'=>$action,
-				'date_published'=>$date,
-				'headline_dk'=>$headline_dk,
-				'description_dk'=>$text_dk,
-				'headline_eng'=>$headline_eng,
-				'description_eng'=>$text_eng,
+				'package_type_id' => $pack,
+				'downpayment' => $downpayment,
+				'openHouseDate' => $openHouseDate,
+				'openHouseStartTime' => $openHouseStartTime,
+				'openHouseEndTime' => $openHouseEndTime,
+				'openHouseAddress' => $openHouseAddress,
+				'openHouseComment' => $openHouseComment,
+				'user_id' => Auth::user()->id,
+				'vacantDate' => $vacantDate,
+				'company_name' => $company_name,
+				'email' => $email,
+				'email2' => $email2,
+				'groundarea' => $groundarea,
+				'year' => $year,
+				'energy' => $energy,
+				'payment' => $payment,
+				'gross' => $gross,
+				'net' => $net,
+				'location1' => $location1,
+				'location2' => $location2,
+				'action' => $action,
+				'date_published' => $date,
+				'headline_dk' => $headline_dk,
+				'description_dk' => $text_dk,
+				'headline_eng' => $headline_eng,
+				'description_eng' => $text_eng,
 				'prop_seo_title'=>'',
-				'area_id'=>$areas,
-				'zip_code_id'=>$zipcode,
-				'address'=>$address,
-				'housenum'=>$housenum,
-				'floor'=>$propertyPosition,
-				'phonenum1'=>$phone1,
-				'phonenum2'=>$phone2,
-				'vacant'=>$vacant,
-				'type'=>$type,
-				'rental_period'=>$rentalperiod,
-				'shareFriendly'=>$sharefriendly,
-				'handicapFriendly'=>$handicapfriendly,
-				'youthHousing'=>$youthhousing,
-				'seniorFriendly'=>$seniorfriendly,
-				'size'=>$size,
-				'rooms'=>$rooms,
-				'bathrooms'=>$bathroom,
-				'bedrooms'=>$bedroom,
-				'price_usd'=>$rent,
-				'rentDeposit'=>$totalDeposit,
-				'prepaidRent'=>$totalPrepaid,
-				'expenses'=>$expenses,
-				'pets_allowed'=>$pets,
-				'pets_comment'=>$petcommnet,
-				'balcony'=>$balcony,
-				'garage'=>$garage,
-				'parking_place'=>$parking_place,
-				'lift'=>$lift,
-				'garden'=>$garden,
-				'scenic'=>$scenic,
-				'sea'=>$sea,
-				'near_sea'=>$nearsea,
-				'near_forest'=>$nearforest,
-				'business_contact'=>$businesscontact,
-				'furnished'=>$furnished,
-				'basement'=>$basement,
-				'entry_phone'=>$entryphone,
-				'business_contract'=>$businesscontract,
+				'area_id' => $areas,
+				'zip_code_id' => $zipcode,
+				'address' => $address,
+				'housenum' => $housenum,
+				'floor' => $propertyPosition,
+				'phonenum1' => $phone1,
+				'phonenum2' => $phone2,
+				'vacant' => $vacant,
+				'type' => $type,
+				'rental_period' => $rentalperiod,
+				'shareFriendly' => $sharefriendly,
+				'handicapFriendly' => $handicapfriendly,
+				'youthHousing' => $youthhousing,
+				'seniorFriendly' => $seniorfriendly,
+				'size' => $size,
+				'rooms' => $rooms,
+				'bathrooms' => $bathroom,
+				'bedrooms' => $bedroom,
+				'price' => $rent,
+				'rentDeposit' => $totalDeposit,
+				'prepaidRent' => $totalPrepaid,
+				'expenses' => $expenses,
+				'pets_allowed' => $pets,
+				'pets_comment' => $petcommnet,
+				'balcony' => $balcony,
+				'garage' => $garage,
+				'parking_place' => $parking_place,
+				'lift' => $lift,
+				'garden' => $garden,
+				'scenic' => $scenic,
+				'sea' => $sea,
+				'near_sea' => $nearsea,
+				'near_forest' => $nearforest,
+				'business_contact' => $businesscontact,
+				'furnished' => $furnished,
+				'basement' => $basement,
+				'entry_phone' => $entryphone,
+				'business_contract' => $businesscontract,
 				'status'=>0,
 				'is_available'=>1,
 				'prop_site_name'=>'findbo',
-				'property_url'=>$propertyURL
+				'property_url' => $propertyURL
 		]);
 
 		$propertyId = $objProperty->id;
+		// $imageFiles = $request->file('image_files');
+		$imageFiles = $request->image_files;
+		// return $imageFiles;
 
-		if(!file_exists("images"))
-		{
-			@mkdir("images",0777);
-		}
-		else
-		{
-			@chmod("images",0777);
-		}
+		if(count($imageFiles) > 0) {
+			for($i = 0; $i < count($imageFiles); $i++) {
 
-		if(!file_exists("images/propertyimages"))
-		{
-			@mkdir("images/propertyimages",0777);
-		}
-		else
-		{
-			@chmod("images/propertyimages",0777);
-		}
+				$extension = 'jpg';
+				if(strpos($imageFiles[$i], 'image/png')) {
+					$extension = 'png';
+				}
 
-		$imageFiles = $request->file('files');
+				$fileName = md5(uniqid());
+				$path = 'images/propertyimages/';
+				$filePath = public_path($path.$fileName.".".$extension);
+				$xpath = @copy($imageFiles[$i], $filePath);
 
-		/* echo '<pre>';
-		print_r($_FILES["files"]);
-		print_r($imageFiles);
-		//exit; */
-
-
-		if(!empty($imageFiles) && count($imageFiles)>0)
-		{
-			for($i = 0; $i<count($imageFiles);$i++)
-			{
-				$extension = $imageFiles[$i]->getClientOriginalExtension();
-
-				$encryptName = md5(uniqid());
-				$getimageName = $encryptName.'.'.$extension;
-				$galleryPath = 'images/propertyimages/'.$getimageName;
-				$imageFiles[$i]->move('images/propertyimages', $getimageName);
-
-				if($i==0)
-				{
-					$uploadedfile =	$imageFiles[$i]->getPathName();
-					$new_thumb_name = $encryptName . "_thumb." . $extension;
-
-					$new_width = 241;
-					$new_height = 161;
-
-					$originalImage = 'images/propertyimages/'.$getimageName;
-					list($width,$height)=getimagesize($originalImage);
-
-					$this->make_thumb($originalImage, "images/propertyimages/".$new_thumb_name, $new_width, $new_height, $extension);
-
-					DB::table('properties')
-						->where('id','=',$propertyId)
-						->update([
-						'thumbnail'=>"images/propertyimages/".$new_thumb_name
+				if($i == 0) {
+					DB::table('properties')->where('id','=',$propertyId)->update([
+						'thumbnail' => $path.$fileName.".".$extension
 					]);
 				}
 
 				Gallery::create([
-					'path'=>$galleryPath,
-					'property_id'=>$propertyId
+					'path' => $path.$fileName.".".$extension,
+					'property_id' => $propertyId
 				]);
+
 			}
 		}
-		/*
-		if($pack!=1)
-		{
-			return redirect("property_payment/".$propertyId.'/'.$pack);
-		}
-		else
-		{
-			return redirect("property");
-		}
-		*/
-		// return redirect("property");
+
 		return redirect()->back();
+
 	}
 
 	public function propertyPayment($id,$pid)
@@ -1208,38 +1091,34 @@ class PropertyController extends Controller
 	public function editProperty($id)
 	{
 		$objProperty = Properties::find($id);
-		if (!$objProperty) {
+
+		if(!$objProperty) {
 			return redirect()->back();
 		}
-		$objArea = Area::all();
-		$objRentalPeriod = Rentalperiod::all();
-		$objZipCode = Zipcode::all();
-		$totalDeposit	= $objProperty->rentDeposit;
-		$price = $objProperty->price;
-		$ar_depo = explode(' ',$totalDeposit);
-		$depositValue = 0;
-		if(!empty($ar_depo[1]))
-		{
+
+		$objArea 					= Area::all();
+		$objRentalPeriod 	= Rentalperiod::all();
+		$objZipCode 			= Zipcode::all();
+		$totalDeposit			= $objProperty->rentDeposit;
+		$price 						= $objProperty->price_usd;
+		$ar_depo 					= explode(' ',$totalDeposit);
+		$depositValue 		= 0;
+
+		if(!isset($ar_depo[1])) {
 			$depositValue = $ar_depo[1];
 		}
+
 		$deposit = intval($depositValue/$price);
 
 		$totalPrepaid	= $objProperty->prepaidRent;
 		$ar_prepaid = explode(':',$totalPrepaid);
 		$prepaidValue = 0;
-		if(!empty($ar_prepaid[1]))
-		{
+
+		if(!empty(trim($ar_prepaid[1]))) {
 			$prepaidValue = trim($ar_prepaid[1]);
 		}
 		$prepaid = intval($prepaidValue/$price);
-
-		$objGallery = DB::table("gallery")
-							->where('property_id','=',$id)
-							->get();
-
-		/* echo '<pre>';
-		print_r($objGallery); */
-
+		$objGallery = DB::table("gallery")->where('property_id','=',$id)->get();
 		return view('edit_property',['objArea'=>$objArea,'objRentalPeriod'=>$objRentalPeriod,'objZipCode'=>$objZipCode, 'objProperty'=>$objProperty, 'deposit'=>$deposit, 'depositValue'=>$depositValue, 'prepaid'=>$prepaid, 'prepaidValue'=>$prepaidValue,'objGallery'=>$objGallery]);
 	}
 

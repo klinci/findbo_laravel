@@ -101,8 +101,9 @@
 											@elseif($proData->is_available == '0')
 												<i class="fa fa-ban"></i>{{ ($proData->action == 'rent')?__('messages.lbl_rented'):__('messages.lbl_sold') }}
 											@endif
-											<span>{{ number_format($proData->price,0,',','.') }} kr {{ ($proData->action=='rent')?'/md':''}}</span>
-											<!-- <span>{{ number_format($proData->price_usd/1000,3) }} kr {{ ($proData->action=='rent')?'/md':''}}</span> -->
+											{{-- <span>{{ number_format($proData->price,0,',','.') }} kr {{ ($proData->action=='rent')?'/md':''}}</span> --}}
+											<span>{{ number_format($proData->price_usd/1000,3) }} kr {{ ($proData->action=='rent')?'/md':''}}</span>
+
 										</div>
 										
 										<div class="info">
@@ -133,7 +134,7 @@
 												<li><i class="icon-bedrooms"></i> {{ $proData->rooms }}</li>
 											</ul>
 										</div>
-										
+
 									</div>
 								@endforeach
 							@else

@@ -255,7 +255,7 @@ class Properties extends Model
 		return $properties;
 	}
 
-	function getSearchProperties($page=1,$limit=10,$arrOfParams = array(),$userId = 0)
+	function getSearchProperties($page = 1, $limit = 10, $arrOfParams = array(), $userId = 0)
 	{
 
 		/* echo '<pre>';

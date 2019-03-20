@@ -227,9 +227,9 @@ if($location1 == "" && $location2 == "")
 									<div class="item">
 										<img src="{{ asset('public/images/ikke_navngivet_main.png') }}" alt="Bolig billeder - Findbo" />
 									</div>
-								@elseif(file_exists($gallery->path) && $gallery->path!="")
+								@elseif(file_exists('public/' . $gallery->path) && $gallery->path!="")
 									<div class="item">
-										<img src="{{ asset($gallery->path) }}" alt="Bolig billeder - Findbo" />
+										<img src="{{ asset('public/' . $gallery->path) }}" alt="Bolig billeder - Findbo" />
 									</div>
 								@endif
 							@endforeach
