@@ -88,14 +88,16 @@
 											<a href="{{ route('property_detail.show.withId', $proData->id) }}">
 												<span class="btn btn-default"><i class="fa fa-file-o"></i> {{ __('messages.lbl_details') }}</span>
 											</a>
-											@if($proData->thumbnail!="")
-												@if(file_exists('public/' . $proData->thumbnail))
-													<img src="{{ asset('public/' . $proData->thumbnail) }}" alt="..." style="width: 263px; height:230px;" />
-												@else
-													<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="..." style="width: 263px; height:230px;" />
-												@endif
+											@if($proData->thumbnail != "")
+												<img
+													src="{{ asset($proData->thumbnail) }}"
+													alt="{{ $proData->headline_dk }}"
+													style="width:263px;height:230px;">
 											@else
-												<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="..." style="width: 263px; height:230px;" />
+												<img
+														src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+														alt="{{ $proData->headline_dk }}"
+														style="width:263px;height:230px;">
 											@endif
 										</div>
 
@@ -105,8 +107,8 @@
 											@else if($proData->is_available == '0')
 												<i class="fa fa-ban"></i>{{ ($proData->action == 'rent')?__('messages.lbl_rented'):__('messages.lbl_sold') }}
 											@endif
-											<span>{{ number_format($proData->price_usd,0,',','.') }} kr {{ ($proData->action=='rent')?'/md':''}}</span>
-											<!--<span>{{ number_format($proData->price_usd/1000,3) }} kr {{ ($proData->action=='rent')?'/md':''}}</span>-->
+											{{-- <span>{{ number_format($proData->price_usd,0,',','.') }} kr {{ ($proData->action=='rent')?'/md':''}}</span> --}}
+											<span>{{ number_format($proData->price_usd/1000,3) }} kr {{ ($proData->action=='rent')?'/md':''}}</span>
 										</div>
 
 										<div class="info">

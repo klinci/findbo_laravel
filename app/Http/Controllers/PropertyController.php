@@ -771,6 +771,7 @@ class PropertyController extends Controller
 				'bathrooms' => $bathroom,
 				'bedrooms' => $bedroom,
 				'price' => $rent,
+				'price_usd' => $rent,
 				'rentDeposit' => $totalDeposit,
 				'prepaidRent' => $totalPrepaid,
 				'expenses' => $expenses,
@@ -1100,15 +1101,22 @@ class PropertyController extends Controller
 		$objRentalPeriod 	= Rentalperiod::all();
 		$objZipCode 			= Zipcode::all();
 		$totalDeposit			= $objProperty->rentDeposit;
-		$price 						= $objProperty->price_usd;
 		$ar_depo 					= explode(' ',$totalDeposit);
 		$depositValue 		= 0;
+
+		if(!empty(trim($objProperty->price_usd))) {
+			$price = $objProperty->price_usd;
+		} else if(!empty(trim($objProperty->price_dk))) {
+			$price = $objProperty->price_dk;
+		} else {
+			$price = $objProperty->price;
+		}
 
 		if(!isset($ar_depo[1])) {
 			$depositValue = $ar_depo[1];
 		}
 
-		$deposit = intval($depositValue/$price);
+		$deposit = $depositValue/$price;
 
 		$totalPrepaid	= $objProperty->prepaidRent;
 		$ar_prepaid = explode(':',$totalPrepaid);
@@ -1117,6 +1125,7 @@ class PropertyController extends Controller
 		if(!empty(trim($ar_prepaid[1]))) {
 			$prepaidValue = trim($ar_prepaid[1]);
 		}
+
 		$prepaid = intval($prepaidValue/$price);
 		$objGallery = DB::table("gallery")->where('property_id','=',$id)->get();
 		return view('edit_property',['objArea'=>$objArea,'objRentalPeriod'=>$objRentalPeriod,'objZipCode'=>$objZipCode, 'objProperty'=>$objProperty, 'deposit'=>$deposit, 'depositValue'=>$depositValue, 'prepaid'=>$prepaid, 'prepaidValue'=>$prepaidValue,'objGallery'=>$objGallery]);
@@ -1555,7 +1564,9 @@ class PropertyController extends Controller
 			'rooms'=>$rooms,
 			'bathrooms'=>$bathroom,
 			'bedrooms'=>$bedroom,
-			'price'=>$rent,
+			'price' => $rent,
+			'price_usd' => $rent,
+			'price_dk' => $rent,
 			'rentDeposit'=>$totalDeposit,
 			'prepaidRent'=>$totalPrepaid,
 			'expenses'=>$expenses,

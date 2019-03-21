@@ -43,7 +43,7 @@
 		color: #333;
 	}
 	</style>
-
+	@yield('styles')
 </head>
 <body>
 	<!-- BEGIN WRAPPER -->
