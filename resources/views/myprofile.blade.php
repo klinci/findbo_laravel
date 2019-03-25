@@ -197,7 +197,7 @@ $(document).ready(function(){
 				maxlength: "Password max length must be less than or equal to 16 character."
 			},
 			"confirmpassword": {
-				required: "Venligst at bekræfte din nye dine nye adgangskode",
+				required: "Venligst at bekræfte din nye adgangskode",
 				equalTo: "Password and confirm password must be same.",
 				minlength: "Confirm password min length must be greater than or equal to 8 character.",
 				maxlength: "Confirm password max length must be less than or equal to 16 character."

@@ -40,7 +40,7 @@
 					<form
 						action="{{ route('property.insert') }}"
 						method="POST"
-						class=""
+						class="formSubmitUpload"
 						enctype="multipart/form-data">
 						{{ csrf_field() }}
 						{{-- nav nav-tabs tabcostum --}}
@@ -589,7 +589,7 @@
 												<div class="col-md-4" style="padding-bottom: 10px;">
 													<div class="input-group">
 														<input class="form-control adform" type="text" name="depositValue" id="depositValue" placeholder="{{ __('messages.depositValue') }}">
-					              						<span class="input-group-addon" style="padding: 8px;">Kr.</span>
+					              				<span class="input-group-addon" style="padding: 8px;">Kr.</span>
 													</div>
 												</div>
 
@@ -895,7 +895,8 @@
 
 						<input type="hidden" id="pk_rGroup" name="package_type_id" value="1" />
 
-						<button id='propSubmitBtn' type='submit' class='btn btn-primary' style='font-weight:bold;' name='submitProperty'>{{ __('messages.lbl_post_prop') }}</button><br><br>
+						<button type='button' class='btn btn-primary submitUpload' style='font-weight:bold;'>{{ __('messages.lbl_post_prop') }}</button>
+						<br><br>
 
 					</form>
 				</div>
@@ -915,6 +916,11 @@
 	<script src="{{ asset('public/js/datepickr.js') }}"></script>
 
 	<script type="text/javascript">
+
+		jQuery(document.body).on('click','.submitUpload', function() {
+			jQuery('.formSubmitUpload').submit();
+		});
+
 		var selDiv = "";
 		window.onload = function() {
 		  //Check File API support
@@ -997,7 +1003,7 @@
 			$(".openHousetoggle").toggle("slow");
 		});
 
-		$(".showphone").click(function(){
+		$(".showphone").click(function() {
 			$(".secondphone").toggle("slow");
 		});
 
@@ -1005,12 +1011,12 @@
 			$(".energyinput").show();
 		});
 
-		document.addEventListener("DOMContentLoaded", init, false);
-
 		function init() {
 			document.querySelector('#files').addEventListener('change', handleFileSelect, false);
-			selDiv = document.querySelector("#selectedFiles");
+			return document.querySelector("#selectedFiles");
 		}
+
+		document.addEventListener("DOMContentLoaded", init(), false);
 
 		function handleFileSelect(e) {
 

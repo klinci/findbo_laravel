@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Properties extends Model
 {
 	protected $fillable = [
-		'type','size','bedrooms','bathrooms','garage','parking_place','pets_allowed','pets_comment','furnished','basement','entry_phone','thumbnail','date_published','user_id','price_usd','price_dk','area_id','location1','location2','address','zip_code_id','description_eng','package_type_id','package_start_date','package_expiry_date','floor_side','headline_dk','headline_eng','prop_seo_title','description_dk','rental_period','ACTION','housenum','FLOOR','phonenum1','phonenum2','vacant','shareFriendly','handicapFriendly','youthHousing','seniorFriendly','rooms','rentDeposit','prepaidRent','expenses','balcony','lift','garden','scenic','sea','near_sea','near_forest','business_contact','business_contract','STATUS','is_available','is_featured_property','rented_date','groundarea','YEAR','energy','payment','gross','net','company_name','email','email2','vacantDate','openHouseAddress','openHouseComment','openHouseEndTime','openHouseStartTime','openHouseDate','downpayment','prop_site_name','prop_url','property_url','is_from_scrap','auto_id','created_at','updated_at', 'price',
+		'type','size','bedrooms','bathrooms','garage','parking_place','pets_allowed','pets_comment','furnished','basement','entry_phone','thumbnail','date_published','user_id','price_usd','price_dk','area_id','location1','location2','address','zip_code_id','description_eng','package_type_id','package_start_date','package_expiry_date','floor_side','headline_dk','headline_eng','prop_seo_title','description_dk','rental_period','action','housenum','FLOOR','phonenum1','phonenum2','vacant','shareFriendly','handicapFriendly','youthHousing','seniorFriendly','rooms','rentDeposit','prepaidRent','expenses','balcony','lift','garden','scenic','sea','near_sea','near_forest','business_contact','business_contract','status','is_available','is_featured_property','rented_date','groundarea','year','energy','payment','gross','net','company_name','email','email2','vacantDate','openHouseAddress','openHouseComment','openHouseEndTime','openHouseStartTime','openHouseDate','downpayment','prop_site_name','prop_url','property_url','is_from_scrap','auto_id','created_at','updated_at', 'price',
 	];
 
 	/*
@@ -267,8 +267,7 @@ class Properties extends Model
 		$startpoint = ($page * $limit) - $limit;
 
 		$limitCls = $whereCls = '';
-		if($page!=0 && $limit!=0)
-		{
+		if($page!=0 && $limit!=0) {
 			$limitCls .= 'LIMIT '.$startpoint.', '.$limit;
 		}
 
@@ -426,44 +425,82 @@ class Properties extends Model
 							'.$limitCls;
 			exit; */
 
-			$objProperties = DB::select('SELECT
-								properties.*, zip_code.city_name
-							FROM properties
-							INNER JOIN zip_code ON properties.zip_code_id = zip_code.id
-							INNER JOIN users ON users.id = properties.user_id
-							WHERE
-							((properties.is_available=1) OR ((properties.is_available=0) AND (DATE(properties.rented_date)>="'.$rentedDate.'"))) AND
-							properties.action="rent" AND
-							(DATE(properties.date_published) > "'.$datePublished.'") AND
-							properties.status=1 '.$whereCls.'
-							'.$orderBy.'
-							'.$limitCls);
-		}
-		else
-		{
-			/* $objProperties = DB::select('SELECT
-								properties.id, properties.headline_dk, properties.headline_eng, properties.description_dk, properties.description_eng,
-								properties.thumbnail, properties.price_usd, properties.size, properties.bedrooms, zip_code.city_name, areas.name,
-								properties.action, properties.status, properties.type, properties.rooms, properties.is_available, properties.date_published
-							FROM properties
-							INNER JOIN zip_code ON properties.zip_code_id = zip_code.id
-							INNER JOIN areas ON zip_code.area_id = areas.id
-							INNER JOIN users ON users.id = properties.user_id
-							WHERE properties.user_id = "'.$userId.'"
-						 '.$whereCls.'
-							'.$orderBy.'
-							'.$limitCls); */
-			$objProperties = DB::select('SELECT
-								properties.id, properties.headline_dk, properties.headline_eng, properties.description_dk, properties.description_eng,
-								properties.thumbnail, properties.price_usd, properties.price_dk, properties.price, properties.size, properties.bedrooms, zip_code.city_name,
-								properties.action, properties.status, properties.type, properties.rooms, properties.is_available, properties.date_published
-							FROM properties
-							INNER JOIN zip_code ON properties.zip_code_id = zip_code.id
-							INNER JOIN users ON users.id = properties.user_id
-							WHERE properties.user_id = "'.$userId.'"
-						 '.$whereCls.'
-							'.$orderBy.'
-							'.$limitCls);
+			$objProperties = DB::select('
+				SELECT
+					properties.*,
+					zip_code.city_name
+				FROM
+					properties
+				INNER JOIN
+					zip_code
+				ON
+					properties.zip_code_id=zip_code.id
+				INNER JOIN
+					users
+				ON
+					users.id=properties.user_id
+				WHERE
+					(
+						(properties.is_available=1) OR ((properties.is_available=0) AND (DATE(properties.rented_date) >= "'.$rentedDate.'"))
+					)
+				AND
+					properties.action="rent" AND (DATE(properties.date_published) > "'.$datePublished.'")
+				AND
+					properties.status=1
+					'.$whereCls.'
+					'.$orderBy.'
+					'.$limitCls
+				);
+
+		} else {
+			// $objProperties = DB::select('SELECT
+			// 				properties.id, properties.headline_dk, properties.headline_eng, properties.description_dk, properties.description_eng,
+			// 				properties.thumbnail, properties.price_usd, properties.size, properties.bedrooms, zip_code.city_name, areas.name,
+			// 				properties.action, properties.status, properties.type, properties.rooms, properties.is_available, properties.date_published
+			// 			FROM properties
+			// 			INNER JOIN zip_code ON properties.zip_code_id = zip_code.id
+			// 			INNER JOIN areas ON zip_code.area_id = areas.id
+			// 			INNER JOIN users ON users.id = properties.user_id
+			// 			WHERE properties.user_id = "'.$userId.'"
+			// 		 '.$whereCls.'
+			// 			'.$orderBy.'
+			// 			'.$limitCls); 
+			$objProperties = DB::select('
+				SELECT
+					properties.id,
+					properties.headline_dk,
+					properties.headline_eng,
+					properties.description_dk,
+					properties.description_eng,
+					properties.thumbnail,
+					properties.price_usd,
+					properties.price_dk,
+					properties.price,
+					properties.size,
+					properties.bedrooms,
+					zip_code.city_name,
+					properties.action,
+					properties.status,
+					properties.type,
+					properties.rooms,
+					properties.is_available,
+					properties.date_published
+				FROM
+					properties
+				INNER JOIN
+					zip_code
+				ON
+					properties.zip_code_id=zip_code.id
+				INNER JOIN
+					users
+				ON
+					users.id=properties.user_id
+				WHERE
+					properties.user_id="'.$userId.'"
+				'.$whereCls.'
+				'.$orderBy.'
+				'.$limitCls
+			);
 		}
 
 		return $objProperties;
@@ -471,13 +508,7 @@ class Properties extends Model
 
 	public static function getPropertyById($id)
 	{
-		$objProperty = DB::table('properties')
-						->select('properties.*','users.email as user_email')
-						->join('zip_code','properties.zip_code_id','=','zip_code.id')
-						->join('users','properties.user_id','=','users.id')
-						->where('properties.id','=',$id)
-						->first();
-
+		$objProperty = DB::table('properties')->select('properties.*','users.email as user_email')->leftJoin('zip_code','properties.zip_code_id','=','zip_code.id')->leftJoin('users','properties.user_id','=','users.id')->where('properties.id','=',$id)->first();
 		return $objProperty;
 
 	}

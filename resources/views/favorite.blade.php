@@ -36,7 +36,7 @@
 						@foreach($objFavorite as $favorite)
 							<div class="item col-sm-3">
 								<div class="image"  style="border: 1px solid #e4e4e4;">
-									<a target="_blank" href="{{ route('property_detail.show', $favorite->id) }}">
+									<a target="_blank" href="{{ route('property_detail.show.withId', $favorite->id) }}">
 										@if(!empty($favorite->headline_dk))
 											<h3>{{ $favorite->headline_dk }}</h3>
 										@else
@@ -44,11 +44,23 @@
 										@endif
 										<span class="location"><?php echo $favorite->city_name; ?></span>
 									</a>
-									@if(file_exists('public/' . $favorite->thumbnail) && $favorite->thumbnail!="")
-										<img src="{{ asset('public/' . $favorite->thumbnail) }}" alt="..." width="230" height="237" />
+
+									@if($favorite->thumbnail != "")
+
+										@if(@file_get_contents(asset($favorite->thumbnail), 0, NULL, 0, 1))
+											<img src="{{ asset($favorite->thumbnail) }}" alt="Bolig billeder - Findbo - {{ $favorite->headline_eng }}" width="230" height="237">
+										@else
+											@if(@file_get_contents(asset('public/'.$favorite->thumbnail), 0, NULL, 0, 1))
+												<img src="{{ asset('public/'.$favorite->thumbnail) }}" alt="Bolig billeder - Findbo - {{ $favorite->headline_eng }}" width="230" height="237">
+											@else
+												<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="Bolig billeder - Findbo" width="230" height="237" >
+											@endif
+										@endif
+
 									@else
 										<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="Bolig billeder - Findbo" />
 									@endif
+
 								</div>
 								<div class="price">
 									<i class="fa fa-home"></i>{{ ($favorite->action == 'rent')?__('messages.lbl_for_rent'):__('messages.lbl_for_sale') }}
@@ -61,13 +73,22 @@
 									@endif
 									<li><i class="icon-bedrooms"></i> {{ $favorite->rooms }}</li>
 								</ul>
+
 								<div class="center" style="padding-top: 10px;">
-									<a href="javascript:void(0);" class="btn btn-default-color col-sm-12" onclick="javascript:return showHint( {{ $favorite->wishlistid }});">{{ __('messages.lbl_remove_from_favorite') }}</a>
+									<a
+										href="javascript:void(0);"
+										class="btn btn-default-color col-sm-12"
+										onclick="javascript:return showHint( {{ $favorite->wishlistid }} );">
+										@lang('messages.lbl_remove_from_favorite')
+									</a>
 								</div>
+
 							</div>
 						@endforeach
 					@else
-						<div class="row center"><label>{{ __('messages.noResults') }}</label></div>
+						<div class="row center">
+							<label>@lang('messages.noResults')</label>
+						</div>
 					@endif
 				</div>
 
@@ -81,19 +102,36 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript">
-function showHint(str)
-{
-    $.ajax({
-        url: "{{ route('removetowishlist') }}",
-        data: 'id='+str,
-        type: 'POST',
-        success: function(){
-            window.location.reload();
-        },
-        error: function(){
-        }
-    });
-}
-</script>
+	<script type="text/javascript">
+		// function showHint(str,str1)
+		// {
+		//     $.ajax({
+		//         url: "{{ route('removetowishlist') }}",
+		//         data: 'id='+str,
+		//         type: 'POST',
+		//         success: function(){
+		//             window.location.reload();
+		//         },
+		//         error: function(){
+		//         }
+		//     });
+		// }
+		function showHint(id) {
+			$.ajax({
+				method : "POST",
+				url	 : "{{ route('removetowishlist') }}",
+				dataType : "json",
+				headers : {
+					'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+				},
+				data : "id=" + id,
+				global: false,
+				cache: false,
+				async: false,
+		    success : function(res) {
+		    	return location.href = "{{ url()->current() }}";
+				}
+			});
+		}
+	</script>
 @endsection

@@ -37,7 +37,7 @@
 				<div id="home-search-buttons" class="col-sm-6 col-sm-offset-3" data-animation-direction="from-bottom" data-animation-delay="50">
 					<input type="hidden" name="code" id="code" value="" />
 					<input type="hidden" id="searchActionHdn" name="action" value="rent" />
-					<!-- <div class="input-group">
+					{{-- <div class="input-group">
 						<input type="text" class="form-control input-sm" value="" placeholder="{{ __('messages.msg_homepage_2') }}" />
 						<span class="input-group-btn" style="width:0px;"></span>
 						<input type="text" class="form-control input-sm" value="test2" />
@@ -45,13 +45,11 @@
 						<input type="text" class="form-control input-sm" value="test2" />
 						<span class="input-group-btn" style="width:0px;"></span>
 						<button class="btn btn-default" type="submit" name="submitKeyword"><i class="fa fa-search"></i>{{ __('messages.search') }}</button>
-					</div>  -->
-
-
+					</div>  --}}
 					<div class="input-group br">
 						<input class="form-control search" name="keywords" placeholder="{{ __('messages.msg_homepage_2') }}" id="home_search" type="text">
 						<span class="input-group-btn" style="width:0px;"></span>
-						<?php /*<select id="search_maxprice" name="maxPrice" class="form-control search">
+						{{-- <select id="search_maxprice" name="maxPrice" class="form-control search">
 							<option value="">{{ __('messages.lbl_max_price') }}</option>
 							@foreach($priceRange as $key=>$value)
 								<option value="{{ $value }}">DKK {{ number_format($value,0,',','.') }}</option>
@@ -65,21 +63,19 @@
 							<option value="3">3 {{ __('messages.lbl_rooms') }}</option>
 							<option value="4">4 {{ __('messages.lbl_rooms') }}</option>
 							<option value="5">5 {{ __('messages.lbl_rooms') }}</option>
-						</select>*/?>
+						</select> --}}
 						<span class="input-group-btn">
 							<div class="btn-group dropup">
 								<button class="btn btn-success searchbtn" type="submit" name="submitKeyword"><i class="fa fa-search"></i></button>
 			            	</div>
 		        		</span>
 		    		</div>
-
-
-					<?php /*<div class="input-group">
+					{{-- <div class="input-group">
 						<input type="text" placeholder="{{ __('messages.msg_homepage_2') }}" name="keywords" id="home_search" class="form-control" />
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="submit" name="submitKeyword"><i class="fa fa-search"></i>{{ __('messages.search') }}</button>
 						</span>
-					</div>*/ ?>
+					</div> --}}
 				</div>
 			</form>
 		</div>
@@ -251,7 +247,9 @@
 					</g>
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_for_rent_or_sale') }}</h3>
-					<p class="featuredesc1">{{ __('messages.feature_rent_or_sale') }}</p><br>
+					<p class="featuredesc1" style="height:150px;">
+						{{ __('messages.feature_rent_or_sale') }}
+					</p>
 					<a href="{{ route('home.how_it_works') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a>
 				</div>
 				<div class="feature col-sm-4 findbofts" data-animation-direction="from-bottom" data-animation-delay="450">
@@ -309,7 +307,9 @@
 					</g>
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_real_ads') }}</h3>
-					<p class="featuredesc1">{{ __('messages.feature_real_ads')}}</p>
+					<p class="featuredesc1" style="height:150px;">
+						{{ __('messages.feature_real_ads')}}
+					</p>
 					<a href="{{ route('home.properties') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a>
 				</div>
 				<div class="feature col-sm-4 findbofts" data-animation-direction="from-bottom" data-animation-delay="650">
@@ -351,7 +351,9 @@
 					</g>
 					</svg>
 					<h3 class="featuretitle1">{{  __('messages.lbl_map_vision') }}</h3>
-					<p class="featuredesc1">{{ __('messages.feature_map_vision') }}</p>
+					<p class="featuredesc1" style="height:150px;">
+						{{ __('messages.feature_map_vision') }}
+					</p>
 					<a href="{{ route('home.map') }}" class="btn btn-default-color newbtn">{{  __('messages.lbl_read_more') }}</a>
 				</div>
 			</div>
@@ -462,7 +464,9 @@
 					</g>
 					</svg>
 					<h3 class="lookingh3">@lang('messages.looking_new_home_label')</h3>
-					<p class="lookingp">@lang('messages.looking_new_home_description')</p>
+					<p class="lookingp" style="height:110px;">
+						@lang('messages.looking_new_home_description')
+					</p>
 					@if(!Auth::check())
 						<a href="{{ route('login') }}" class="btn btn-default-color newbtn">
 							@lang('messages.find_house_caption')
@@ -601,7 +605,9 @@
 					</g>
 					</svg>
 					<h3 class="lookingh3">@lang('messages.have_a_properties_label')</h3>
-					<p class="lookingp">@lang('messages.have_a_properties_description')</p>
+					<p class="lookingp" style="height:110px;">
+						@lang('messages.have_a_properties_description')
+					</p>
 					@if(!Auth::check())
 						<a href="{{ route('login') }}" class="btn btn-default-color newbtn">
 							@lang('messages.have_a_properties_label_button')

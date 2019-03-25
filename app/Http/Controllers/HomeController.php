@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
-use App\Seekads;
 use Illuminate\Support\Facades\DB;
 use App\Properties;
-use App\Repositories\PropertyRepository;
-
-
-// for describe function
 use App\User;
 use App\Admin;
+use App\Zipcode;
+use App\Area;
 use App\SeekerPackages;
+use App\Seekads;
+use App\Repositories\PropertyRepository;
 
 class HomeController extends Controller
 {
@@ -93,11 +92,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {        
+    public function index() {
         $objSeekAds = new Seekads();
-		$newHomeSeeker = $objSeekAds->getNewHomeSeeker();		
+		$newHomeSeeker = $objSeekAds->getNewHomeSeeker();
 		$priceRange = getPropertyPriceRange();
-		
+
 		return view('welcome', [
             'newHomeSeeker' => $newHomeSeeker,
             'priceRange' => $priceRange,
@@ -110,39 +109,87 @@ class HomeController extends Controller
 
     public function autoSearch(Request $request)
     {
-    	$term = $request->input('term');
-    	
-    	$arr = array();
-    	//--- first find cities list ---
-    	$objFindCities = DB::select("SELECT * FROM zip_code 
-				WHERE (city_name LIKE '".$term."%') 
-				AND is_display_on_search=1
-				ORDER BY city_name ASC");
-    	if(!empty($objFindCities) && count($objFindCities)>0)
-    	{
-    		foreach($objFindCities as $findCities)
-    		{
-    			if($findCities->city_name!="")
-    			{
-    				$arr[] = array('label'=>$findCities->city_name, 'category'=>'By', 'code'=>'','searchBy'=>'city_name');
-    			}
-    		}
-    	}
+        $term = $request->term;
+        $items = [];
 
-    	//--- second find zipcode ----
-    	$objFindZipcode = DB::select("SELECT * FROM zip_code 
-				WHERE code LIKE '".$term."%'
-				ORDER BY code ASC");
-    	if(!empty($objFindZipcode) && count($objFindZipcode)>0)
-    	{
-    		foreach($objFindZipcode as $zipcode)
-    		{
-    			if($zipcode->city_name!="")
-    			{
-    				$arr[] = array('label'=>$zipcode->code.' '.$zipcode->city_name.'', 'category'=>'post nr.', 'code'=>$zipcode->code,'searchBy'=>'zipcode');
-    			}
-    		}
-    	}
-    	return json_encode($arr);
+        $searchsByCities = Zipcode::select([
+            'city_name'
+        ])->where(
+            'city_name','LIKE', $term.'%'
+        )->limit(50)->get();
+        if($searchsByCities) {
+            foreach($searchsByCities as $searchsByCity) {
+                $items[] = [
+                    'label' => $searchsByCity->city_name,
+                    'category' => 'By City',
+                    'code' => '',
+                    'searchBy' => 'city_name'
+                ];
+            }
+        }
+
+        $searchsByZipCodes = Zipcode::select([
+            'city_name',
+            'code',
+        ])->where(
+            'code','LIKE', $term.'%'
+        )->limit(50)->get();
+        if($searchsByZipCodes) {
+            foreach($searchsByZipCodes as $searchsByZipCode) {
+                $items[] = [
+                    'label' => $searchsByZipCode->code.' '.$searchsByZipCode->city_name,
+                    'category' => 'Post nr.',
+                    'code' => $searchsByZipCode->code,
+                    'searchBy' => 'zipcode'
+                ];
+            }
+        }
+
+        $searchsByRegions = Area::select([
+            'name'
+        ])->where(
+            'name','LIKE', $term.'%'
+        )->where(
+            'is_region','1'
+        )->limit(50)->get();
+        if($searchsByRegions) {
+            foreach($searchsByRegions as $searchsByRegion) {
+                $items[] = [
+                    'label' => $searchsByRegion->name,
+                    'category' => 'Region',
+                    'code' => '',
+                    'searchBy' => 'region'
+                ];
+            }
+        }
+
+        $searchsByProperties = Properties::groupBy('headline_eng','headline_dk')->select([
+            'headline_dk',
+            'headline_eng',
+        ])->where(
+            'headline_dk','LIKE','%'.$term.'%'
+        )->orWhere(
+            'headline_eng','LIKE', '%'.$term.'%'
+        )->where('is_available','!=', 0)->where('status','!=',0)->limit(50)->get();
+
+        if($searchsByProperties) {
+            foreach($searchsByProperties as $searchsByProperty) {
+                if(empty($searchsByProperty->headline_eng)) {
+                    $name = $searchsByProperty->headline_dk;
+                } else {
+                    $name = $searchsByProperty->headline_eng;
+                }
+                $items[] = [
+                    'label' => $name,
+                    'category' => 'Properties',
+                    'code' => '',
+                    'searchBy' => 'properties'
+                ];
+            }
+        }
+
+        return $items;
+
     }
+
 }

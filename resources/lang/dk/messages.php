@@ -550,7 +550,7 @@ return [
 	'noResult'		=> 'Ingen resultater fundet',
 	'subscribe'		=> 'Tilmeld',
 	'advertisement'		=> 'Annoncering',
-	'about'				=> 'Om',
+	'about'				=> 'Om os',
 	'searchId'		=> 'S&oslash;g sagsnummer',
 	'contactus'		=> 'Kontakt Os',
 	'guidelines'		=> 'Retningslinier',
@@ -966,61 +966,61 @@ return [
 	'url'	=> 'URL',
 
 
-	'title_login_register'=>'Login: Søge & Finde dit perfekte hjem København',
+	'title_login_register' => 'Login: Søge & Finde dit perfekte hjem København',
 	'yours_sincerely' => 'Med venlig hilsen',
-	'my_profile'=>'Redigér profilen',
-	'my_search_ad'=>'Min søgeannonce',
-	'buy_packages'=>'Køb pakke',
-	'title_my_profile'=>'Redigér profilen | Find Lejlighed, Værelser Til Leje i København',
-	'title_package'=>'Vælg en Pakke',
-	'title_welcome'=>'Lejligheder, Værelser Til Leje i København|Lejlighed Odense C',
-	'title_map_vising'=>'Mapvisning: Ungdomsbolig Randers København',
-	'title_how_it_works'=>'Hvordan Virker Det: Værelser Til Leje I København',
-	'how_it_works_1'=>'<p>Det er nemt og hurtigt at oprette en konto på findbo.dk. Du kan tilmelde dig ved hjælp af din Facebook konto eller ved at registrere dine personlige oplysninger gennem tilmeldingsformularen. Du kan gå i gang med at søge, oprette eller organisere annoncer med det samme.</p>
+	'my_profile' => 'Redigér profilen',
+	'my_search_ad' => 'Mine annoncer',
+	'buy_packages' => 'Køb pakke',
+	'title_my_profile' => 'Redigér profilen | Find Lejlighed, Værelser Til Leje i København',
+	'title_package' => 'Vælg en Pakke',
+	'title_welcome' => 'Lejligheder, Værelser Til Leje i København|Lejlighed Odense C',
+	'title_map_vising' => 'Mapvisning: Ungdomsbolig Randers København',
+	'title_how_it_works' => 'Hvordan Virker Det: Værelser Til Leje I København',
+	'how_it_works_1' => '<p>Det er nemt og hurtigt at oprette en konto på findbo.dk. Du kan tilmelde dig ved hjælp af din Facebook konto eller ved at registrere dine personlige oplysninger gennem tilmeldingsformularen. Du kan gå i gang med at søge, oprette eller organisere annoncer med det samme.</p>
 				<p>Du har mulighed for at oprette dig som <strong>boligsøgende</strong> eller <strong>boligudbyder</strong>. Du kan til enhver tid opgradere din konto og benytte fordelene af de forskellige <a href="priser.php">pakker</a> på findbo.dk.</p>',
-	'how_it_works_2'=>'<p>Findbo.dk har en brugervenlig formular til at annoncere boliger til leje eller salg. Indtast informationer om din bolig med placering, størrelse, faciliteter og billeder. Din bolig er klar til at blive offentliggjort og blivet set af boligsøgende.</p>
+	'how_it_works_2' => '<p>Findbo.dk har en brugervenlig formular til at annoncere boliger til leje eller salg. Indtast informationer om din bolig med placering, størrelse, faciliteter og billeder. Din bolig er klar til at blive offentliggjort og blivet set af boligsøgende.</p>
 				<p>Findbo.dk tilbyder nyttige features til at oprette og styre dine boliger. Vi hjælper gerne, hvis der er vanskeligheder eller problemer ved brug af vores ydelser.</p>
 				<p>Find din drømmebolig på en nem måde – i hele Danmark. Vi har gjort det nemt for dig at søge og sortere efter boliger ved hjælp af søgefunktionen og <a href="{{ url(\'map\') }}">mapvisning</a>.</p>',
-	'how_it_works_3'=>'<p>Som boligudbyder, hvad enten det er udlejning eller salg af boliger, har du mulighed for at oprette en konto og annoncere dine boliger. Du vil blive set af boligsøgende i dit område, og i hele Danmark.</p>
+	'how_it_works_3' => '<p>Som boligudbyder, hvad enten det er udlejning eller salg af boliger, har du mulighed for at oprette en konto og annoncere dine boliger. Du vil blive set af boligsøgende i dit område, og i hele Danmark.</p>
 				<p>Som boligsøgende, har du mulighed for at søge efter behov og ønsker en bolig. Boligudbydere kan derefter finde dig. Du kan også selv finde og kontakte boligudbydere på findbo.dk.</p>',
-	'feature_rent_or_sale'=>'Vi bestræber os på at gøre det nemt og enkelt at finde et godt sted at bo på tværs af alle platforme hvad enten, det er på en computer, tablet eller smarthphone.',
-	'feature_real_ads'=>'På Findbo.dk finder du forskellige typer lejeboliger til forskellige priser. Der bliver uploadet tusindvis lejeboliger hver måned. Find din næste bolig nu.',
+	'feature_rent_or_sale' => 'Vi bestræber os på at gøre det nemt og enkelt at finde et godt sted at bo på tværs af alle platforme hvad enten, det er på en computer, tablet eller smarthphone.',
+	'feature_real_ads' => 'På Findbo.dk finder du forskellige typer lejeboliger til forskellige priser. Der bliver uploadet tusindvis lejeboliger hver måned. Find din næste bolig nu.',
 	'feature_map_vision' => 'Du finder ledige boliger i hele landet, hvor de største byer som København, Aarhus, Aalborg og Odense er godt repræsenteret. Listen af ledige boliger bliver opdateret dagligt.',
-	'title_about'=>'Lejligheder Til Leje i Aarhus, Aalborg, Odense',
-	'title_terms_condition'=>'Vilkår og Betingelser',
-	'page_title_terms_condition'=>'Retningslinier for brug af Findbo.dk',
-	'title_faq'=>'FAQ: Lejlighed København Til Leje',
+	'title_about' => 'Lejligheder Til Leje i Aarhus, Aalborg, Odense',
+	'title_terms_condition' => 'Vilkår og Betingelser',
+	'page_title_terms_condition' => 'Retningslinier for brug af Findbo.dk',
+	'title_faq' => 'FAQ: Lejlighed København Til Leje',
 
-	'meta_keyword_home_page'=>'index, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
-	'meta_desc_home_page'=>'Sælg eller udlej din bolig gratis på Findbo.dk - er en helt ny webportal for boligsøgende. Det er vores ønske, at det skal være nemt og enkelt at søge en bolig i Danmark.',
+	'meta_keyword_home_page' => 'index, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
+	'meta_desc_home_page' => 'Sælg eller udlej din bolig gratis på Findbo.dk - er en helt ny webportal for boligsøgende. Det er vores ønske, at det skal være nemt og enkelt at søge en bolig i Danmark.',
 
-	'title_property_list'=>'Lejeboliger: 2 Værelses Lejlighed Odense, Aalborg',
-	'meta_desc_property_page'=>'Vores system er udviklet til at sikre, at kun reelle boligannoncer vises på findbo. Alle annoncer skal godkendes manuelt af vores medarbejdere før, de bliver synlig på findbo.',
+	'title_property_list' => 'Lejeboliger: 2 Værelses Lejlighed Odense, Aalborg',
+	'meta_desc_property_page' => 'Vores system er udviklet til at sikre, at kun reelle boligannoncer vises på findbo. Alle annoncer skal godkendes manuelt af vores medarbejdere før, de bliver synlig på findbo.',
 
-	'meta_keyword_myprofile'=>'Redigér profilen, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
-	'meta_desc_myprofile'=>'Redigér profilen | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
+	'meta_keyword_myprofile' => 'Redigér profilen, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
+	'meta_desc_myprofile' => 'Redigér profilen | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
 
-	'meta_keyword_myads'=>'lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
-	'meta_desc_myads'=>'Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
+	'meta_keyword_myads' => 'lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
+	'meta_desc_myads' => 'Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
 
-	'meta_keyword_favorite'=>'Favoritter, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
-	'meta_desc_favorite'=>'Favoritter | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
+	'meta_keyword_favorite' => 'Favoritter, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
+	'meta_desc_favorite' => 'Favoritter | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
 
-	'meta_keyword_package'=>'Vælg en Pakke, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn',
-	'meta_desc_package'=>'Vælg en Pakke | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
+	'meta_keyword_package' => 'Vælg en Pakke, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn',
+	'meta_desc_package' => 'Vælg en Pakke | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
 
-	'meta_desc_home_seeker'=>'Boligportal med udlejning og salg af boliger og lejligheder. Lejligheder til leje - køb eller salg af bolig. Find din bolig her - Findbo.dk.',
+	'meta_desc_home_seeker' => 'Boligportal med udlejning og salg af boliger og lejligheder. Lejligheder til leje - køb eller salg af bolig. Find din bolig her - Findbo.dk.',
 
-	'title_forgot_password'=>'Glemt adgangskode',
+	'title_forgot_password' => 'Glemt adgangskode',
 
-	'title_contact_us'=>'KONTAKT OS: Lejligheder Til Leje i København | Danmark',
-	'meta_keyword_contact_us'=>'kontakt os, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn',
-	'meta_desc_contact_us'=>'KONTAKT OS: Lejligheder Til Leje i København, Danmark. Boligportal med udlejning og salg af boliger og lejligheder. Lejligheder til leje - køb eller salg af bolig.',
-	'contact_us_addr'=>'Pedersholms Álle 13, 7100 Vejle',
+	'title_contact_us' => 'KONTAKT OS: Lejligheder Til Leje i København | Danmark',
+	'meta_keyword_contact_us' => 'kontakt os, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn',
+	'meta_desc_contact_us' => 'KONTAKT OS: Lejligheder Til Leje i København, Danmark. Boligportal med udlejning og salg af boliger og lejligheder. Lejligheder til leje - køb eller salg af bolig.',
+	'contact_us_addr' => 'Pedersholms Álle 13, 7100 Vejle',
 
-	'title_message'=>'Beskeder | Find Lejlighed, Værelser Til Leje i København',
-	'meta_keyword_message'=>'Beskeder, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
-	'meta_desc_message'=>'Beskeder | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
+	'title_message' => 'Beskeder | Find Lejlighed, Værelser Til Leje i København',
+	'meta_keyword_message' => 'Beskeder, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
+	'meta_desc_message' => 'Beskeder | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
 
 	'newsletter_label' => 'Tilmeld dig til vores nyhedsbreve',
 	'search_properties_caption' => 'Søg boliger',
@@ -1038,7 +1038,7 @@ return [
 	'looking_new_home_label' => 'Boligsøgende',
 	'looking_new_home_description' => 'Søger du en bolig? På Findbo.dk finder du et stort udvalg af ledige boliger i hele landet. Opret en boligsøgeannonce og komme i gang med din boligsøgning.',
 	'have_a_properties_label' => 'Udlejer',
-	'have_a_properties_label_button' => 'Find End Lejer',
+	'have_a_properties_label_button' => 'Find En Lejer',
 	'have_a_properties_description' => 'Har du en bolig du ønsker at udleje? Upload din bolig i dag og bliv set af adskillige boligsøgende. Find din kommende lejer på Findbo.dk.',
 	'register_thanks_message' => 'Tak for din registering!',
 	'message_confirmation' => 'En email er blevet sendt til dig som beskræftelse på at du har oprettet en brugerkonto hos Findbo.dk',
@@ -1047,4 +1047,8 @@ return [
 	'lbl_not_paid' => 'Der kan ikke oprette en boligsøgeannonce',
 	'buy_packages_description' => 'Venligst at købe en pakke før der kan oprettes en boligsøgeannonce. Klik',
 	'here' => 'her',
+	'not_approve_breadcrumb_message' => 'Din konto er endnu ikke blevet godkendt af Findbo.',
+	'not_approve_message' => 'Venligst kontakt os på :email, hvis din konto ikke er blevet godkendt indenfor 24 timer.',
+	'email_allready_message' => 'Denne e-mail adresse er allerede i brug',
+	'tenant' => 'Boligsøgende',
 ];

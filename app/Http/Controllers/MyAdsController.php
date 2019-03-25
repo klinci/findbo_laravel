@@ -20,215 +20,192 @@ class MyAdsController extends Controller
 	public function index(Request $request)
 	{
 		$loggedInUserId = Auth::user()->id;
-
 		$keyword = "all";
 		$page = 1;
 		$sortBy = "date";
 		$sortOrder = "desc";
 		$action = "rent";
-		$price = "";
+		$price = 0;
 		$location = "";
 
-		$limit=10;
+		$limit = 20;
 
-		if($request->input('page')) {
-			$page = $request->input('page');
+		if($request->page) {
+			$page = $request->page;
 		}
 
-		if($request->input('refineSubmit')) {
-			$page=1;
+		if($request->refineSubmit) {
+			$page = 1;
 		}
 
-		if($request->input('location')) {
-			$location = $request->input('location');
+		if($request->location) {
+			$location = $request->location;
 		}
 
-		if($request->input('sortby')) {
-			$sortBy = $request->input('sortby');
+		if($request->sortby) {
+			$sortBy = $request->sortby;
 		}
 
-		if($request->input('sortorder')) {
-			$sortOrder = $request->input('sortorder');
+		if($request->sortorder) {
+			$sortOrder = $request->sortorder;
 		}
 
-		if($request->input('keywords')) {
-			$keyword=$request->input('keywords');
+		if($request->keywords) {
+			$keyword = $request->keywords;
 		}
 
-		if($request->input('txtPrice')) {
-			$price = $request->input('txtPrice');
+		if($request->txtPrice) {
+			$price = $request->txtPrice;
 		}
 
 		$getArea = '';
 		$arrOfArea = array();
-		if($request->input('area')) {
-			$getArea = implode(",",$request->input('area'));
-			$arrOfArea = $request->input('area');
+		if($request->area) {
+			$getArea = implode(",", $request->area);
+			$arrOfArea = $request->area;
 		}
 
 		$getType = '';
 		$arrOfType = array();
-		if($request->input('type')) {
-			$getType = implode(",",$request->input('type'));
-			$arrOfType = $request->input('type');
+		if($request->type) {
+			$getType = implode(",",$request->type);
+			$arrOfType = $request->type;
 		}
 
-		$getMinPrice = '';
-		if($request->input('minPrice')) {
-			$getMinPrice = $request->input('minPrice');
+		$getMinPrice = 0;
+		if($request->minPrice) {
+			$getMinPrice = $request->minPrice;
 		}
 
-		$getMaxPrice = '';
-		if($request->input('maxPrice')) {
-			$getMaxPrice = $request->input('maxPrice');
+		$getMaxPrice = 0;
+		if($request->maxPrice) {
+			$getMaxPrice = $request->maxPrice;
 		}
 
 		$getMinArea = '';
-		if($request->input('minArea'))
-		{
-			$getMinArea = $request->input('minArea');
+		if($request->minArea) {
+			$getMinArea = $request->minArea;
 		}
 
 		$getMaxArea = '';
-		if($request->input('maxArea')) {
-			$getMaxArea = $request->input('maxArea');
+		if($request->maxArea) {
+			$getMaxArea = $request->maxArea;
 		}
 
 		$getMinRooms = '';
-		if($request->input('minRooms')) {
-			$getMinRooms = $request->input('minRooms');
+		if($request->minRooms) {
+			$getMinRooms = $request->minRooms;
 		}
 
 		$getMaxRooms = '';
-		if($request->input('maxRooms')) {
-			$getMaxRooms = $request->input('maxRooms');
+		if($request->maxRooms) {
+			$getMaxRooms = $request->maxRooms;
 		}
 
 		$getRental = '';
-		$arrOfRental = array();
-		if($request->input('rental')) {
-			$getRental = implode(",",$request->input('rental'));
-			$arrOfRental = $request->input('rental');
+		$arrOfRental = [];
+		if($request->rental) {
+			$getRental = implode(",", $request->rental);
+			$arrOfRental = $request->rental;
 		}
 
-
 		$getPets = '';
-		if($request->input('pets')) {
-			$getPets = $request->input('pets');
+		if($request->pets) {
+			$getPets = $request->pets;
 		}
 
 		$getFurnished = '';
-		if($request->input('furnished')) {
-			$getFurnished = $request->input('furnished');
+		if($request->furnished) {
+			$getFurnished = $request->furnished;
 		}
 
 		$getBusinessContract = '';
-		if($request->input('businesscontract')) {
-			$getBusinessContract = $request->input('businesscontract');
+		if($request->businesscontract) {
+			$getBusinessContract = $request->businesscontract;
 		}
 
 		$getGarage = '';
-		if($request->input('garage')) {
-			$getGarage = $request->input('garage');
+		if($request->garage) {
+			$getGarage = $request->garage;
 		}
 
 		$getBalcony = '';
-		if($request->input('balcony')) {
-			$getBalcony = $request->input('balcony');
+		if($request->balcony) {
+			$getBalcony = $request->balcony;
 		}
 
 		$getLift = '';
-		if($request->input('lift')) {
-			$getLift = $request->input('lift');
+		if($request->lift) {
+			$getLift = $request->lift;
 		}
 
 		$getGarden = '';
-		if($request->input('garden')) {
-			$getGarden = $request->input('garden');
+		if($request->garden) {
+			$getGarden = $request->garden;
 		}
 
 		$getSenior = '';
-		if($request->input('senior')) {
-			$getSenior = $request->input('senior');
+		if($request->senior) {
+			$getSenior = $request->senior;
 		}
 
 		$getYouth = '';
-		if($request->input('youth')) {
-			$getYouth = $request->input('youth');
+		if($request->youth) {
+			$getYouth = $request->youth;
 		}
 
 		$getHandicap = '';
-		if($request->input('handicap')) {
-			$getHandicap = $request->input('handicap');
+		if($request->handicap) {
+			$getHandicap = $request->handicap;
 		}
 
-		$arrOfParams = array(
-				'keyword' => $keyword,
-				'area' => $getArea,
-				'sortBy' => $sortBy,
-				'sort_order' => $sortOrder,
-				'price' => $price,
-				'type' => $getType,
-				'minPrice' => $getMinPrice,
-				'maxPrice' => $getMaxPrice,
-				'minArea' => $getMinArea,
-				'maxArea' => $getMaxArea,
-				'minRooms' => $getMinRooms,
-				'maxRooms' => $getMaxRooms,
-				'rental' => $getRental,
-				'pets' => $getPets,
-				'furnished' => $getFurnished,
-				'businesscontract' => $getBusinessContract,
-				'garage' => $getGarage,
-				'balcony' => $getBalcony,
-				'lift' => $getLift,
-				'garden' => $getGarden,
-				'senior' => $getSenior,
-				'youth' => $getYouth,
-				'handicap' => $getHandicap
-		);
+		$offset = ($page * $limit) - $limit;
 
-		$objProperties = new Properties();
-		$totalResult = $objProperties->getSearchProperties(0,0,$arrOfParams,$loggedInUserId);
+		$arrOfParams = [
+			'keyword' => $keyword,
+			'area' => $getArea,
+			'sortBy' => $sortBy,
+			'sort_order' => $sortOrder,
+			'price' => $price,
+			'type' => $getType,
+			'minPrice' => $getMinPrice,
+			'maxPrice' => $getMaxPrice,
+			'minArea' => $getMinArea,
+			'maxArea' => $getMaxArea,
+			'minRooms' => $getMinRooms,
+			'maxRooms' => $getMaxRooms,
+			'rental' => $getRental,
+			'pets' => $getPets,
+			'furnished' => $getFurnished,
+			'businesscontract' => $getBusinessContract,
+			'garage' => $getGarage,
+			'balcony' => $getBalcony,
+			'lift' => $getLift,
+			'garden' => $getGarden,
+			'senior' => $getSenior,
+			'youth' => $getYouth,
+			'handicap' => $getHandicap,
+			'offset' => $offset,
+			'limit' => $limit
+		];
 
-		$per_page = 10;
-		$pagination = pagination($page,$per_page,count($totalResult));
+		$results =  $this->propertyQueries($arrOfParams,'getData');
+		$total =  $this->propertyQueries($arrOfParams,'counter');
+		$pagination = pagination($page,$limit,$total);
 
-		/* echo '<pre>';
-		print_r($pagination);
-		exit; */
-
-		$result = $objProperties->getSearchProperties($page,$limit,$arrOfParams,$loggedInUserId);
-
-		$objAreas = DB::table('areas')
-					->orderBy('id','asc')
-					->get();
-
-		$objPropertiesType = DB::table('properties')
-							->where('type','<>','')
-							->groupBy('type')
-							->get();
-
-		$objRentalPeriod = DB::table('rental_period')
-							->orderBy('id','ASC')
-							->get();
-
+		$objPropertiesType = DB::table('properties')->where('type','<>','')->groupBy('type')->get();
+		$objRentalPeriod = DB::table('rental_period')->orderBy('id','ASC')->get();
 		$arrOfPriceRange = getPropertyPriceRange();
 		$arrOfAreaRange = getPropertyAreaRange();
 
-		/* echo $page;
-		exit; */
-
-
 		return view('myads',[
-			'result' => $result,
+			'result' => $results,
 			'action' => $action,
 			'keyword' => $keyword,
 			'sortBy' => $sortBy,
 			'sortOrder' => $sortOrder,
 			'price' => $price,
 			'pagination' => $pagination,
-			'objAreas' => $objAreas,
 			'objPropertiesType' => $objPropertiesType,
 			'priceRange' => $arrOfPriceRange,
 			'areaRange' => $arrOfAreaRange,
@@ -254,6 +231,143 @@ class MyAdsController extends Controller
 			'handicap' => $getHandicap,
 			'page' => $page
 		]);
-
 	}
+
+	private function propertyQueries($arrOfParams,$option)
+	{
+
+		$datePublished = date('Y-m-d', strtotime("-2 month"));
+		$rentedDate = date('Y-m-d H:i:s',strtotime("-7 day"));
+
+		$whereCls = 'properties.user_id='.Auth::user()->id.'';
+
+		if(($arrOfParams["keyword"]!="" && $arrOfParams["keyword"]!="all") && (@$arrOfParams["code"]=="")) {
+			$whereCls .= ' AND (properties.headline_eng LIKE "%'.$arrOfParams["keyword"].'%" OR properties.headline_dk LIKE "%'.$arrOfParams["keyword"].'%" OR zip_code.city_name LIKE "%'.$arrOfParams["keyword"].'%" OR zip_code.code LIKE "%'.$arrOfParams["keyword"].'%")';
+		}
+
+		if(@$arrOfParams["code"]!="") {
+			$whereCls .= ' AND zip_code.code = "'.$arrOfParams["code"].'"';
+		}
+
+		if(@$arrOfParams["zipcode"]!="") {
+			$whereCls .= ' AND properties.zip_code_id IN ('.$arrOfParams["zipcode"].')';
+		}
+
+		if(@$arrOfParams["price"]!="") {
+			$whereCls .= ' AND properties.price_usd = "'.$arrOfParams["price"].'"';
+		}
+
+		if(@$arrOfParams["type"]!="") {
+			$whereCls .= ' AND properties.type = "'.$arrOfParams["type"].'"';
+		}
+
+		if(@$arrOfParams["minPrice"]!="") {
+			$whereCls .= ' AND properties.price_usd >= "'.$arrOfParams["minPrice"].'"';
+		}
+
+		if(@$arrOfParams["maxPrice"]!="") {
+			$whereCls .= ' AND properties.price_usd <= "'.$arrOfParams["maxPrice"].'"';
+		}
+
+		if(@$arrOfParams["minArea"]!="") {
+			$whereCls .= ' AND properties.size >= '.$arrOfParams["minArea"].'';
+		}
+
+		if(@$arrOfParams["maxArea"]!="") {
+			$whereCls .= ' AND properties.size <= '.$arrOfParams["maxArea"].'';
+		}
+
+		if(@$arrOfParams["minRooms"]!="") {
+			$whereCls .= ' AND properties.rooms >= '.$arrOfParams["minRooms"].'';
+		}
+
+		if(@$arrOfParams["maxRooms"]!="") {
+			$whereCls .= ' AND properties.rooms <= '.$arrOfParams["maxRooms"].'';
+		}
+
+		if(@$arrOfParams["rental"]!="") {
+			$whereCls .= ' AND properties.rental_period IN ('.$arrOfParams["rental"].')';
+		}
+
+		if(@$arrOfParams["pets"]!="") {
+			$whereCls .= ' AND properties.pets_allowed="'.$arrOfParams["pets"].'"';
+		}
+
+		if(@$arrOfParams["furnished"]!="") {
+			$whereCls .= ' AND properties.furnished="'.$arrOfParams["furnished"].'"';
+		}
+
+		if(@$arrOfParams["businesscontract"]!="") {
+			$whereCls .= ' AND properties.business_contract="'.$arrOfParams["businesscontract"].'"';
+		}
+
+		if(@$arrOfParams["garage"]!="") {
+			$whereCls .= ' AND properties.garage="'.$arrOfParams["garage"].'"';
+		}
+
+		if(@$arrOfParams["balcony"]!="") {
+			$whereCls .= ' AND properties.balcony="'.$arrOfParams["balcony"].'"';
+		}
+
+		if(@$arrOfParams["lift"]!="") {
+			$whereCls .= ' AND properties.lift="'.$arrOfParams["lift"].'"';
+		}
+
+		if(@$arrOfParams["garden"]!="") {
+			$whereCls .= ' AND properties.garden="'.$arrOfParams["garden"].'"';
+		}
+
+		if(@$arrOfParams["senior"]!="") {
+			$whereCls .= ' AND properties.seniorFriendly="'.$arrOfParams["senior"].'"';
+		}
+
+		if(@$arrOfParams["youth"]!="") {
+			$whereCls .= ' AND properties.youthHousing="'.$arrOfParams["youth"].'"';
+		}
+
+		if(@$arrOfParams["handicap"]!="") {
+			$whereCls .= ' AND properties.handicapFriendly="'.$arrOfParams["handicap"].'"';
+		}
+
+		if(@$arrOfParams['sortBy'] == 'date') {
+			$orderBy = ' ORDER BY properties.package_type_id DESC, properties.date_published '.$arrOfParams['sort_order'];
+		} else if(@$arrOfParams['sortBy']=='size') {
+			$orderBy = ' ORDER BY properties.package_type_id DESC, properties.size '.$arrOfParams['sort_order'];
+		} else if($arrOfParams['sortBy'] == 'price') {
+			$orderBy = ' ORDER BY properties.package_type_id DESC, properties.price_usd '.$arrOfParams['sort_order'];
+		}
+
+		$data = Properties::select([
+			'properties.id',
+			'properties.headline_dk',
+			'properties.headline_eng',
+			'properties.description_dk',
+			'properties.description_eng',
+			'properties.thumbnail',
+			'properties.price_usd',
+			'properties.price_dk',
+			'properties.package_type_id',
+			'properties.price',
+			'properties.size',
+			'properties.bedrooms',
+			'properties.action',
+			'properties.status',
+			'properties.type',
+			'properties.rooms',
+			'properties.is_available',
+			'properties.date_published',
+			'zip_code.city_name',
+			'zip_code.code',
+		])->join(
+			'zip_code',
+			'properties.zip_code_id','=',
+			'zip_code.id'
+		)->whereRaw($whereCls.$orderBy);
+
+		if($option == 'getData') {
+			return $data->offset($arrOfParams['offset'])->limit($arrOfParams['limit'])->get();
+		}
+		return $data->count();
+	}
+
 }

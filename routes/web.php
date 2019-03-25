@@ -15,8 +15,9 @@
 // Auth::routes();
 
 Route::get('/beskrive', 'HomeController@describe')->name('describe');
+
 Route::get('/dashboard', function () {
-    return redirect('http://findbo.dk/dashboard');
+  return redirect('http://findbo.dk/dashboard');
 });
 
 Route::get('/', 'HomeController@index')
@@ -191,3 +192,6 @@ Route::group(['prefix' => 'admin'], function () {
     ->name('password.reset');
   Route::get('password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
 });
+
+Route::get('get-latitude-longtitude','MapController@index')
+  ->name('get-latitude-longtitude');

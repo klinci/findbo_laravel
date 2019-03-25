@@ -23,30 +23,43 @@
 	$location1 = $objProperty->location1;
 	$location2 = $objProperty->location2;
 
-	if($location1 == "" && $location2 == "") {
-		if($objProperty->address!="") {
-			$mapUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($objProperty->address).'&key=AIzaSyAYUsbSwwhQVXhVTb-75P0TeJmxuggQ8lE';
-			$res = file_get_contents($mapUrl);
-			$resDecode = json_decode($res, true);
-			if($resDecode["status"]=="OK") {
-				$result = $resDecode["results"][0]["geometry"]["location"];
-				$location1 = $result["lat"];
-				$location2 = $result["lng"];
-			}
-		}
+	// if($location1 == "" && $location2 == "") {
+	// 	if($objProperty->address!="") {
+	// 		$mapUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($objProperty->address).'&key=AIzaSyAYUsbSwwhQVXhVTb-75P0TeJmxuggQ8lE';
+	// 		$res = file_get_contents($mapUrl);
+	// 		$resDecode = json_decode($res, true);
+	// 		if($resDecode["status"]=="OK") {
+	// 			$result = $resDecode["results"][0]["geometry"]["location"];
+	// 			$location1 = $result["lat"];
+	// 			$location2 = $result["lng"];
+	// 		}
+	// 	}
+	// }
+
+	$seek_package_id_user_property = 0;
+	$getUser = \App\User::select([
+		'seek_package_id'
+	])->where('id', $objProperty->user_id)->first();
+
+	if($getUser) {
+		$seek_package_id_user_property = $getUser->seek_package_id;
 	}
+
 @endphp
 
 @section('meta_tags')
 	<meta name="keywords" content="{{ $objProperty->headline_dk }}">
 	<meta name="description" content="{{ $meta_desc }}">
 	@if(!empty($objGallery) && count($objGallery) > 0)
-		@foreach($objGallery as $gal)
-			@php
-				$fb_meta_image = $gal->path;
-			@endphp
-			@if(!empty($fb_meta_image) && file_exists($fb_meta_image))
-				<meta property="og:image" content="{{ asset($fb_meta_image) }}">
+		@foreach($objGallery as $gallery)
+			@if(@file_get_contents(asset($gallery->path), 0, NULL, 0, 1))
+				<meta property="og:image" content="{{ asset($gallery->path) }}">
+			@else
+				@if(@file_get_contents(asset('public/'.$gallery->path), 0, NULL, 0, 1))
+					<meta property="og:image" content="{{ asset('public/'.$gallery->path) }}">
+				@else
+					<meta property="og:image" content="{{ asset('public/images/ikke_navngivet_thumb.png') }}">
+				@endif
 			@endif
 		@endforeach
 	@else
@@ -83,7 +96,14 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="row pull-right">
-						@if(Auth::check() && Auth::id() == $objProperty->user_id)
+						@php
+							if(Auth::user()) {
+								$isAdmin = Auth::user()->isAdmin;
+							} else {
+								$isAdmin = '';
+							}
+						@endphp
+						@if(Auth::check() && Auth::id() == $objProperty->user_id || $isAdmin == 'admin')
 							<form action="{{ route('property.delete') }}" method="POST" style="display: inline;" onsubmit="javascript:return confirm('are sure to remove this property?');">
 								{{ csrf_field() }}
 								<input type="hidden" value="{{ $objProperty->id }}>" name="forDelete">
@@ -164,38 +184,71 @@
 									{{ __('messages.lbl_sold') }}
 								@endif
 							@endif
-							<span>{{ number_format($objProperty->price_usd,0,',','.') }} kr {{ ($objProperty->action == 'rent')?'/md':'' }}</span>
-							<!-- <span>{{ number_format($objProperty->price_usd/1000,3).' kr' }}  {{ ($objProperty->action == 'rent')?'/md':'' }}</span> -->
+							{{-- <span>{{ number_format($objProperty->price_usd,0,',','.') }} kr {{ ($objProperty->action == 'rent')?'/md':'' }}</span> --}}
+							<span>{{ number_format($objProperty->price_usd/1000,3).' kr' }}  {{ ($objProperty->action == 'rent')?'/md':'' }}</span>
 						</div>
 
 						<div id="property-detail-large" class="owl-carousel">
 							@php $isExists = 0; @endphp;
 							@if(count($objGallery) > 0)
 								@foreach($objGallery as $gallery)
-									<div class="item">
-										<img
-											src="{{ asset($gallery->path) }}"
-											alt="Bolig billeder - Findbo" />
-									</div>
+									@if(@file_get_contents(asset($gallery->path), 0, NULL, 0, 1))
+										<div class="item">
+											<img
+												src="{{ asset($gallery->path) }}"
+												alt="Bolig billeder - Finbo - {{ $objProperty->headline_dk }}" style="width:800px;height:452px;">
+										</div>
+									@else
+										@if(@file_get_contents(asset('public/'.$gallery->path), 0, NULL, 0, 1))
+											<div class="item">
+												<img
+													src="{{ asset('public/'.$gallery->path) }}"
+													alt="Bolig billeder - Finbo - {{ $objProperty->headline_dk }}" style="width:800px;height:452px;">
+											</div>
+										@else
+											<div class="item">
+												<img
+													src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+													alt="Bolig billeder - Finbo - {{ $objProperty->headline_dk }}" style="width:800px;height:452px;">
+											</div>
+										@endif
+									@endif
 								@endforeach
 							@else
 								<div class="item">
 									<img
-										src="{{ asset('public/images/ikke_navngivet_main.png') }}"
-										alt="Findbo - {{ $objProperty->headline_dk }}" />
+										src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+										alt="Bolig billeder - Finbo - {{ $objProperty->headline_dk }}" style="width:800px;height:452px;">
 								</div>
 							@endif
 
 						</div>
 
 						<div id="property-detail-thumbs" class="owl-carousel">
-							@if(!empty($objGallery) && count($objGallery)>0)
+							@if(!empty($objGallery) && count($objGallery) > 0)
 								@foreach($objGallery as $gallery)
-									<div class="item">
-										<img
-											src="{{ asset($gallery->path) }}"
-											alt="Findbo - {{ $objProperty->headline_dk }}" >
-									</div>
+									@if(@file_get_contents(asset($gallery->path), 0, NULL, 0, 1))
+										<div class="item">
+											<img
+												src="{{ asset($gallery->path) }}"
+												alt="Findbo - {{ $objProperty->headline_dk }}" >
+										</div>
+									@else
+										@if(@file_get_contents(asset('public/'.$gallery->path), 0, NULL, 0, 1))
+											<div class="item">
+												<img
+													src="{{ asset('public/'.$gallery->path) }}"
+													alt="Findbo - {{ $objProperty->headline_dk }}" >
+											</div>
+										@else
+											<div class="item">
+												<img
+													src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+													alt="{{ $objProperty->headline_dk }}"
+													style="width:263px;height:230px;">
+											</div>
+										@endif
+									@endif
 								@endforeach
 							@endif
 						</div>
@@ -360,7 +413,6 @@
 						@endif
 					@endif
 
-
 					@if($objProperty->furnished==1)
 						<ul class="property-features col-sm-6">
 							<li><i class="icon-01"></i> {{ __('messages.lbl_furnished') }} </li>
@@ -451,18 +503,21 @@
 						</ul>
 					@endif
 
-					<h1 class="section-title">{{ __('messages.lbl_property_location') }}</h1>
-					<div id="property_location" class="map col-sm-12"></div>
+					@if(Auth::user())
+						@if(Auth::check() && Auth::user()->seek_package_id != 0 || Auth::user()->isAdmin == 'admin' && Auth::user()->userType == 1)
+							<h1 class="section-title">{{ __('messages.lbl_property_location') }}</h1>
+							<div id="property_location" class="map col-sm-12"></div>
+						@endif
+					@endif
 
-					<div class="share-wraper col-sm-12">
+					<div class="share-wraper col-sm-12" style="margin-top:10px;">
 						<h5 style="margin-right: 0px;">{{ __('messages.lbl_share_this_property') }}:</h5>
-						<?php
-						//$currentLink = 'https://'.$_SERVER['HTTP_HOST'].'/bolig-detaljer.php?id='.$objProperty->id;
-						$currentLink = route('property_detail.show.withId', $objProperty->id);
-						//$full_path_img_src = 'https://'.$_SERVER['HTTP_HOST'].'/'.$thumbnail;
-						$full_path_img_src = asset('public/' . $objProperty->thumbnail);
-						$pin_desc = str_replace('"',"'",$description);
-						?>
+
+						@php
+							$currentLink = route('property_detail.show.withId', $objProperty->id);
+							$full_path_img_src = asset('public/' . $objProperty->thumbnail);
+							$pin_desc = str_replace('"',"'",$description);
+						@endphp
 
 						<ul class="social-networks">
 							<li><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php echo $currentLink; ?>"><i class="fa fa-facebook"></i></a></li>
@@ -514,7 +569,8 @@
 							{{ __('messages.lbl_report') }}
 						</a>
 					</div>
-					@if((Auth::check()) && (!empty($active_pack_id)) && (Auth::user()->id != $objProperty->user_id) || ($isAdmin==='admin'))
+
+					@if((Auth::check()) && (!empty($active_pack_id)) && (Auth::user()->id != $objProperty->user_id) || ($isAdmin === 'admin'))
 						<h1 class="section-title">{{ __('messages.lbl_contact') }}</h1>
 						<div class="row">
 							<div class="col-md-12">
@@ -523,74 +579,73 @@
 										<div class="info">
 											<header>
 												<h2>
-													<small>{{ (!empty($objProperty->city_name))?$objProperty->city_name:'' }}</small>
+													<small>
+														{{ (!empty($objProperty->city_name)) ? $objProperty->city_name: '' }}
+													</small>
 												</h2>
 											</header>
 											<ul class="contact-us">
-												@if($active_pack_id==1 || $active_pack_id==2)
 
-													@if((!empty($objProperty->property_email)) && ($objProperty->property_email!='info@findbo.dk') && ((!empty($objProperty->prop_site_name)) && (trim($objProperty->prop_site_name)!="findbo")))
-														<li><i class="fa fa-envelope"></i><a href="mailto:{{ $objProperty->property_email }}">{{ $objProperty->property_email }}</a></li>
+												@if($active_pack_id != 0)
+
+													@if(!empty($objProperty->email) && $objProperty->email != 'info@findbo.dk')
+														<li>
+															<i class="fa fa-envelope"></i>
+															<a href="mailto:{{ $objProperty->email }}">
+																{{ $objProperty->email }}
+															</a>
+														</li>
+													@else
+														<li class="text-muted">
+															<i class="fa fa-envelope"></i> Email is empty.
+														</li>
 													@endif
 
 													@if(!empty($objProperty->phonenum1))
-														<li><i class="fa fa-phone"></i>{{ $objProperty->phonenum1 }}</li>
+														<li>
+															<i class="fa fa-phone"></i> 
+															{{ $objProperty->phonenum1 }} </li>
+													@elseif(!empty($objProperty->phonenum2))
+														<li>
+															<i class="fa fa-phone"></i>
+															{{ $objProperty->phonenum2 }}
+														</li>
+													@else
+														<li>
+															<i class="fa fa-phone"></i>
+															Phone is empty.
+														</li>
 													@endif
 
-													@if(!empty($objProperty->phonenum2))
-														<li><i class="fa fa-phone"></i>{{ $objProperty->phonenum2 }}</li>
-													@endif
 												@endif
 											</ul>
 										</div>
 									</div>
 
-
-									<form id="propMessage" action="bolig-detaljer.php" method="POST" class="form-style col-md-7" style="padding: 40px 10px;{{ ((!empty($objProperty->property_email)) && (trim($objProperty->prop_site_name) == 'prodomus'))?'display:none;':'' }}">
-										<?php
-										if( ((!empty($email)) && (trim($email) != 'info@findbo.dk')) || ((!empty($user_email)) && (trim($user_email) != 'info@findbo.dk')) )
-										{
-											$email_msg_to = '';
-											if((!empty($email)) && (trim($email) != 'info@findbo.dk'))
-											{	$email_msg_to = $email;	}
-											elseif((!empty($user_email)) && (trim($user_email) != 'info@findbo.dk'))
-											{	$email_msg_to = $user_email;	}
-											?>
+									@if(!empty($objProperty->email) && $objProperty->email != 'info@findbo.dk')
+										{{-- <form id="propMessage" action="bolig-detaljer.php" method="POST" class="form-style col-md-7" style="padding:40px 10px;"> --}}
+										<form id="propMessage" action="javascript:void(0)" method="POST" class="form-style col-md-7" style="padding:40px 10px;">
 
 											<div class="col-sm-12">
-												<textarea name="txtMessage" rows="9" placeholder="{{ __('messages.msg') }}" class="form-control required"></textarea>
+												<textarea name="txtMessage" rows="9" placeholder="{{ __('messages.msg') }}" class="form-control required" style="resize:none;"></textarea>
 											</div>
-
 											<div class="center">
 												<input type="hidden" value="{{ Auth::user()->id }}" name="userid">
-									            <input type="hidden" value="{{ $objProperty->user_id}}" name="user2">
-									            <input type="hidden" value="{{ $objProperty->id }}" name="propertyid">
-									            <input type="hidden" value="{{ (!empty($objProperty->headline_dk))?$objProperty->headline_dk:$objProperty->headline_eng }}" name="title">
-									            <input type="hidden" value="{{ $email_msg_to }}" name="modalEmail">
-									            <input type="hidden" name="messageSubmit" value="Send message" />
+												<input type="hidden" value="{{ $objProperty->user_id}}" name="user2">
+												<input type="hidden" value="{{ $objProperty->id }}" name="propertyid">
+												<input type="hidden" value="{{ (!empty($objProperty->headline_dk))?$objProperty->headline_dk:$objProperty->headline_eng }}" name="title">
+												<input type="hidden" value="{{ $objProperty->email }}" name="modalEmail">
+												<input type="hidden" name="messageSubmit" value="Send message" />
 												<button type="button" onclick="javascript:submitPropertyMessage();" name="msgSubmitBtn" class="btn btn-default-color "><i class="fa fa-envelope"></i> {{ __('messages.sendmsg') }}</button>
 											</div>
-											<?php
-										}
-										else
-										{
-											?>
-											<div class="col-sm-12">
-												<span>{{ __('messages.lbl_contact_msg_1') }}</span><br/>
-												@if($active_pack_id != 2 && $active_pack_id != 1)
-													<span>{{ __('messages.lbl_contact_msg_2') }} <a href="boligpakker.php">{{ __('messages.lbl_click_here') }}</a></span>
-												@endif
-											</div>
-											<?php
-										}
-										?>
-									</form>
+
+										</form>
+									@endif
 
 									<script type="text/javascript">
-									function submitPropertyMessage()
-									{
-										$('#propMessage').submit();
-									}
+										function submitPropertyMessage() {
+											$('#propMessage').submit();
+										}
 									</script>
 
 								</div>
@@ -691,7 +746,24 @@
 												<span class="location">{{ (!empty($rp->city_name))?$rp->city_name:'' }}</span>
 											</a>
 											@if($rp->thumbnail != "")
-												<img src="{{ asset($rp->thumbnail) }}" alt="Findbo - {{ $rp->headline_dk }}" width="230" height="237" />
+												@if(@file_get_contents(asset($rp->thumbnail), 0, NULL, 0, 1))
+													<img
+														src="{{ asset($rp->thumbnail) }}"
+														alt="Findbo - {{ $rp->headline_dk }}"
+														width="230" height="237">
+												@else
+													@if(@file_get_contents(asset('public/'.$rp->thumbnail), 0, NULL, 0, 1))
+													<img
+														src="{{ asset('public/'.$rp->thumbnail) }}"
+														alt="Findbo - {{ $rp->headline_dk }}"
+														width="230" height="237">
+													@else
+														<img
+															src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+															alt="{{ $rp->headline_dk }}"
+															width="230" height="237">
+													@endif
+												@endif
 											@else
 												<img src="{{ asset('public/images/ikke_navngivet_thumb.png') }}" alt="Findbo - {{ $rp->headline_dk }}" width="230" height="237" />
 											@endif
@@ -713,6 +785,7 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 			{{-- ./row --}}
 		</div>
@@ -723,99 +796,92 @@
 
 @section('scripts')
 	<script src="{{ asset('public/js/tipso/src/tipso.js') }}"></script>
-		<?php
-		$map_desc = substr($description, 0, 30);
-		$map_desc = str_replace("'",'"',$map_desc);
-		$map_desc = str_replace(chr(13).chr(10),chr(13),$map_desc);
-		$map_desc = str_replace(chr(13),'',$map_desc);
-		$map_desc = nl2br($map_desc);
-		$map_desc = addslashes($map_desc); // stripcslashes($map_desc);
+		@php
+			$map_desc = substr($description, 0, 30);
+			$map_desc = str_replace("'",'"',$map_desc);
+			$map_desc = str_replace(chr(13).chr(10),chr(13),$map_desc);
+			$map_desc = str_replace(chr(13),'',$map_desc);
+			$map_desc = nl2br($map_desc);
+			$map_desc = addslashes($map_desc); // stripcslashes($map_desc);
 
-
-		if($objProperty->thumbnail!="") {
-			$thumbnail = asset($objProperty->thumbnail);
-		} else {
-			$thumbnail = asset('images/ikke_navngivet_thumb.png');
-		}
-
-		?>
-		<script src="{{ asset('public/js/markerclusterer.min.js') }}" type="text/javascript"></script>
-		<script type="text/javascript">
-		function showReportForm()
-		{
+			if($objProperty->thumbnail!="") {
+				$thumbnail = asset($objProperty->thumbnail);
+			} else {
+				$thumbnail = asset('images/ikke_navngivet_thumb.png');
+			}
+		@endphp
+	<script src="{{ asset('public/js/markerclusterer.min.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+		function showReportForm() {
 			$('.reporterMsg').removeClass('errorMsg').hide();
 		}
 
-		function submitReport()
-		{
-				$('.reporterMsg').removeClass('errorMsg').hide();
-				var isValid = true;
+		function submitReport() {
+			$('.reporterMsg').removeClass('errorMsg').hide();
+			var isValid = true;
 
-				var reporter_email = $.trim($('#reporter_email').val());
-				if(reporter_email == '')
-				{
-					$('#errorMsg_reporter_email').addClass('errorMsg').show();
-					isValid = false;
-				}
+			var reporter_email = $.trim($('#reporter_email').val());
+			if(reporter_email == '') {
+				$('#errorMsg_reporter_email').addClass('errorMsg').show();
+				isValid = false;
+			}
 
-				var reporter_name = $.trim($('#reporter_name').val());
-				if(reporter_name == '')
-				{
-					$('#errorMsg_reporter_name').addClass('errorMsg').show();
-					isValid = false;
-				}
+			var reporter_name = $.trim($('#reporter_name').val());
+			if(reporter_name == '') {
+				$('#errorMsg_reporter_name').addClass('errorMsg').show();
+				isValid = false;
+			}
 
-				var reporter_reason_desc = $.trim($('#reporter_reason_desc').val());
-				if(reporter_reason_desc == '')
-				{
-					$('#errorMsg_reporter_reason_desc').addClass('errorMsg').show();
-					isValid = false;
-				}
+			var reporter_reason_desc = $.trim($('#reporter_reason_desc').val());
+			if(reporter_reason_desc == '') {
+				$('#errorMsg_reporter_reason_desc').addClass('errorMsg').show();
+				isValid = false;
+			}
 
-				if(!isValid)
-				{	return false; }
+			if(!isValid) {
+				return false;
+			}
 
-				$("#reportSubmitBtn").hide();
-				$("#reportSubmitBtnWaiter").show();
+			$("#reportSubmitBtn").hide();
+			$("#reportSubmitBtnWaiter").show();
 
-				$.ajax({
-			    		type : "POST",
-				        url	 : $('#reportForm').attr('action'),
-				        data : $('#reportForm').serialize(),
-				        global: false,
-						cache: false,
-						async: false,
-						dataType : 'json',
-			        	success : function(data)
-			        				  {
-		            						if(data.status == "success")
-			            					{
-		            							$("#reportSubmitBtnWaiter").hide();
-		            							$("#reportSubmitBtn").show();
-
-												$("#reportModal").removeClass("fade").modal("hide");
-									        } else {
-									        	$("#reportSubmitBtnWaiter").hide();
-		            							$("#reportSubmitBtn").show();
-											};
-			        				}
-			    });
-		}
-
-		function showHint(str, str1)
-		{
 			$.ajax({
 				type : "POST",
-		        url	 : "{{ route('add_remove_wishlist') }}",
-		        data : "q="+str+"&i="+str1,
-		        global: false,
+				url	 : $('#reportForm').attr('action'),
+				data : $('#reportForm').serialize(),
+				global: false,
 				cache: false,
 				async: false,
-		    	success : function(data) {
-					if(data == "added")
-		        	{
-		    			$("#addToWishlistBtn").hide();
-		    			$("#removeFromWishlistBtn").show();
+				dataType : 'json',
+				success : function(data) {
+					if(data.status == "success") {
+						$("#reportSubmitBtnWaiter").hide();
+						$("#reportSubmitBtn").show();
+
+						$("#reportModal").removeClass("fade").modal("hide");
+					} else {
+						$("#reportSubmitBtnWaiter").hide();
+						$("#reportSubmitBtn").show();
+					};
+				}
+			});
+		}
+
+		function showHint(str, str1) {
+			$.ajax({
+				type : "POST",
+				url	 : "{{ route('add_remove_wishlist') }}",
+				headers : {
+					'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+				},
+				data : "q="+str+"&i="+str1,
+				global: false,
+				cache: false,
+				async: false,
+		    success : function(data) {
+					if(data == "added") {
+		  			$("#addToWishlistBtn").hide();
+		  			$("#removeFromWishlistBtn").show();
 					} else {
 						$("#removeFromWishlistBtn").hide();
 						$("#addToWishlistBtn").show();
@@ -824,71 +890,88 @@
 			});
 		}
 
-		function  is_prop_available(str,str1)
-		{
-		        var xmlhttp=new XMLHttpRequest();
-		        xmlhttp.onreadystatechange=function()
-		        {
-		          if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			      {
-				      if(xmlhttp.responseText == 'deactivated')
-				      {
-				    	  $("#propDeactivateBtn").hide();
-					      $("#propActivateBtn").show();
-				      }
-				      else if(xmlhttp.responseText == 'activated')
-				      {
-				    	  $("#propActivateBtn").hide();
-				    	  $("#propDeactivateBtn").show();
-				      }
-		          }
-		        }
-		        xmlhttp.open("GET","isPropertyAvailable.php?q="+str+"&i="+str1,true);
-		        xmlhttp.send();
+		function is_prop_available(str,str1) {
+		  var xmlhttp=new XMLHttpRequest();
+		  xmlhttp.onreadystatechange = function() {
+		    if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		      if(xmlhttp.responseText == 'deactivated') {
+		    	  $("#propDeactivateBtn").hide();
+			      $("#propActivateBtn").show();
+		      } else if(xmlhttp.responseText == 'activated') {
+		    	  $("#propActivateBtn").hide();
+		    	  $("#propDeactivateBtn").show();
+		      }
+		    }
+		  }
+		  xmlhttp.open("GET","isPropertyAvailable.php?q="+str+"&i="+str1,true);
+		  xmlhttp.send();
 		}
 
-		function show_long_desc()
-		{
-			    $("#short_desc_handler").hide();
-			    $("#long_desc_handler").show();
+		function show_long_desc() {
+		  $("#short_desc_handler").hide();
+		  $("#long_desc_handler").show();
 		}
 
-		function show_short_desc()
-		{
-		    	$("#long_desc_handler").hide();
-		    	$("#short_desc_handler").show();
+		function show_short_desc() {
+			$("#long_desc_handler").hide();
+			$("#short_desc_handler").show();
 		}
 
-		function closePackageNotification()
-		{
-			    $("#packageNotificationDiv").hide('slow');
+		function closePackageNotification() {
+			$("#packageNotificationDiv").hide('slow');
 		}
 
-		(function($){
-				"use strict";
+		function getMap(latitude,longtitude) {
+			var currentProperty = [{	"id": 0,
+				"title" : "{{ (!empty($objProperty->headline_dk)) ? $objProperty->headline_dk:$objProperty->headline_eng }}",
+				"latitude":latitude,
+				"longitude":longtitude,
+				"image" : "{{ $thumbnail }}",
+				"description" : "{{ $map_desc.'...' }}",
+				"link":"{{ route('property_detail.show.withId', $objProperty->id) }}",
+				"map_marker_icon":"{{ asset('public/images/markers/green-marker-residential.png') }}"
+			}];
+			return Cozy.propertiesMap(currentProperty, 'property_location', 0);
+		}
 
-				$(document).ready(function()
-				{
-					$('#mc-embedded-subscribe-form').submit(function (event)
-					{   if ( event ) event.preventDefault();
-					    var $form = $(this);
-					    if ( $form.length > 0 ) { register($form); }
-				    });
+		(function($) {
+			"use strict";
 
-					$('.tipso').tipso();
+			$(document).ready(function() {
 
-					//Create property map centered on the marker of the property with id=0.
-					var currentProperty = [{	"id": 0,
-							              		"title": "{{ (!empty($objProperty->headline_dk))?$objProperty->headline_dk:$objProperty->headline_eng }}",
-				              		"latitude":<?php echo json_encode($location1); ?>,
-				              		"longitude":<?php echo json_encode($location2); ?>,
-				              		"image":"{{ $thumbnail }}",
-				              		"description":"<?php echo $map_desc.'...'; ?>",
-				              		"link":"{{ route('property_detail.show.withId', $objProperty->id) }}",
-				              		"map_marker_icon":"{{ asset('public/images/markers/green-marker-residential.png') }}"
-				              	}];
-			Cozy.propertiesMap(currentProperty, 'property_location', 0);
-		});
-		})(jQuery);
+				$('#mc-embedded-subscribe-form').submit(function (event) {
+					if ( event ) event.preventDefault();
+			    var $form = $(this);
+			    if ( $form.length > 0 ) { register($form); }
+				});
+
+				$('.tipso').tipso();
+
+				@if(Auth::user())
+					@if(Auth::check() && Auth::user()->seek_package_id != 0 || Auth::user()->isAdmin == 'admin' && Auth::user()->userType == 1)
+						@if(!is_null($location1) && !empty($location1) && !is_null($location2) && !empty($location2))
+							getMap({{ $location1 }},{{ $location2 }});
+						@else
+							jQuery.ajax({
+								url : "{{ route('get-latitude-longtitude') }}?address={{ urlencode($objProperty->address) }}",
+								method : "GET",
+								dataType : "json",
+								success : function(res) {
+									if(res.status == 'OK') {
+										console.log(res);
+										var latitude = res['results'][0].geometry.location.lat;
+										var longtitude = res['results'][0].geometry.location.lng;
+										getMap(latitude,longtitude);
+									}
+								}
+							});
+						@endif
+					@endif
+				@endif
+
+			});
+
+		}) (jQuery);
 	</script>
+
 @endsection

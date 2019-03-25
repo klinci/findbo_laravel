@@ -78,21 +78,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'fname' => $data['fname'],
-            'lname' => $data['lname'],
-            'email' => $data['email'],
-            'userType' => $data['usertype'],
-            'password' => bcrypt($data['password']),
-            'code' => md5($data['email'] . uniqid()),
-            'token' => 0,
-            'gender' => '',
-            'isBan' => 'false',
-            'isAdmin' => 'false',
-            'seek_package_id' => 0,
-            'hunting_email_unsubscribe' => 0,
-            'ip_address' => $_SERVER["REMOTE_ADDR"],
-        ]);
+
+      if($data['usertype'] == 1) {
+        $userType = 1;
+        $token = 1;
+      } else {
+        $userType = 2;
+        $token = 0;
+      }
+
+      return User::create([
+        'fname' => $data['fname'],
+        'lname' => $data['lname'],
+        'email' => $data['email'],
+        'userType' => $userType,
+        'password' => bcrypt($data['password']),
+        'code' => md5($data['email'] . uniqid()),
+        'token' => $token,
+        'gender' => '',
+        'isBan' => 'false',
+        'isAdmin' => 'false',
+        'seek_package_id' => 0,
+        'hunting_email_unsubscribe' => 0,
+        'ip_address' => $_SERVER["REMOTE_ADDR"],
+      ]);
     }
 
     /**
@@ -128,26 +137,20 @@ class RegisterController extends Controller
     {
         $email = $request->email;
 
-        if(filter_var($email, FILTER_VALIDATE_EMAIL))
-        {
-            $user = User::where('email', $email)->first();
-            if($user)
-            {
-              return response()->json([
-                'success' => 0,
-                'message' => 'The email has already been taken'
-              ]);
-            }
-            else
-            {
-              return response()->json([
-                'success' => 1,
-                'message' => 'The email is available'
-              ]);
-            }
-        }
-        else
-        {
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          $user = User::where('email', $email)->first();
+          if($user) {
+            return response()->json([
+              'success' => 0,
+              'message' => \Lang::get('messages.email_allready_message')
+            ]);
+          } else {
+            return response()->json([
+              'success' => 1,
+              'message' => ''
+            ]);
+          }
+        } else {
           return response()->json([
             'success' => -1
           ]);

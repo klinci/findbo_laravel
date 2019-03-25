@@ -18,7 +18,22 @@ class FavoriteController extends Controller
 	
 	public function removeToWishlist(Request $request)
 	{
-		Wishlist::destroy($request->input('id'));
-		return 1;
+
+		$findWhislist = Wishlist::where('id', $request->id)->where('user_id', Auth::user()->id)->first();
+
+		if($findWhislist) {
+			$findWhislist->delete();
+			return [
+				'error' => 0,
+				'message' => 'Whislist removed.'
+			];
+		}
+
+		return [
+			'error' => 1,
+			'message' => 'Whislist not found.'
+		];
+
 	}
+
 }

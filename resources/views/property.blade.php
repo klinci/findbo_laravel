@@ -89,22 +89,38 @@
 												<span class="btn btn-default"><i class="fa fa-file-o"></i> {{ __('messages.lbl_details') }}</span>
 											</a>
 											@if($proData->thumbnail != "")
-												<img
-													src="{{ asset($proData->thumbnail) }}"
-													alt="{{ $proData->headline_dk }}"
-													style="width:263px;height:230px;">
-											@else
-												<img
-														src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+
+												@if(@file_get_contents(asset($proData->thumbnail), 0, NULL, 0, 1))
+													<img
+														src="{{ asset($proData->thumbnail) }}"
 														alt="{{ $proData->headline_dk }}"
 														style="width:263px;height:230px;">
+												@else
+													@if(@file_get_contents(asset('public/'.$proData->thumbnail), 0, NULL, 0, 1))
+													<img
+														src="{{ asset('public/'.$proData->thumbnail) }}"
+														alt="{{ $proData->headline_dk }}"
+														style="width:263px;height:230px;">
+													@else
+														<img
+															src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+															alt="{{ $proData->headline_dk }}"
+															style="width:263px;height:230px;">
+													@endif
+												@endif
+
+											@else
+												<img
+													src="{{ asset('public/images/ikke_navngivet_thumb.png') }}"
+													alt="{{ $proData->headline_dk }}"
+													style="width:263px;height:230px;">
 											@endif
 										</div>
 
 										<div class="price {{ ($proData->is_available == '0')?'red':'' }}">
 											@if($proData->is_available == '1')
 												<i class="fa fa-home"></i>{{ ($proData->action == 'rent')?__('messages.lbl_for_rent'):__('messages.lbl_for_sale') }}
-											@else if($proData->is_available == '0')
+											@elseif($proData->is_available == '0')
 												<i class="fa fa-ban"></i>{{ ($proData->action == 'rent')?__('messages.lbl_rented'):__('messages.lbl_sold') }}
 											@endif
 											{{-- <span>{{ number_format($proData->price_usd,0,',','.') }} kr {{ ($proData->action=='rent')?'/md':''}}</span> --}}

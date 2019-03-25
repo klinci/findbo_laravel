@@ -657,7 +657,7 @@
 										<label><strong>{{ __('messages.postphone') }}: *</strong></label>
 									</div>
 									<div class="col-md-6">
-										<input class="form-control adform" type="text" name="phonenum1" id="" value="{{ $objProperty->phonenum1 }}" placeholder="{{ __('messaages.county').' '.__('messages.actualphone') }}" value="{{ $objProperty->phonenum1 }}" />
+										<input class="form-control adform" type="text" name="phonenum1" id="" value="{{ $objProperty->phonenum1 }}" placeholder="{{ __('messages.actualphone') }}" value="{{ $objProperty->phonenum1 }}" />
 									</div>
 								</div>
 								

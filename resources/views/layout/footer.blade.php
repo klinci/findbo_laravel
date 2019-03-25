@@ -101,7 +101,9 @@
 
 		<div class="row" style="margin-top: 45px;">
 			<div class="col-md-2 col-md-offset-3 col-sm-3 col-xs-12">
-				<h3 class="footertitle">About</h3>
+				<h3 class="footertitle">
+					@lang('messages.about')
+				</h3>
 				<ul class="lists">
 					<li>
 						<a href="{{ route('terms_condition') }}">
@@ -114,7 +116,9 @@
 				</ul>
 			</div>
 			<div class="col-md-2 col-sm-3 col-xs-12">
-				<h3 class="footertitle">Tenant</h3>
+				<h3 class="footertitle">
+					@lang('messages.tenant')
+				</h3>
 				<ul class="lists">
 					<li><a href="{{ route('home.properties') }}">
 						{{-- Search Properties --}}
