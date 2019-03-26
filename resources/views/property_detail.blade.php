@@ -291,7 +291,7 @@
 					</p>
 					<p>&nbsp;</p>
 
-					@if(Auth::check() && $active_pack_id==0 || Auth::user()->package_expiry_date <= date('Y-m-d H:i:s'))
+					@if(Auth::check() && $active_pack_id==0 || (Auth::check() && Auth::user()->package_expiry_date <= date('Y-m-d H:i:s')))
 						<div class="contact-landlord">
 							<a href="{{ route('package.show', $objProperty->id) }}" class="btn btn-fullcolor contact-landlord">
 								<i class="fa fa-lock"></i> {{ __('messages.postLandlord') }}
