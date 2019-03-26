@@ -54,7 +54,7 @@ class HomeController extends Controller
         dd(DB::select('select id, price_usd from properties where price_usd > 15000 limit 10'));
         //dd(DB::select('select count(id) from properties where not price = price_usd'));
 
-        
+
         $properties = DB::select('select id, price_usd from properties where not price = price_usd');
         foreach ($properties as $p) {
             if (!preg_match('#^[0-9.]+$#', $p->price_usd))
@@ -68,8 +68,8 @@ class HomeController extends Controller
 
         //dd(DB::select('select count(id) from properties where not price_usd = null'));
         //dd(DB::table('properties')->where('price_dk', '!=', null)->count());
-        
-  
+
+
         /* CLEAR FINDBOLIG SCRIPT
         $properties = DB::select('select id, prop_url from properties where prop_site_name = "findbolig" and status != 3');
         //dd(count($properties));
@@ -145,7 +145,7 @@ class HomeController extends Controller
             }
         }
 
-        $searchsByRegions = Area::select([
+        /* $searchsByRegions = Area::select([
             'name'
         ])->where(
             'name','LIKE', $term.'%'
@@ -161,7 +161,7 @@ class HomeController extends Controller
                     'searchBy' => 'region'
                 ];
             }
-        }
+        } */
 
         $searchsByProperties = Properties::groupBy('headline_eng','headline_dk')->select([
             'headline_dk',

@@ -291,7 +291,7 @@
 					</p>
 					<p>&nbsp;</p>
 
-					@if(Auth::check() && $active_pack_id==0)
+					@if(Auth::check() && $active_pack_id==0 || Auth::user()->package_expiry_date <= date('Y-m-d H:i:s'))
 						<div class="contact-landlord">
 							<a href="{{ route('package.show', $objProperty->id) }}" class="btn btn-fullcolor contact-landlord">
 								<i class="fa fa-lock"></i> {{ __('messages.postLandlord') }}
@@ -590,7 +590,7 @@
 						</a>
 					</div>
 
-					@if((Auth::check()) && (!empty($active_pack_id)) && (Auth::user()->id != $objProperty->user_id) || ($isAdmin === 'admin'))
+					@if((Auth::check()) && (!empty($active_pack_id)) && (Auth::user()->id != $objProperty->user_id) && (Auth::user()->package_expiry_date >= date('Y-m-d H:i:s')) || ($isAdmin === 'admin'))
 						<h1 class="section-title">{{ __('messages.lbl_contact') }}</h1>
 						<div class="row">
 							<div class="col-md-12">
@@ -608,7 +608,7 @@
 
 												@if($active_pack_id != 0)
 
-													@if(!empty($objProperty->email) && $objProperty->email != 'info@findbo.dk')
+													@if(!empty($objProperty->email) && $objProperty->email != 'info@findbo.dk' && strpos($objProperty->email, 'privat.udlejer') == true)
 														<li>
 															<i class="fa fa-envelope"></i>
 															<a href="mailto:{{ $objProperty->email }}">
@@ -616,14 +616,14 @@
 															</a>
 														</li>
 													@else
-														<li class="text-muted">
+														<!-- <li class="text-muted">
 															<i class="fa fa-envelope"></i> Email is empty.
-														</li>
+														</li> -->
 													@endif
 
 													@if(!empty($objProperty->phonenum1))
 														<li>
-															<i class="fa fa-phone"></i> 
+															<i class="fa fa-phone"></i>
 															{{ $objProperty->phonenum1 }} </li>
 													@elseif(!empty($objProperty->phonenum2))
 														<li>

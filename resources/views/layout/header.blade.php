@@ -37,16 +37,18 @@
 										<li>
 											<a href="{{ route('myprofile') }}"><span class="glyphicon glyphicon-cog"></span> &nbsp;{{ __('messages.my_profile') }}</a>
 										</li>
-										@if(Auth::user()->userType == '1' || Auth::user()->isAdmin == 'admin')
+										@if(Auth::user()->userType == '1' || Auth::user()->userType == '2' || Auth::user()->isAdmin == 'admin')
 										<li>
 											<a href="{{ Auth::user()->userType == 1 ? route('property.create') : route('home_seeker.create') }}">
 												<span class="glyphicon glyphicon-plus"></span>
 												&nbsp; {{ __('messages.post_ad') }}
 											</a>
 										</li>
-										<li>
-											<a href="{{ route('myads') }}"><span class="glyphicon glyphicon-home"></span> &nbsp;{{ __('messages.my_search_ad') }}</a>
-										</li>
+											@if(Auth::user()->userType == '1' || Auth::user()->isAdmin == 'admin')
+											<li>
+												<a href="{{ route('myads') }}"><span class="glyphicon glyphicon-home"></span> &nbsp;{{ __('messages.my_search_ad') }}</a>
+											</li>
+											@endif
 										@endif
 										<li>
 											<a href="{{ route('favorites') }}"><span class="glyphicon glyphicon-heart"></span> &nbsp;Favoritter</a>
