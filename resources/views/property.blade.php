@@ -85,8 +85,13 @@
 								@foreach($result as $proData)
 									<div class="item col-md-4">
 										<div class="image" style="border: 1px solid #e4e4e4;">
-											<a href="{{ route('property_detail.show.withId', $proData->id) }}">
-												<span class="btn btn-default"><i class="fa fa-file-o"></i> {{ __('messages.lbl_details') }}</span>
+											<a href="{{ route('property_detail.show.withId', [
+												$proData->id,
+												($proData->headline_dk == '' ) ? str_slug($proData->headline_eng) : str_slug($proData->headline_dk)
+												]) }}">
+												<span class="btn btn-default">
+													<i class="fa fa-file-o"></i> @lang('messages.lbl_details')
+												</span>
 											</a>
 											@if($proData->thumbnail != "")
 
@@ -129,7 +134,12 @@
 
 										<div class="info">
 											<h3>
-												<a href="{{ route('property_detail.show.withId', $proData->id) }}">{{ ($proData->headline_dk=='')?$proData->headline_eng:$proData->headline_dk }}</a>
+												<a href="{{ route('property_detail.show.withId', [
+													$proData->id,
+													($proData->headline_dk == '' ) ? str_slug($proData->headline_eng) : str_slug($proData->headline_dk)
+													]) }}">
+													{{ ($proData->headline_dk == '' ) ? $proData->headline_eng : $proData->headline_dk }}
+												</a>
 												<small>{{ ($proData->city_name!='')?$proData->city_name:'' }}</small>
 											</h3>
 

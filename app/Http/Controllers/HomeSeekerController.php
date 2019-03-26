@@ -194,24 +194,24 @@ class HomeSeekerController extends Controller
 	*/
 	public function create()
 	{
-			if(Auth::check() && ((Auth::user()->userType == '2' && Auth::user()->seek_package_id > 0) || Auth::user()->isAdmin == 'admin'))
-			{
-				$objArea = Area::all();
 
-				$seekAds = Seekads::where('userFk', Auth::user()->id)->first();
-				if($seekAds) {
-					// return redirect()->route('home_seeker.edit', $seekAds->id);
-					return redirect()->back();
-				}
+		if(Auth::user()->userType == '2' && Auth::user()->seek_package_id > 0 || Auth::user()->isAdmin == 'admin') {
+			$objArea = Area::all();
 
-				return view('create_ads', [
-					'objArea' => $objArea,
-				]);
+			$seekAds = Seekads::where('userFk', Auth::user()->id)->first();
+			if($seekAds) {
+				return redirect()->route('home_seeker.edit', $seekAds->id);
 			}
-			if(Auth::check() && (Auth::user()->userType == '2' && Auth::user()->seek_package_id == '0')) {
-				 	return view('auth.notpaid');
-			}
-			return redirect()->back();
+
+			return view('create_ads', [
+				'objArea' => $objArea,
+			]);
+		}
+
+		if(Auth::check() && (Auth::user()->userType == '2' && Auth::user()->seek_package_id == '0')) {
+			 	return view('auth.notpaid');
+		}
+		return redirect()->back();
 	}
 
 	/**

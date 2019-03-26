@@ -124,20 +124,27 @@
 						{{-- Search Properties --}}
 						@lang('messages.search_properties_caption')
 					</a></li>
-					@if(Auth::check())
-						@php
-							$_url = route('property.create')
-						@endphp
+					@if(Auth::user())
+						@if(Auth::user()->userType == 1)
+							<li>
+								<a href="{{ route('property.create') }}">
+									@lang('messages.lbl_seek_ad')
+								</a>
+							</li>
+						@elseif(Auth::user()->userType == 2)
+							<li>
+								<a href="{{ route('home_seeker.create') }}">
+									@lang('messages.lbl_seek_ad')
+								</a>
+							</li>
+						@endif
 					@else
-						@php
-							$_url = route('login')
-						@endphp
+						<li>
+							<a href="{{ route('login') }}">
+								@lang('messages.lbl_seek_ad')
+							</a>
+						</li>
 					@endif
-					<li>
-						<a href="{{ $_url }}">
-							@lang('messages.create_tenant_caption')
-						</a>
-					</li>
 					<li><a href="{{ route('blog') }}">Blog</a></li>
 					<li><a href="{{ route('home.contact') }}">{{ __('messages.contactus') }}</a></li>
 				</ul>

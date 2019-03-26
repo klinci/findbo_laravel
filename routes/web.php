@@ -110,7 +110,7 @@ Route::post('tilfoeg_fjern_favorit_liste','PropertyController@addRemoveWishlist'
   ->name('add_remove_wishlist');
 Route::post('fjern_bolig', 'PropertyController@deleteProperty')
   ->name('property.delete');
-Route::get('bolig_detaljer/{id}', 'PropertyController@propertyDetail')
+Route::get('bolig_detaljer/{id}/{slug?}','PropertyController@propertyDetail')
   ->name('property_detail.show.withId');
 Route::get('bolig_detaljer', 'PropertyController@noProperty')
   ->name('property_detail.show.withoutId');

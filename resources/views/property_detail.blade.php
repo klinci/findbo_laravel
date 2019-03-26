@@ -67,7 +67,10 @@
 			property="og:image"
 			content="{{ asset('images/ikke_navngivet_main.png') }}" />
 	@endif
-	<meta property="og:url" content="{{ route('property_detail.show.withId', $objProperty->id) }}">
+	<meta property="og:url" content="{{ route('property_detail.show.withId', [
+		$objProperty->id,
+		($objProperty->headline_dk == '' ) ? str_slug($objProperty->headline_eng) : str_slug($objProperty->headline_dk)
+	]) }}">
 	<meta property="og:title" content="{{ ($objProperty->headline_dk!='') ? $objProperty->headline_dk:$objProperty->headline_eng }}" />
 @endsection
 
@@ -514,8 +517,25 @@
 						<h5 style="margin-right: 0px;">{{ __('messages.lbl_share_this_property') }}:</h5>
 
 						@php
-							$currentLink = route('property_detail.show.withId', $objProperty->id);
-							$full_path_img_src = asset('public/' . $objProperty->thumbnail);
+							$currentLink = route('property_detail.show.withId', [
+								$objProperty->id,
+								($objProperty->headline_dk == '' ) ? str_slug($objProperty->headline_eng) : str_slug($objProperty->headline_dk)
+							]);
+
+							if($objProperty->thumbnail != "") {
+								if(@file_get_contents(asset($objProperty->thumbnail), 0, NULL, 0, 1)) {
+									$full_path_img_src = asset($objProperty->thumbnail);
+								} else {
+									if(@file_get_contents(asset('public/'.$objProperty->thumbnail), 0, NULL, 0, 1)) {
+										$full_path_img_src = asset('public/'.$objProperty->thumbnail);
+									} else {
+										$full_path_img_src = asset('public/images/ikke_navngivet_thumb.png');
+									}
+								}
+							} else {
+								$full_path_img_src = asset('public/images/ikke_navngivet_thumb.png');
+							}
+
 							$pin_desc = str_replace('"',"'",$description);
 						@endphp
 
@@ -741,8 +761,11 @@
 								@foreach($relatedProperty as $rp)
 									<div class="item col-md-10 it-sid">
 										<div class="image" style="border: 1px solid #e4e4e4;">
-											<a href="{{ route('property_detail.show.withId', $rp->id) }}">
-												<h3>{{ (!empty($rp->headline_dk))?$rp->headline_dk:$rp->headline_eng }}</h3>
+											<a href="{{ route('property_detail.show.withId', [
+											$rp->id,
+											($rp->headline_dk == '' ) ? str_slug($rp->headline_eng) : str_slug($rp->headline_dk)
+											]) }}">
+												<h3>{{ (!empty($rp->headline_dk)) ? $rp->headline_dk:$rp->headline_eng }}</h3>
 												<span class="location">{{ (!empty($rp->city_name))?$rp->city_name:'' }}</span>
 											</a>
 											@if($rp->thumbnail != "")
@@ -928,7 +951,10 @@
 				"longitude":longtitude,
 				"image" : "{{ $thumbnail }}",
 				"description" : "{{ $map_desc.'...' }}",
-				"link":"{{ route('property_detail.show.withId', $objProperty->id) }}",
+				"link":"{{ route('property_detail.show.withId', [
+					$objProperty->id,
+					($objProperty->headline_dk == '' ) ? str_slug($objProperty->headline_eng) : str_slug($objProperty->headline_dk)
+				]) }}",
 				"map_marker_icon":"{{ asset('public/images/markers/green-marker-residential.png') }}"
 			}];
 			return Cozy.propertiesMap(currentProperty, 'property_location', 0);

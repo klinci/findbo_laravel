@@ -276,7 +276,7 @@ class PropertyController extends Controller
 
 		$whereCls = "
 			(
-				(properties.is_available=1) OR ((properties.is_available=0) AND (DATE(properties.rented_date) >= '".$rentedDate."') AND (properties.action='rent') AND (properties.status=1))
+				(properties.is_available=1) OR ((properties.is_available=0) AND (DATE(properties.rented_date) >= '".$rentedDate."') AND (properties.status=1))
 			)
 		";
 
@@ -409,7 +409,7 @@ class PropertyController extends Controller
 		return $data->count();
 	}
 
-	public function propertyDetail($id)
+	public function propertyDetail($id,$slugTitle = null)
 	{
 
 		$objProperty = Properties::select([
@@ -434,6 +434,22 @@ class PropertyController extends Controller
 		)->where('properties.id', $id)->first();
 
 		if(!$objProperty) {
+			return redirect(route('home.properties'));
+		}
+
+		$headline = str_slug($objProperty->headline_eng,'-');
+		if(empty($headline) || is_null($headline)) {
+			$headline = str_slug($objProperty->headline_dk,'-');
+		}
+
+		if(is_null($slugTitle)) {
+			return redirect()->route('property_detail.show.withId',[
+				$objProperty->id,
+				$headline,
+			]);
+		}
+
+		if($slugTitle != $headline) {
 			return redirect(route('home.properties'));
 		}
 

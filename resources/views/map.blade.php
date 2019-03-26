@@ -308,7 +308,7 @@ $(document).ready(function(){
 					    		"longitude":longitude[i],
 					    		"image":thumbnailArray[i],
 					    		"description":descArray[i],
-					    		"link":'{{ url("bolig_detaljer") }}/'+idArray[i],
+					    		"link":'{{ url("bolig_detaljer") }} / '+idArray[i],
 					    		"map_marker_icon":"{{ asset('public/images/markers/green-marker-residential.png') }}"
 					    	});
 	    }
