@@ -1,6 +1,6 @@
 @extends('layout.index')
 
-@section('pageTitle', 'Thank you for register !')
+@section('pageTitle', 'Tak for at registrere dig!')
 
 @section('content')
 <!-- BEGIN PAGE TITLE/BREADCRUMB -->
@@ -8,11 +8,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1 class="page-title">Your account has not yet been activated!</h1>
+				<h1 class="page-title">
+					@lang('messages.activate_title')
+				</h1>
 				
 				<ul class="breadcrumb">
-					<li><a href="{{ route('home') }}">{{ __('messages.lbl_home')}} </a></li>
-					<li>Your account has not yet been activated!</li>
+					<li>
+						<a href="{{ route('home') }}">
+							@lang('messages.lbl_home')	
+						</a>
+					</li>
+					<li>
+						@lang('messages.activate_title')
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -24,16 +32,19 @@
 	<div class="container">
 		 <div class="row green" style="padding-top:70px; padding-bottom:30px; border-bottom:solid 1px #ccc;">
 			<div class="main col-sm-12" style="text-align:center; font-weight:bold;">
-				<h3 style="color: #4D4F56;">Please activate your account before proceeding.</h3><br/>
-				<h3 style="color: #4D4F56;">An e-mail has been sent to you with the activation code. Follow the link inside the e-mail to activate your account.</h3><br/>
-				<h3 style="color: #4D4F56;">If you didn't receive the e-mail with the activation code, please click <a href="{{ route('resend_code') }}">here</a>.</h3>
-	          	<br/>
-	          	<!-- <h1 style="color: #4D4F56;"> <i class="fa fa-lg fa-spinner fa-spin"></i></h1> -->
-	          	<script type="text/javascript">/*
-	          		window.setTimeout(function(){
-	          			window.location.href="{{ url('/') }}";
-		          	}, 3000);*/
-	          	</script>
+				<h3 style="color: #4D4F56;">
+					@lang('messages.activate_title_body')
+				</h3>
+				<br/>
+				<h3 style="color: #4D4F56;">
+					@lang('messages.activate_message1')	
+				</h3>
+				<br/>
+				<h3 style="color: #4D4F56;">
+					@lang('messages.activate_message2', [
+						'url' => route('resend_code')
+					])
+				</h3>
 			</div>
 		</div>
 	</div>

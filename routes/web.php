@@ -156,6 +156,8 @@ Route::get('kommunikation/{id}', 'ConversationController@index')
   ->name('conversation');
 Route::post('kommunikation_sendt', 'ConversationController@submitMsg')
   ->name('conversation_submit');
+Route::post('kommunikation_sendt_email', 'ConversationController@sendConversationWithEmail')
+  ->name('conversation_submit_with_email');
 
 
 Route::get('omdirigere','SocialAuthFacebookController@redirect')
@@ -195,3 +197,13 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('get-latitude-longtitude','MapController@index')
   ->name('get-latitude-longtitude');
+
+Route::get('properties-bulk-deletes','PropertiesBulkDeleteController@index')
+  ->name('properties.bulk');
+Route::post('properties-bulk-deletes','PropertiesBulkDeleteController@bulkDeletes')
+  ->name('properties.bulk.post');
+
+Route::get('dummy', function() {
+  $x =  checkdnsrr('gmail.com');
+  var_dump($x);
+});

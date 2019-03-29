@@ -137,11 +137,13 @@
 
 					<h1 class="property-title" style="margin-bottom: 15px;">
 						@if(empty($objProperty->headline_dk))
-							{{ $objProperty->headline_eng }}
+							{{ strtolower($objProperty->headline_eng) }}
 						@else
-							{{ $objProperty->headline_dk }}
+							{{ strtolower($objProperty->headline_dk) }}
 						@endif
-						<small>{{ (!empty($objProperty->city_name))?$objProperty->city_name:'' }}</small>
+						<small>
+							{{ (!empty($objProperty->city_name))?$objProperty->city_name:'' }}
+						</small>
 					</h1>
 
 					@if(session()->has('message.level'))
@@ -594,6 +596,17 @@
 						<h1 class="section-title">{{ __('messages.lbl_contact') }}</h1>
 						<div class="row">
 							<div class="col-md-12">
+								@if(Session::has('message'))
+									@if(Session::get('message') == 1)
+										<div class="alert alert-success">
+											Din besked er sendt.
+										</div>
+									@else
+										<div class="alert alert-danger">
+											Beskeden blev desværre ikke sendt. Prøv igen senere.
+										</div>
+									@endif
+								@endif
 								<div class="property-agent-info">
 									<div class="agent-detail col-md-5">
 										<div class="info">
@@ -644,18 +657,16 @@
 
 									@if(!empty($objProperty->email) && $objProperty->email != 'info@findbo.dk')
 										{{-- <form id="propMessage" action="bolig-detaljer.php" method="POST" class="form-style col-md-7" style="padding:40px 10px;"> --}}
-										<form id="propMessage" action="javascript:void(0)" method="POST" class="form-style col-md-7" style="padding:40px 10px;">
-
+										<form id="propMessage" action="{{ route('home_seeker_contact') }}" method="POST" class="form-style col-md-7" style="padding:40px 10px;">
+											{{ csrf_field() }}
 											<div class="col-sm-12">
-												<textarea name="txtMessage" rows="9" placeholder="{{ __('messages.msg') }}" class="form-control required" style="resize:none;"></textarea>
+												<textarea name="message" rows="9" placeholder="{{ __('messages.msg') }}" class="form-control required" style="resize:none;"></textarea>
 											</div>
 											<div class="center">
-												<input type="hidden" value="{{ Auth::user()->id }}" name="userid">
-												<input type="hidden" value="{{ $objProperty->user_id}}" name="user2">
-												<input type="hidden" value="{{ $objProperty->id }}" name="propertyid">
-												<input type="hidden" value="{{ (!empty($objProperty->headline_dk))?$objProperty->headline_dk:$objProperty->headline_eng }}" name="title">
-												<input type="hidden" value="{{ $objProperty->email }}" name="modalEmail">
-												<input type="hidden" name="messageSubmit" value="Send message" />
+												<input type="hidden" value="{{ $objProperty->user_id }}" name="user_id">
+												<input type="hidden" value="{{ $objProperty->id }}" name="property_id">
+												<input type="hidden" value="{{ (!empty($objProperty->headline_dk))?$objProperty->headline_dk:$objProperty->headline_eng }}" name="property_headline">
+												<input type="hidden" value="{{ $objProperty->email }}" name="user_email">
 												<button type="button" onclick="javascript:submitPropertyMessage();" name="msgSubmitBtn" class="btn btn-default-color "><i class="fa fa-envelope"></i> {{ __('messages.sendmsg') }}</button>
 											</div>
 
@@ -667,7 +678,6 @@
 											$('#propMessage').submit();
 										}
 									</script>
-
 								</div>
 							</div>
 						</div>

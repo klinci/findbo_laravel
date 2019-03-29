@@ -81,10 +81,10 @@ class RegisterController extends Controller
 
       if($data['usertype'] == 1) {
         $userType = 1;
-        $token = 1;
+        $token = 0;
       } else {
         $userType = 2;
-        $token = 0;
+        $token = 1;
       }
 
       return User::create([

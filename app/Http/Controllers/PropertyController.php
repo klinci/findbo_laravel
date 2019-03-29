@@ -438,7 +438,7 @@ class PropertyController extends Controller
 		}
 
 		$headline = str_slug($objProperty->headline_eng,'-');
-		if(empty($headline) || is_null($headline)) {
+		if(empty($headline) && is_null($headline)) {
 			$headline = str_slug($objProperty->headline_dk,'-');
 		}
 
@@ -447,10 +447,6 @@ class PropertyController extends Controller
 				$objProperty->id,
 				$headline,
 			]);
-		}
-
-		if($slugTitle != $headline) {
-			return redirect(route('home.properties'));
 		}
 
 		$objGallery = Gallery::getGalleryByPropertyId($id);

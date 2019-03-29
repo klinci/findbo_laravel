@@ -50,7 +50,7 @@
 					<img src="{{ asset('public/images/search-findbo.png') }}" alt="" data-animation-direction="from-left" data-animation-delay="200" />
 				</div>
 				<div class="col-sm-5" data-animation-direction="from-right" data-animation-delay="200" >
-					<p>Findbo.dk har en brugervenlig formular til at annoncere boliger til leje eller salg. Indtast informationer om din bolig med placering, størrelse, faciliteter og billeder. Din bolig er klar til at blive offentliggjort og blivet set af boligsøgende.</p>
+					<p>Findbo.dk har en brugervenlig formular til at annoncere boliger til leje. Indtast informationer om din bolig med placering, størrelse, faciliteter og billeder. Din bolig er klar til at blive offentliggjort og blivet set af boligsøgende.</p>
 					<p>Findbo.dk tilbyder nyttige features til at oprette og styre dine boliger. Vi hjælper gerne, hvis der er vanskeligheder eller problemer ved brug af vores ydelser.</p>
 					<p>Find din drømmebolig på en nem måde – i hele Danmark. Vi har gjort det nemt for dig at søge og sortere efter boliger ved hjælp af søgefunktionen og <a href="{{ route('home.map') }}">mapvisning</a>.</p>
 					<a href="{{ route('home.properties') }}" class="btn btn-fullcolor">FIND DET PERFEKTE HJEM</a>
@@ -60,7 +60,7 @@
 					<h3 data-animation-direction="from-left" data-animation-delay="200"><i class="fa fa-bar-chart-o"></i> Øg Synligheden for Din Bolig</h3>
 				</div>					
 				<div class="col-sm-12" data-animation-direction="from-right" data-animation-delay="200" >
-					<p>Som boligudbyder, hvad enten det er udlejning eller salg af boliger, har du mulighed for at oprette en konto og annoncere dine boliger. Du vil blive set af boligsøgende i dit område, og i hele Danmark.</p>
+					<p>Som boligudbyder har du mulighed for at oprette en konto og annoncere dine boliger. Du vil blive set af boligsøgende i dit område, og i hele Danmark.</p>
 					<p>Som boligsøgende, har du mulighed for at søge efter behov og ønsker en bolig. Boligudbydere kan derefter finde dig. Du kan også selv finde og kontakte boligudbydere på findbo.dk.</p>
 				</div>
 			</div>

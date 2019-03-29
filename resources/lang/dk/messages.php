@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 return [
 	'lbl_home'					=> 'Forside',
@@ -60,7 +60,7 @@ return [
 	'signin'					=> 'Log ind',
 	//'signin'						=> 'Login',
 	//'post_ad'					=> 'Opret annonce',
-	'post_ad'					=> 'Søgeannonce',
+	'post_ad'					=> 'Boligsøgerannonce',
 	'create_ad'					=> 'Opret annonce',
 	'lbl_register'				=> 'Registrer',
 	'lbl_properties'				=> 'boliger',
@@ -256,7 +256,7 @@ return [
 'lbl_seek_house_ad'			=> 'Opret boligsøgerannonce',
 'lbl_seek_ad'				=> 'Boligsøgerannonce',
 'seek_ad_msg_1'				=> 'Hvordan bruger jeg en boligsøgerannonce?',
-'seek_ad_msg_2'				=> 'Med en boligsøgerannonce, kan udlejere og sælgere nemt finde dig og tage kontakt til dig. De vil kunne se hvem du er og hvad dine behov og ønsker er. Det giver udlejere og sælgere mere tryghed, og øger dine chancer for at finde din drømmebolig.',
+'seek_ad_msg_2'				=> 'Med en boligsøgerannonce, kan udlejere nemt finde dig og tage kontakt til dig. De vil kunne se hvem du er og hvad dine behov og ønsker er. Det giver udlejere mere tryghed, og øger dine chancer for at finde din drømmebolig.',
 'lbl_civil_status'			=> 'Civilstatus',
 'lbl_please_choose'			=> 'V&aelig;lg venligst',
 	'lbl_single'				=> 'Single',
@@ -599,7 +599,7 @@ return [
 	'longitude'					=> 'L&aelig;ngdegrad',
 	'postAreas'					=> 'Omr&aring;der',
 	'county'		=> 'Landekode',
-	'actualphone'		=> 'Prim&aelig;r telefonnummer',
+	'actualphone'		=> 'Primær telefonnummer',
 	'specifyType'		=> ' Angiv venligst hvilken type tjeneste, du tilbyder med din bolig: *',
 
 	'propertyCost'					=> 'Prisen for boligen',
@@ -710,7 +710,7 @@ return [
 	'energytooltip'			=> 'A/C-forbrug',
 	'bruttotooltip'			=> 'Brutto',
 	'viewdettails'			=> 'Se detaljer',
-	'postlisting'			=> 'Udlej eller Sælg din Bolig',
+	'postlisting'			=> 'Udlej din Bolig',
 	'typeengvrs'			=> 'Indtast engelsk annoncetekst',
 	'enlabel'				=> 'Energimærke',
 	'lbl_consumption_and_energy' => 'Forbrug og Energimærke',
@@ -796,12 +796,13 @@ return [
 	'lbl_seeker_packages_feature_3_1' => "Denne funktion giver dig adgang til telefonnumre til udlejere eller sælgere.",
 	'lbl_seeker_packages_feature_6_1' => 'Bliv en del af "Boligjagten", hvor du vil få en e-mail hver gang der kommer ledige boliger der matcher dine kriterier',
 
-	'lbl_forever'				=> "for evigt",
-	'lbl_per_month'				=> "per måned",
-	'lbl_activated'				=> "Aktiveret",
-	'lbl_upgrade'				=> "Opgradere",
-	'lbl_select'					=> "Vælg",
-	'lbl_renew_package'			=> "Forny Pakke",
+	'lbl_forever' => "for evigt",
+	'lbl_per_month' => "per måned",
+	'lbl_activated' => "Aktiveret",
+	'lbl_activate' => 'Aktivere',
+	'lbl_upgrade' => "Opgradere",
+	'lbl_select' => "Vælg",
+	'lbl_renew_package' => "Forny Pakke",
 
 	'seeker_green_package_desc'	=> "Mulighed for helt gratis at kommunikere med udlejere og sælgere via findbo.dk's kommunikationsplatform.",
 
@@ -827,11 +828,11 @@ return [
 	'payment_message_2'		=> 'Uventet fejl opstod. Prøv igen, eller kontakt os.',
 
 	'about_msg_1'			=> "Velkommen til Findbo",
-	'about_msg_2'			=> "Vi er en ny Boligportal for Udlejere og Lejere – og for Sælgere og Købere af Ejendomme.",
+	'about_msg_2'			=> "Danmarks mest brugervenlig Boligportal for Udlejere og Lejere.",
 	//'about_msg_3'			=> 'Vi kan tilbyde vores kunder en gratis og effektiv formidling af boliger. Vi tror på, at et rigtig svar er bedre end et hurtig svar, og vi tror på, at man med udgangspunkt i ærlighed og gensidig tillid kan opbygge de stærkeste forhold mellem boligudbydere og boligsøgende og på den måde levere det bedste resultat.',
 
 	'work_with_findbo'		=> "Samarbejde Med Findbo",
-	'lbl_sell_or_rent_prop'	=> "Sælg eller udlej en bolig",
+	'lbl_sell_or_rent_prop'	=> "Udlej en bolig",
 	'lbl_find_prop'			=> "Find en bolig",
 	'lbl_work_with_team'		=> "Samarbejd på findbo.dk",
 	'lbl_become_partner'		=> "Bliv vores partner",
@@ -978,10 +979,10 @@ return [
 	'title_how_it_works' => 'Hvordan Virker Det: Værelser Til Leje I København',
 	'how_it_works_1' => '<p>Det er nemt og hurtigt at oprette en konto på findbo.dk. Du kan tilmelde dig ved hjælp af din Facebook konto eller ved at registrere dine personlige oplysninger gennem tilmeldingsformularen. Du kan gå i gang med at søge, oprette eller organisere annoncer med det samme.</p>
 				<p>Du har mulighed for at oprette dig som <strong>boligsøgende</strong> eller <strong>boligudbyder</strong>. Du kan til enhver tid opgradere din konto og benytte fordelene af de forskellige <a href="priser.php">pakker</a> på findbo.dk.</p>',
-	'how_it_works_2' => '<p>Findbo.dk har en brugervenlig formular til at annoncere boliger til leje eller salg. Indtast informationer om din bolig med placering, størrelse, faciliteter og billeder. Din bolig er klar til at blive offentliggjort og blivet set af boligsøgende.</p>
+	'how_it_works_2' => '<p>Findbo.dk har en brugervenlig formular til at annoncere boliger til leje. Indtast informationer om din bolig med placering, størrelse, faciliteter og billeder. Din bolig er klar til at blive offentliggjort og blivet set af boligsøgende.</p>
 				<p>Findbo.dk tilbyder nyttige features til at oprette og styre dine boliger. Vi hjælper gerne, hvis der er vanskeligheder eller problemer ved brug af vores ydelser.</p>
 				<p>Find din drømmebolig på en nem måde – i hele Danmark. Vi har gjort det nemt for dig at søge og sortere efter boliger ved hjælp af søgefunktionen og <a href="{{ url(\'map\') }}">mapvisning</a>.</p>',
-	'how_it_works_3' => '<p>Som boligudbyder, hvad enten det er udlejning eller salg af boliger, har du mulighed for at oprette en konto og annoncere dine boliger. Du vil blive set af boligsøgende i dit område, og i hele Danmark.</p>
+	'how_it_works_3' => '<p>Som boligudbyder har du mulighed for at oprette en konto og annoncere dine boliger. Du vil blive set af boligsøgende i dit område, og i hele Danmark.</p>
 				<p>Som boligsøgende, har du mulighed for at søge efter behov og ønsker en bolig. Boligudbydere kan derefter finde dig. Du kan også selv finde og kontakte boligudbydere på findbo.dk.</p>',
 	'feature_rent_or_sale' => 'Vi bestræber os på at gøre det nemt og enkelt at finde et godt sted at bo på tværs af alle platforme hvad enten, det er på en computer, tablet eller smarthphone.',
 	'feature_real_ads' => 'På Findbo.dk finder du forskellige typer lejeboliger til forskellige priser. Der bliver uploadet tusindvis lejeboliger hver måned. Find din næste bolig nu.',
@@ -1043,7 +1044,7 @@ return [
 	'register_thanks_message' => 'Tak for din registering!',
 	'message_confirmation' => 'En email er blevet sendt til dig som beskræftelse på at du har oprettet en brugerkonto hos Findbo.dk',
 
-	'number_phone_required_message' => 'Venligst indtast din telefonnummer',
+	'number_phone_required_message' => 'Venligst indtast dit telefonnummer',
 	'lbl_not_paid' => 'Der kan ikke oprette en boligsøgeannonce',
 	'buy_packages_description' => 'Venligst at købe en pakke før der kan oprettes en boligsøgeannonce. Klik',
 	'here' => 'her',
@@ -1051,4 +1052,10 @@ return [
 	'not_approve_message' => 'Venligst kontakt os på :email, hvis din konto ikke er blevet godkendt indenfor 24 timer.',
 	'email_allready_message' => 'Denne e-mail adresse er allerede i brug',
 	'tenant' => 'Boligsøgende',
+	'activate_title' => 'Din konto er endnu ikke blevet aktiveret.',
+	'activate_title_body' => 'Venligst at aktivere din konto før du kan gå videre i processen.',
+	'activate_message1' => 'En mail er blevet sendt til din email adresse med en aktiveringskode. Følg det link som er blevet sendt til dig, for at aktivere din konto.',
+	'activate_message2' => 'Hvis du ikke har modtaget en mail med aktiveringskode, venligst klikke <a href=":url">her</a>.',
+	'register_thanks_head' => 'Tak for din registrering på Findbo.dk',
+	'register_thanks_body' => 'For at aktivere din konto, bedes du klikke på linket her under',
 ];

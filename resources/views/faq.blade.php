@@ -105,7 +105,7 @@
 							<div class="panel-body">
 								Opret din profil på findbo.dk. <br/>
 								Tryk på ”Opret annonce” knappen i øverste højre hjørne. <br/> 
-								Herefter skal du skrive informationerne om din bolig. Husk at vælge, om din bolig skal være til leje eller til salg. <br/>
+								Herefter skal du skrive informationerne om din bolig. <br/>
 								Hvis du har spørgsmål, kan vi hjælpe dig videre med annoncering af dine boliger.
 							</div>
 						</div>
@@ -155,7 +155,7 @@
 						</div>
 						<div id="collapseOne3" class="panel-collapse collapse">
 							<div class="panel-body">
-								Hver enkelt boligannonce skal igennem en række systemtjek og godkendes manuelt af vores medarbejdere, før den bliver uploadet på findbo.dk. Dermed opnår vi en høj grad af sandsynlighed for, at både lejemålet og personen bag lejemålet er ægte.
+								Hver enkelt boligannonce skal igennem en række systemtjek, før den bliver uploadet på findbo.dk. Dermed opnår vi en høj grad af sandsynlighed for, at både lejemålet og personen bag lejemålet er ægte.
 							</div>
 						</div>
 					</div> 
@@ -187,7 +187,7 @@
 						</div>
 						<div id="collapseThree3" class="panel-collapse collapse">
 							<div class="panel-body">
-								Efter oprettelsen af din profil, kan du købe IntroPakken, som er en prøveperiode på 7 dage eller købe et abonnement, FindboPakken, som varer 30 dage. Du modtager en kvittering på din e-mail, når du har købt en pakkeløsning. Hvis du har FindboPakken, sender vi dig en kvittering en gang om måneden, når dit abonnement bliver automatisk fornyet.
+								Efter oprettelsen af din profil, kan du købe IntroPakken, som er en prøveperiode på 4 dage eller købe FindboPakken, som varer 30 dage. Du modtager en kvittering på din e-mail, når du har købt en pakkeløsning. 
 							</div>
 						</div>
 					</div>
@@ -196,7 +196,7 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion3" href="#collapseFour3" class="collapsed">
-									Jeg har købt en Intro-/FindboPakke, men udlejeres information er ikke tilgængelig.
+									Jeg har købt en Intro-/FindboPakken, men udlejeres information er ikke tilgængelig.
 								</a>
 							</h4>
 						</div>
@@ -246,7 +246,7 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion4" href="#collapseTwo4" class="collapsed">
-									Min bolig er blevet solgt eller lejet ud, men den vises stadig på hjemmesiden. Hvordan fjerner jeg den?
+									Min bolig er blevet lejet ud, men den vises stadig på hjemmesiden. Hvordan fjerner jeg den?
 								</a>
 							</h4>
 						</div>

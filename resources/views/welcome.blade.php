@@ -98,7 +98,7 @@
 				<div class="row">
 					<div class="col-md-6 col-sm-6 img1">
 						<div class="ctinfo">
-							<div class="cth3">Aalborg </div>
+							<div class="cth3">Aalborg</div>
 							<div class="cthtotal">
 								{{-- {{ $aalborgCount }} @lang('messages.rental_properties_caption') --}}
 								{{ $aalborgCount }} @lang('messages.rental_properties_caption')
@@ -106,11 +106,12 @@
 							<div class="cthbtn">
 								<form action="{{ route('home.properties') }}" method="POST" id="aalborg-form">
 									{{ csrf_field() }}
-									<input type="hidden" name="zip[11]" value="11">
+									{{-- <input type="hidden" name="zip[11]" value="11">
 									<input type="hidden" name="zip[23]" value="23">
 									<input type="hidden" name="zip[24]" value="24">
 									<input type="hidden" name="zip[25]" value="25">
-									<!-- <button>@lang('messages.find_house_caption')</button> -->
+									<button>@lang('messages.find_house_caption')</button> --}}
+									<input type="hidden" name="keywords" value="Aalborg">
 								</form>
 								<button onclick="$('#aalborg-form').submit()">
 									{{-- @lang('messages.find_house_caption') --}}
@@ -128,12 +129,13 @@
 								<div class="cthbtn">
 									<form action="{{ route('home.properties') }}" method="POST" id="copenhagen-form">
 										{{ csrf_field() }}
-										<input type="hidden" name="zip[1794]" value="1794">
+										<input type="hidden" name="keywords" value="København">
+										{{-- <input type="hidden" name="zip[1794]" value="1794">
 										<input type="hidden" name="zip[201]" value="201">
 										<input type="hidden" name="zip[203]" value="203">
 										<input type="hidden" name="zip[202]" value="202">
 										<input type="hidden" name="zip[204]" value="204">
-										<input type="hidden" name="zip[8]" value="8">
+										<input type="hidden" name="zip[8]" value="8"> --}}
 									</form>
 									<button onclick="$('#copenhagen-form').submit()">@lang('messages.find_house_caption')</button>
 								</div>
@@ -149,9 +151,10 @@
 								<div class="cthbtn">
 									<form action="{{ route('home.properties') }}" method="POST" id="aarhus-form">
 										{{ csrf_field() }}
-										<input type="hidden" name="zip[20]" value="20">
+										<input type="hidden" name="keywords" value="Aarhus">
+										{{-- <input type="hidden" name="zip[20]" value="20">
 										<input type="hidden" name="zip[544]" value="544">
-										<input type="hidden" name="zip[545]" value="545">
+										<input type="hidden" name="zip[545]" value="545"> --}}
 									</form>
 									<button onclick="$('#aarhus-form').submit()">@lang('messages.find_house_caption')</button>
 								</div>
@@ -165,7 +168,8 @@
 								<div class="cthbtn">
 									<form action="{{ route('home.properties') }}" method="POST" id="odense-form">
 										{{ csrf_field() }}
-										<input type="hidden" name="zip[128]" value="128">
+										<input type="hidden" name="keywords" value="Odense">
+										{{-- <input type="hidden" name="zip[128]" value="128">
 										<input type="hidden" name="zip[132]" value="132">
 										<input type="hidden" name="zip[136]" value="136">
 										<input type="hidden" name="zip[130]" value="130">
@@ -173,7 +177,7 @@
 										<input type="hidden" name="zip[135]" value="135">
 										<input type="hidden" name="zip[134]" value="134">
 										<input type="hidden" name="zip[131]" value="131">
-										<input type="hidden" name="zip[129]" value="129">
+										<input type="hidden" name="zip[129]" value="129"> --}}
 									</form>
 									<button onclick="$('#odense-form').submit()">@lang('messages.find_house_caption')</button>
 								</div>

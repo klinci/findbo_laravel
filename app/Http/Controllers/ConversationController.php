@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Messsages;
-
-use App\Conversation;
 use Auth;
+use App\Messsages;
+use App\Conversation;
+use App\User;
 use Illuminate\Http\Request;
+use App\Services\MailService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ConversationController extends Controller
 {
 
 	public function __construct() {
-		$this -> middleware('auth');
+		$this->middleware('auth');
 	}
 
 	public function index($id)
@@ -84,4 +86,55 @@ class ConversationController extends Controller
 		$request->session()->flash('message.content', 'Data submitted successfully.');
 		return redirect()->back();
 	}
+
+	public function sendConversationWithEmail(Request $request)
+	{
+
+		$conversationCreate = Conversation::create([
+			'user_one' => Auth::user()->id,
+			'user_two' => $request->user_id,
+		]);
+
+		if($conversationCreate) {
+
+			$message = Messsages::create([
+				'message_text' => $request->message,
+				'conversation_fk' => $conversationCreate->id,
+				'user_sender_fk' => Auth::user()->id,
+				'user_receiver_fk' => $request->user_id,
+				'isSeen' => 'false',
+				'relatedProperty' => $request->property_id
+			]);
+
+			$user = User::find($request->user_id);
+			if($user) {
+
+				$mailer = new MailService;
+				$sender = [
+					'email' => Auth::user()->email,
+					'fname' => Auth::user()->fname,
+				];
+				$recipient = [
+					'email' => $request->user_email,
+					'fname' => $user->fname,
+				];
+				$mailer->sendHomeSeekerContactMail(
+					$sender,
+					$recipient,
+					$request->message
+				);
+
+				if($mailer) {
+					$message = 'Your message has been send.';
+				} else {
+					$message = 'Your message not send.';
+				}
+
+				return redirect()->back()->with('message',$message);
+			}
+
+		}
+
+	}
+
 }

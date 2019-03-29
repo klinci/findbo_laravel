@@ -27,109 +27,126 @@ class HomeSeekerController extends Controller
 {
 	public function __construct() {
 		$this->middleware('auth')->except('index');
-		//$this->middleware('active')->only(['create', 'store']);
+		// $this->middleware('active')->only(['create','store']);
 	}
 
 	public function index($id)
 	{
-		if($id > 0)
-		{
+		if($id > 0) {
+
 			$l_user_id = 0;
 			$is_paid_member = 0;
-			$userid = 0;
 			$checkUser = 0;
 			$active_pack_id = 0;
 			$isAdmin = "";
-			if(Auth::check())
-			{
+
+			if(Auth::user()) {
+
 				$l_user_id = Auth::user()->id;
+
 				$objUser = User::find($l_user_id);
 				$is_paid_member = $objUser->is_paid_member;
 
-				$user_id = Auth::user()->id;
 				$isAdmin = $objUser->isAdmin;
 				$today_date = date('Y-m-d H:i:s');
 
-				if(($objUser->package_expiry_date>$today_date) && ($objUser->seek_package_id == 2))
-				{
+				if(($objUser->package_expiry_date>$today_date) && ($objUser->seek_package_id == 2)) {
+					$active_pack_id = $objUser->seek_package_id;
+				}elseif(($objUser->package_expiry_date>$today_date) && ($objUser->seek_package_id == 1)) {
 					$active_pack_id = $objUser->seek_package_id;
 				}
-				elseif(($objUser->package_expiry_date>$today_date) && ($objUser->seek_package_id == 1))
-				{
-					$active_pack_id = $objUser->seek_package_id;
-				}
+
 			}
 
 			$objHomeSeeker = Seekads::getHomeSeekerById($id);
 
-			$objSeekGallery = DB::table('seekGallery')
-							->where('property_id','=',$id)
-							->orderBy('id','desc')
-							->first();
+			if(!$objHomeSeeker) {
+				return redirect()->route('home');
+			}
+
+			$objSeekGallery = DB::table('seekGallery')->where('property_id','=',$id)->orderBy('id','desc')->first();
+
+			if(!$objSeekGallery) {
+				return redirect()->route('home');
+			}
+
 			$thumbnail = '';
-			if(!empty($objSeekGallery) && count($objSeekGallery)>0)
-			{
+			if(!empty($objSeekGallery) && count($objSeekGallery)>0) {
 				$thumbnail = $objSeekGallery->path;
 			}
 
 			$objHomeSeekerProperty = DB::table('properties')
-									->where('user_id','=',$l_user_id)
-									->where('status','=',1)
-									->where('is_available','=',1)
-									->get();
+				->where('user_id', $l_user_id)
+				->where('status','=',1)
+				->where('is_available','=',1)->limit(20)
+				->get();
+
+			if(!$objHomeSeekerProperty) {
+				return redirect()->route('home');
+			}
 
 			//----- for right side ------
 			$arrOfProperty = Seekads::getHomeSeekerPropertyByLocation($objHomeSeeker->location,$id);
 
-			return view('homeseeker',['objHomeSeeker'=>$objHomeSeeker,'arrOfProperty'=>$arrOfProperty,'l_user_id'=>$l_user_id,'is_paid_member'=>$is_paid_member,'userid'=>$userid,'checkUser'=>$checkUser,'active_pack_id'=>$active_pack_id,'isAdmin'=>$isAdmin,'thumbnail'=>$thumbnail, 'objHomeSeekerProperty'=>$objHomeSeekerProperty]);
-		}
-		else
-		{
-			return view('/');
+			if(!$arrOfProperty) {
+				return redirect()->route('home');
+			}
+
+			return view('homeseeker', [
+				'objHomeSeeker' => $objHomeSeeker,
+				'arrOfProperty' => $arrOfProperty,
+				'l_user_id' => $l_user_id,
+				'is_paid_member' => $is_paid_member,
+				'active_pack_id' => $active_pack_id,
+				'isAdmin' => $isAdmin,
+				'thumbnail' => $thumbnail,
+				'objHomeSeekerProperty' => $objHomeSeekerProperty
+			]);
+
+		} else {
+			return redirect()->route('home');
 		}
 	}
 
 	public function contact(Request $request)
 	{
-		$text = $request->input('text');
+
 		$date = date('Y-m-d H:i:s');
-		$title = $request->input('title');
-		$userEmail = $request->input('modalEmail');
-		$userid = $request->input('userid');
-		$user2 = $request->input('user2');
-		$propertyid = $request->input('propertyid');
-		$redirect = $request->input('redirect');
-
-		$objConversion = Conversation::create([
-			'user_one'=>$userid,
-			'user_two'=>$user2
-		]);
-		$lastID = $objConversion->id;
-
-		Messsages::create([
-			'message_text'=>$text,
-			'time'=>$date,
-			'conversation_fk'=>$lastID,
-			'user_sender_fk'=>$userid,
-			'user_receiver_fk'=>$user2,
-			'isSeen'=>'false',
-			'relatedProperty'=>$propertyid
+		$conversationCreate = Conversation::create([
+			'user_one' => Auth::user()->id,
+			'user_two' => $request->user_id,
 		]);
 
-		$to = $userEmail;
-		//$to = "hardik@desireinfoway.com";
+		if($conversationCreate) {
 
-		$objSender = User::find($userid);
+			$message = Messsages::create([
+				'message_text' => $request->message,
+				'conversation_fk' => $conversationCreate->id,
+				'user_sender_fk' => Auth::user()->id,
+				'user_receiver_fk' => $request->user_id,
+				'isSeen' => 'false',
+				'relatedProperty' => $request->property_id
+			]);
 
-		$objReceiver = User::find($user2);
+			$user = User::find($request->user_id);
 
-		$objDemo = new \stdClass();
-		$objDemo->receiver_fname = $objReceiver->name;
-		$objDemo->sender_fname = $objSender->name;
-
-		Mail::to($to)->send(new HomeSeekerContact($objDemo));
-
-		return redirect()->back();
+			if($user) {
+				try {
+					$obj = new \stdClass();
+					$obj->receiver_fname = $user->fname;
+					$obj->sender_fname = Auth::user()->fname;
+					Mail::to($request->user_email)->send(new HomeSeekerContact($obj));
+					if($obj) {
+						$message = 1;
+					} else {
+						$message = 0;
+					}
+				} catch (Exception $e) {
+					$message = 0;
+				}
+			}
+		}
+		return redirect()->back()->with('message',$message);
 	}
 
 	public function activation($id,$act)

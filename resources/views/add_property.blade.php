@@ -44,16 +44,17 @@
 						enctype="multipart/form-data">
 						{{ csrf_field() }}
 						{{-- nav nav-tabs tabcostum --}}
-						<ul class="nav nav-tabs tabcostum" role="tablist" style="margin:10px 0;">
-							<li class="rentt active">
+						<ul class="nav nav-tabs tabcostum" role="tablist" style="margin:10px 0;border:none;">
+							{{-- <li class="rentt active">
 								<a href="#rent" role="tab" data-toggle="tab">
 									<b>{{ __('messages.rentPdetails') }}</b>
-									<label><input type="radio" id="radio_1" name="action" value="rent" checked style="visibility: hidden;" /></label>
+									<label></label>
 								</a>
-							</li>
+							</li> --}}
 							<li class="buyy" style="display: none;">
 								<a href="#sell" role="tab" data-toggle="tab">
 									<b>{{ __('messages.sellPdetails') }}</b>
+									<input type="radio" id="radio_1" name="action" value="rent" checked style="visibility: hidden;" />
 									<label><input type="radio" id="radio_2" name="action" value="buy" style="visibility: hidden;" /></label>
 								</a>
 							</li>

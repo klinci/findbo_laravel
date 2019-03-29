@@ -14,14 +14,14 @@
 		*/
 		public function getMailer() {
 			$mailer = new PHPMailer(true);
-			$mailer -> CharSet = 'UTF-8';
-			$mailer -> SMTPAuth = true;
-			$mailer -> SMTPSecure = 'tls';
-			$mailer -> Host = env('MAIL_HOST');
-			$mailer -> Port = env('MAIL_PORT');
-			$mailer -> Username = env('MAIL_USERNAME');
-			$mailer -> Password = env('MAIL_PASSWORD');
-			$mailer -> SetFrom('info@findbo.dk', 'Findbo');
+			$mailer->CharSet = 'UTF-8';
+			$mailer-> SMTPAuth = true;
+			$mailer->SMTPSecure = 'tls';
+			$mailer->Host = env('MAIL_HOST');
+			$mailer->Port = env('MAIL_PORT');
+			$mailer->Username = env('MAIL_USERNAME');
+			$mailer->Password = env('MAIL_PASSWORD');
+			$mailer->SetFrom('info@findbo.dk','Findbo');
 			return $mailer;
 		}
 
@@ -69,18 +69,33 @@
 		* @param string  $message
 		* @return boolean  Indicates whether the message has been sent
 		*/
-		public function sendHomeSeekerContactMail($sender, $receiver, $message) {
-			$mailer = $this -> getMailer();
-			$mailer -> Subject = __('messages.email_msg_seek_info_1');
-			$mailer -> addAddress($receiver -> email);
-			$mailer -> SetFrom($sender -> email);
-			$mailer -> MsgHTML(view('mails.homeseekercontact')
-									->with([
-										'receiver_fname' => $receiver -> fname,
-										'sender_fname' => $sender -> fname,
-									])
-								);
-			return $mailer -> send();
+		public function sendHomeSeekerContactMail($sender, $recipient, $message)
+		{
+
+			if(is_array($sender)) {
+				$senderEmail = $sender['email'];
+				$recipientEmail = $recipient['email'];
+				$recipientFirstName = $recipient['fname'];
+				$senderFirstName = $sender['fname'];
+			} else {
+				$senderEmail = $sender->email;
+				$recipientEmail = $recipient->email;
+				$recipientFirstName = $recipient->fname;
+				$senderFirstName = $sender->fname;
+			}
+
+			$mailer = $this->getMailer();
+			$mailer->Subject = __('messages.email_msg_seek_info_1');
+			$mailer->AddAddress($recipientEmail);
+			$mailer->SetFrom($senderEmail);
+			$mailer->SetFrom('info@findbo.dk','Findbo');
+			$mailer->addReplyTo($senderEmail,$senderFirstName);
+			$mailer->MsgHTML(view('mails.homeseekercontact')->with([
+					'receiver_fname' => $recipientFirstName,
+					'sender_fname' => $senderFirstName,
+				])
+			);
+			return $mailer->send();
 		}
 
 		/**

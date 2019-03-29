@@ -12,7 +12,7 @@ class HomeSeekerContact extends Mailable
     use Queueable, SerializesModels;
     
     public $demo;
-    
+
     /**
      * Create a new message instance.
      *

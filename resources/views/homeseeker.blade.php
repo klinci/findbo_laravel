@@ -113,12 +113,21 @@
 
 						<div class="agent-detail clearfix" style="margin-top: 15px;">
 							<div class="image col-md-5">
-								@if(!empty($thumbnail) && file_exists($thumbnail))
-									<img src="{{ asset($thumbnail) }}" alt="" />
+
+								@if($thumbnail != "")
+									@if(@file_get_contents(asset($thumbnail),0,NULL,0,1))
+										<img src="{{ asset($thumbnail) }}">
+									@else
+										@if(@file_get_contents(asset('public/'.$thumbnail),0,NULL,0,1))
+											<img src="{{ asset('public/'.$thumbnail) }}">
+										@else
+											<img src="{{ asset('public/images/prof_img.jpg') }}">
+										@endif
+									@endif
 								@else
-									<!-- <img src="{{ asset('public/images/blank_profile.jpg') }}" alt="" /> -->
-									<img src="{{ asset('public/images/prof_img.jpg') }}" alt="" />
+									<img src="{{ asset('public/images/prof_img.jpg') }}">
 								@endif
+
 							</div>
 
 							<div class="info col-md-7">
@@ -262,12 +271,23 @@
 								@foreach($arrOfProperty as $row)
 									<li class="col-md-12">
 										<div class="image">
-											<a href="{{ route('home_seeker.show', $row->id) }}"></a>
-											@if(!empty($row->thumbnail) && ($row->thumbnail!="images/propertyimages/genericThumb.jpg") && file_exists($row->thumbnail))
-												<img src="{{ $row->thumbnail }}" alt="" style="margin-bottom: 0px;" />
-											@else
-												<img src="{{ asset('public/images/prof_img.jpg') }}" style="margin-bottom: 0px;" alt="" />
-											@endif
+
+											<a href="{{ route('home_seeker.show', $row->id) }}">
+												@if($row->thumbnail != "" && $row->thumbnail != 'images/propertyimages/genericThumb.jpg')
+													@if(@file_get_contents(asset($row->thumbnail),0,NULL,0,1))
+														<img src="{{ asset($row->thumbnail) }}">
+													@else
+														@if(@file_get_contents(asset('public/'.$row->thumbnail),0,NULL,0,1))
+															<img src="{{ asset('public/'.$row->thumbnail) }}">
+														@else
+															<img src="{{ asset('public/images/prof_img.jpg') }}">
+														@endif
+													@endif
+												@else
+													<img src="{{ asset('public/images/prof_img.jpg') }}">
+												@endif
+											</a>
+
 										</div>
 
 										<ul class="top-info">
