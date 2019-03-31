@@ -3,9 +3,18 @@
 @section('pageTitle', __('messages.title_property_list'))
 
 @section('meta_tags')
-<meta name="keywords" content="">
-<meta name="description" content="{{ __('messages.meta_desc_property_page') }}">
+	<meta name="keywords" content="">
+	<meta name="description" content="{{ __('messages.meta_desc_property_page') }}">
 @endsection
+
+@php
+	$timeout = stream_context_create([
+    'http' => [
+			'timeout' => 2
+    ]
+	]);
+	// $timeout = null;
+@endphp
 
 @section('content')
 <!-- BEGIN PAGE TITLE/BREADCRUMB -->
@@ -95,13 +104,13 @@
 											</a>
 											@if($proData->thumbnail != "")
 
-												@if(@file_get_contents(asset($proData->thumbnail), 0, NULL, 0, 1))
+												@if(@file_get_contents(asset($proData->thumbnail), 0, $timeout))
 													<img
 														src="{{ asset($proData->thumbnail) }}"
 														alt="{{ $proData->headline_dk }}"
 														style="width:263px;height:230px;">
 												@else
-													@if(@file_get_contents(asset('public/'.$proData->thumbnail), 0, NULL, 0, 1))
+													@if(@file_get_contents(asset('public/'.$proData->thumbnail), 0, $timeout))
 													<img
 														src="{{ asset('public/'.$proData->thumbnail) }}"
 														alt="{{ $proData->headline_dk }}"

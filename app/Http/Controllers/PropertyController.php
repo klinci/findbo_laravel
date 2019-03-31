@@ -942,6 +942,7 @@ class PropertyController extends Controller
 		// return $imageFiles;
 
 		if(count($imageFiles) > 0) {
+
 			for($i = 0; $i < count($imageFiles); $i++) {
 
 				$extension = 'jpg';
@@ -968,7 +969,13 @@ class PropertyController extends Controller
 			}
 		}
 
-		return redirect()->back();
+		if($objProperty) {
+			$redirectTo = 'bolig_detaljer/'.$objProperty->id.'/'.str_slug($objProperty->headline_dk);
+		} else {
+			$redirectTo = '/';
+		}
+
+		return redirect(url($redirectTo));
 
 	}
 
@@ -1785,8 +1792,8 @@ class PropertyController extends Controller
 				]);
 			}
 		}
-		return redirect()->back();
-		// return redirect("property_detail/".$propertyId);
+
+		return redirect(url("bolig_detaljer/".$propertyId));
 	}
 
 	/**

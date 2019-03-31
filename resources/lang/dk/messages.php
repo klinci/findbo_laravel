@@ -1023,7 +1023,7 @@ return [
 	'meta_keyword_message' => 'Beskeder, lejlighed odense c, 2 værelses lejlighed odense, 2 værelses lejlighed aalborg, lejligheder i århus c, lejlighed odense c, lejligheder i aarhus, lejligheder i ålborg, lejligheder til leje i århus, bolig til leje københavn, lejligheder til leje københavn, lejlighed københavn til leje, lejligheder til leje i københavn, lejligheder i nørresundby, ungdomsbolig randers, værelser til leje i københavn ',
 	'meta_desc_message' => 'Beskeder | Største boligportal for leje og salg af huse, lejligheder og værelser i Danmark. Find den bedste bolig eller upload din bolig til leje eller Bsalg på Findbo!',
 
-	'newsletter_label' => 'Tilmeld dig til vores nyhedsbreve',
+	'newsletter_label' => 'Tilmeld Dig Til Vores Nyhedsbreve',
 	'search_properties_caption' => 'Søg boliger',
 	'create_tenant_caption' => 'Boligsøgerannonce',
 	'wellcome_danmark_caption' => 'Udvalgte byer i Danmark',

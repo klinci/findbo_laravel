@@ -4,6 +4,13 @@
 
 @php
 
+	$timeout = stream_context_create([
+    'http' => [
+			'timeout' => 2
+    ]
+	]);
+	// $timeout = null;
+
 	if($objProperty->description_dk != "") {
 		$description = $objProperty->description_dk;
 	} else {
@@ -52,10 +59,10 @@
 	<meta name="description" content="{{ $meta_desc }}">
 	@if(!empty($objGallery) && count($objGallery) > 0)
 		@foreach($objGallery as $gallery)
-			@if(@file_get_contents(asset($gallery->path), 0, NULL, 0, 1))
+			@if(@file_get_contents(asset($gallery->path), 0, $timeout))
 				<meta property="og:image" content="{{ asset($gallery->path) }}">
 			@else
-				@if(@file_get_contents(asset('public/'.$gallery->path), 0, NULL, 0, 1))
+				@if(@file_get_contents(asset('public/'.$gallery->path), 0, $timeout))
 					<meta property="og:image" content="{{ asset('public/'.$gallery->path) }}">
 				@else
 					<meta property="og:image" content="{{ asset('public/images/ikke_navngivet_thumb.png') }}">
@@ -137,12 +144,30 @@
 
 					<h1 class="property-title" style="margin-bottom: 15px;">
 						@if(empty($objProperty->headline_dk))
-							{{ strtolower($objProperty->headline_eng) }}
+
+							@if(strpos($objProperty->headline_eng, '-'))
+								@php
+									$_headLine = explode('-', $objProperty->headline_eng);
+								@endphp
+								{{ strtolower($_headLine[0]) . ' - '. ucwords($_headLine[1]) }}
+							@else
+								{{ strtolower($objProperty->headline_eng) }}
+							@endif
+
 						@else
-							{{ strtolower($objProperty->headline_dk) }}
+
+							@if(strpos($objProperty->headline_dk, '-'))
+								@php
+									$_headLine = explode('-', $objProperty->headline_dk);
+								@endphp
+								{{ strtolower($_headLine[0]) . ' - '. ucwords($_headLine[1]) }}
+							@else
+								{{ strtolower($objProperty->headline_dk) }}
+							@endif
+
 						@endif
 						<small>
-							{{ (!empty($objProperty->city_name))?$objProperty->city_name:'' }}
+							{{ (!empty($objProperty->city_name)) ? ucwords($objProperty->city_name) : '' }}
 						</small>
 					</h1>
 
@@ -197,14 +222,14 @@
 							@php $isExists = 0; @endphp;
 							@if(count($objGallery) > 0)
 								@foreach($objGallery as $gallery)
-									@if(@file_get_contents(asset($gallery->path), 0, NULL, 0, 1))
+									@if(@file_get_contents(asset($gallery->path), 0, $timeout))
 										<div class="item">
 											<img
 												src="{{ asset($gallery->path) }}"
 												alt="Bolig billeder - Finbo - {{ $objProperty->headline_dk }}" style="width:800px;height:452px;">
 										</div>
 									@else
-										@if(@file_get_contents(asset('public/'.$gallery->path), 0, NULL, 0, 1))
+										@if(@file_get_contents(asset('public/'.$gallery->path), 0, $timeout))
 											<div class="item">
 												<img
 													src="{{ asset('public/'.$gallery->path) }}"
@@ -232,14 +257,14 @@
 						<div id="property-detail-thumbs" class="owl-carousel">
 							@if(!empty($objGallery) && count($objGallery) > 0)
 								@foreach($objGallery as $gallery)
-									@if(@file_get_contents(asset($gallery->path), 0, NULL, 0, 1))
+									@if(@file_get_contents(asset($gallery->path), 0, $timeout))
 										<div class="item">
 											<img
 												src="{{ asset($gallery->path) }}"
 												alt="Findbo - {{ $objProperty->headline_dk }}" >
 										</div>
 									@else
-										@if(@file_get_contents(asset('public/'.$gallery->path), 0, NULL, 0, 1))
+										@if(@file_get_contents(asset('public/'.$gallery->path), 0, $timeout))
 											<div class="item">
 												<img
 													src="{{ asset('public/'.$gallery->path) }}"
@@ -525,10 +550,10 @@
 							]);
 
 							if($objProperty->thumbnail != "") {
-								if(@file_get_contents(asset($objProperty->thumbnail), 0, NULL, 0, 1)) {
+								if(@file_get_contents(asset($objProperty->thumbnail), 0, $timeout)) {
 									$full_path_img_src = asset($objProperty->thumbnail);
 								} else {
-									if(@file_get_contents(asset('public/'.$objProperty->thumbnail), 0, NULL, 0, 1)) {
+									if(@file_get_contents(asset('public/'.$objProperty->thumbnail), 0, $timeout)) {
 										$full_path_img_src = asset('public/'.$objProperty->thumbnail);
 									} else {
 										$full_path_img_src = asset('public/images/ikke_navngivet_thumb.png');
@@ -779,13 +804,13 @@
 												<span class="location">{{ (!empty($rp->city_name))?$rp->city_name:'' }}</span>
 											</a>
 											@if($rp->thumbnail != "")
-												@if(@file_get_contents(asset($rp->thumbnail), 0, NULL, 0, 1))
+												@if(@file_get_contents(asset($rp->thumbnail), 0, $timeout))
 													<img
 														src="{{ asset($rp->thumbnail) }}"
 														alt="Findbo - {{ $rp->headline_dk }}"
 														width="230" height="237">
 												@else
-													@if(@file_get_contents(asset('public/'.$rp->thumbnail), 0, NULL, 0, 1))
+													@if(@file_get_contents(asset('public/'.$rp->thumbnail), 0, $timeout))
 													<img
 														src="{{ asset('public/'.$rp->thumbnail) }}"
 														alt="Findbo - {{ $rp->headline_dk }}"

@@ -96,12 +96,14 @@ class RegisterController extends Controller
         'code' => md5($data['email'] . uniqid()),
         'token' => $token,
         'gender' => '',
+        'timeJoined' => date('Y-m-d H:i:s'),
         'isBan' => 'false',
         'isAdmin' => 'false',
         'seek_package_id' => 0,
         'hunting_email_unsubscribe' => 0,
         'ip_address' => $_SERVER["REMOTE_ADDR"],
       ]);
+
     }
 
     /**

@@ -12,7 +12,8 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "phpmailer/phpmailer": "^6.0",
-        "spatie/laravel-newsletter": "3.7.0"
+        "spatie/laravel-newsletter": "3.7.0",
+        "weblagence/laravel-facebook-pixel": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

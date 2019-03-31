@@ -2,6 +2,14 @@
 
 @section('pageTitle', __('messages.lbl_new_property_seeker'))
 
+@php
+	$timeout = stream_context_create([
+    'http' => [
+			'timeout' => 2
+    ]
+	]);
+@endphp
+
 @section('meta_tags')
 	<meta name="keywords" content="">
 	<meta name="description" content="{{ __('messages.meta_desc_home_seeker') }}">
@@ -115,10 +123,10 @@
 							<div class="image col-md-5">
 
 								@if($thumbnail != "")
-									@if(@file_get_contents(asset($thumbnail),0,NULL,0,1))
+									@if(@file_get_contents(asset($thumbnail),0, $timeout))
 										<img src="{{ asset($thumbnail) }}">
 									@else
-										@if(@file_get_contents(asset('public/'.$thumbnail),0,NULL,0,1))
+										@if(@file_get_contents(asset('public/'.$thumbnail),0, $timeout))
 											<img src="{{ asset('public/'.$thumbnail) }}">
 										@else
 											<img src="{{ asset('public/images/prof_img.jpg') }}">
@@ -274,10 +282,10 @@
 
 											<a href="{{ route('home_seeker.show', $row->id) }}">
 												@if($row->thumbnail != "" && $row->thumbnail != 'images/propertyimages/genericThumb.jpg')
-													@if(@file_get_contents(asset($row->thumbnail),0,NULL,0,1))
+													@if(@file_get_contents(asset($row->thumbnail),0, $timeout))
 														<img src="{{ asset($row->thumbnail) }}">
 													@else
-														@if(@file_get_contents(asset('public/'.$row->thumbnail),0,NULL,0,1))
+														@if(@file_get_contents(asset('public/'.$row->thumbnail),0, $timeout))
 															<img src="{{ asset('public/'.$row->thumbnail) }}">
 														@else
 															<img src="{{ asset('public/images/prof_img.jpg') }}">

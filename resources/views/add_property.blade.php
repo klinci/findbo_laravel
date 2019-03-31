@@ -942,13 +942,28 @@
 
             var picReader = new FileReader();
 
-            picReader.addEventListener("load",function(event) {
+            picReader.addEventListener("load", function(event) {
 
               var picFile = event.target;
 
               var div = document.createElement("div");
               div.className = "imgprev";
-              div.innerHTML = "<input type='hidden' value='"+picFile.result+"' name='image_files[]'><img class='thumbnail' src='" + picFile.result + "'" + "title='" + picFile.name + "'/> <a onclick='remove_div(this)' href='#collapseSixth' class='remove_pict'>X</a>";
+              div.innerHTML = `
+              	<input
+              		type="hidden"
+              		value="`+ picFile.result +`"
+              		name='image_files[]'>
+              		<img
+              			class="thumbnail"
+              			src="`+ picFile.result +`"
+              			title="`+ picFile.name +`">
+              	<a
+              		onclick='remove_div(this)'
+              		href='#collapseSixth'
+              		class='remove_pict'>
+              		X
+              	</a>
+              `;
               output.insertBefore(div,null);
               div.children[1].addEventListener("click", function(event) {
                  div.parentNode.removeChild(div);
@@ -1025,8 +1040,9 @@
 
 			selDiv.innerHTML = "";
 
-			var files = e.target.files;
-			var filesArr = Array.prototype.slice.call(files);
+			var files = e.target.files,
+					filesArr = Array.prototype.slice.call(files);
+
 			filesArr.forEach(function(f) {
 				if(!f.type.match("image.*")) {
 					return;
@@ -1034,12 +1050,18 @@
 
 				var reader = new FileReader();
 				reader.onload = function (e) {
-					var html = "<div class='col-sm-2'><img src=\"" + e.target.result + "\">" + f.name + "<br clear=\"left\"/></div>";
+					var html = `
+						<div class='col-sm-2'>
+							<img src="`+ e.target.result +`"> `+ f.name +`
+							<br clear="left">
+						</div>
+					`;
 					selDiv.innerHTML += html;
 				}
 				reader.readAsDataURL(f);
-
+				console.log(reader)
 			});
+
 		}
 
 		$( ".rentt" ).click(function() {
