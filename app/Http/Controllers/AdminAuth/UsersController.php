@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Seekpackagelogs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
@@ -35,131 +36,157 @@ class UsersController extends Controller
 		return view('admin.users.users',['userType'=>$userType,'keyword'=>$keyword, 'fromDate'=>$fromDate, 'toDate'=>$toDate, 'status'=>$status]);
 	}
 
+	private function getAllUsers($start = "", $limit = "", $search = "",$userType = "", $keyword = "", $fromDate = "", $toDate = "", $status = "") {
+
+		$properties = DB::table('users')
+			->when($userType, function($query) use ($userType) {
+				if($userType!="") {
+					return $query->where('userType',$userType);
+				}
+			})->when($keyword, function($query) use ($keyword) {
+				if($keyword!="") {
+					return $query->where('fname','LIKE',"%{$keyword}%")
+					->orWhere('lname','LIKE',"%{$keyword}%")
+					->orWhere('email','LIKE',"%{$keyword}%")
+					->orWhere('phone','LIKE',"%{$keyword}%");
+				}
+			})->when([$fromDate,$toDate], function($query) use ($fromDate,$toDate) {
+					if($fromDate!="" && $toDate!="") {
+						return $query->whereBetween('timeJoined',[date('Y-m-d',strtotime($fromDate)), date('Y-m-d',strtotime($toDate))]);
+					}
+			})->when($status, function($query) use ($status) {
+
+				if($status!="") {
+
+					if($status==1) {
+						$status = 0;
+					}
+
+					if($status==2) {
+						$status = 1;
+					}
+					if($status==3) {
+						$status = 2;
+					}
+					if($status==4) {
+						$status = 3;
+					}
+					
+					if($status==0 || $status==1) {
+						return $query->where('token','=',"$status");
+					} else if($status==2) {
+						return $query->where('isBan','=',"true");
+					} else if($status==3) {
+						return $query->where('isAdmin','=',"admin");
+					}
+				}
+			});
+
+		if($start == "" && $limit == "") {
+			return $properties->count();
+		}
+
+		return $properties->offset($start)->limit($limit)->orderBy('id','desc')->get();
+	}
+
 	public function ajaxUsers(Request $request)
 	{
-		$userType = $request->input("userType");
-		$keyword = $request->input("keyword");
-		$fromDate = $request->input("fromDate");
-		$toDate = $request->input("toDate");
-		$status = $request->input("status");
-		
-		$objUsers = new User();
-		
-		$objAllUsers = $objUsers->getAllUsers("","","",$userType,$keyword,$fromDate,$toDate,$status);
-		
-		$totalData = count($objAllUsers);
+
+		$userType = $request->userType;
+		$keyword = $request->keyword;
+		$fromDate = $request->fromDate;
+		$toDate = $request->toDate;
+		$status = $request->status;
+		$limit = $request->length;
+		$start = $request->start;
+		$search = $request->input('search.value');
+
+		$totalData = $this->getAllUsers("","","",$userType,$keyword,$fromDate,$toDate,$status);
 		$totalFiltered = $totalData;
-		
-		$limit = $request->input('length');
-		$start = $request->input('start');
-		
-		if(empty($request->input('search.value')))
-		{
-			$users = $objUsers->getAllUsers($start, $limit, "", $userType,$keyword,$fromDate,$toDate,$status);
-		}
-		else
-		{
-			$search = $request->input('search.value');
-			$users = $objUsers->getAllUsers($start, $limit, $search, $userType, $keyword,$fromDate,$toDate,$status);
+
+		if(empty($search)) {
+			$users = $this->getAllUsers($start, $limit, "", $userType,$keyword,$fromDate,$toDate,$status);
+		} else {
+			$users = $this->getAllUsers($start, $limit, $search, $userType, $keyword,$fromDate,$toDate,$status);
 			$totalFiltered = count($users);
 		}
-		
+
 		$currentDate = date('Y-m-d H:i:s');
-		$data = array();
-		if(!empty($users) && count($users)>0)
-		{
-			foreach($users as $post)
-			{
+		$data = [];
+
+		if(!empty($users) && count($users) > 0) {
+			foreach($users as $post) {
+
 				$uType = $post->userType;
-				if($uType == '1')
-				{
+
+				if($uType == '1') {
 					$userTypeClass = 'Landlord';
-				}
-				else if($uType == '2')
-				{
+				} else if($uType == '2') {
 					$userTypeClass = 'House Seeker';
 				}
+
 				$nestedData['account_type'] = $userTypeClass;
 				$nestedData['full_name'] = $post->fname.' '.$post->lname;
 				$nestedData['email'] = $post->email;
 				$nestedData['phone_number'] = $post->phone;
 				$nestedData['date_registered'] = $post->timeJoined;
-				if($post->token==1)
-				{
+
+				if($post->token==1) {
 					$nestedData['status'] = 'Active';
-				}
-				else
-				{
+				} else {
 					$nestedData['status'] = '<b>Not Active</b>';
 				}
-				
+
 				$active_pack_id = 0;
-				if((strtotime($post->package_expiry_date)>strtotime($currentDate)) && ($post->seek_package_id==2))
-				{
+				if((strtotime($post->package_expiry_date)>strtotime($currentDate)) && ($post->seek_package_id==2)) {
+					$active_pack_id = $post->seek_package_id;
+				} else if((strtotime($post->package_expiry_date)>strtotime($currentDate)) && ($post->seek_package_id==1)) {
 					$active_pack_id = $post->seek_package_id;
 				}
-				else if((strtotime($post->package_expiry_date)>strtotime($currentDate)) && ($post->seek_package_id==1))
-				{
-					$active_pack_id = $post->seek_package_id;
-				}
-				
-				if($active_pack_id == 1)
-				{
+
+				if($active_pack_id == 1) {
 					$nestedData['active_package'] = '<span class="pack_green"><b>IntroPakken</b></span>';
-				}
-				else if($active_pack_id == 2)
-				{
+				} else if($active_pack_id == 2) {
 					$nestedData['active_package'] = '<span class="pack_green"><b>FindboPakken</b></span>';
-				}
-				else //if($active_pack_id == 0)
-				{
+				} else {
 					$nestedData['active_package'] = 'None';
 				}
-				
+
 				$view = '<a href="'.url("admin/users/view_profile?id=".$post->id).'"><i class="fa fa-file-text-o"></i></a>';
 				
-				if(Auth::user()->email=='info@findbo.dk' || Auth::user()->email=='info1@findbo.dk')
-				{
-					if($post->isAdmin=="admin")
-					{
+				if(Auth::user()->email=='info@findbo.dk' || Auth::user()->email=='info1@findbo.dk') {
+					if($post->isAdmin=="admin") {
 						$userIcon = '<a href="'.url("admin/users/convertuser/".$post->id).'" onclick="return confirm(\'Are you sure?\')" title="Convert from Admin to User"><img src="'.asset('public/admin/images/admin.png').'" /></a>';
-					}
-					else
-					{
+					} else {
 						$userIcon = '<a href="'.url("admin/users/convertuser/".$post->id).'" onclick="return confirm(\'Are you sure?\')" title="Convert from User to Admin"><i class="fa fa-user"></i></a>';
 					}
-					
-					if($post->isBan=="true")
-					{
+
+					if($post->isBan=="true") {
 						$ban = '<a href="'.url("admin/users/updatebanstatus/".$post->id).'" onclick="return confirm(\'Are you sure?\')" title="Apply Ban"><img src="'.asset('public/admin/images/unban.png').'" /></a>';
-					}
-					else
-					{
+					} else {
 						$ban = '<a href="'.url("admin/users/updatebanstatus/".$post->id).'" onclick="return confirm(\'Are you sure?\')" title="Remove Ban"><img src="'.asset('public/admin/images/ban.png').'" /></a>';
 					}
-					
-				}
-				else
-				{
+
+				} else {
 					$userIcon = $ban = '';
 				}
-		
+
 				$nestedData['action'] = $view.'&nbsp;<span style="margin: 0 2px;color:#ddd;">|</span>&nbsp;'.
 						$userIcon.'&nbsp;<span style="margin: 0 2px;color:#ddd;">|</span>&nbsp;'.
 						$ban;
-		
+
 				$data[] = $nestedData;
 			}
 		}
-		
-		$json_data = array(
-				"draw"            => intval($request->input('draw')),
-				"recordsTotal"    => intval($totalData),
-				"recordsFiltered" => intval($totalFiltered),
-				"data"            => $data
-		);
-		
-		echo json_encode($json_data);
+
+		$json_data = [
+			"draw" => intval($request->input('draw')),
+			"recordsTotal" => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data" => $data
+		];
+
+		return $json_data;
 	}
 	
 	public function convertUser($id, Request $request)

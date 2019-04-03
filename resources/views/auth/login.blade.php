@@ -55,9 +55,9 @@
 								<div class="form-group">
 									<label class="control-label">{{ __('messages.selectUserType') }}</label>
 									<select class="regSelect" id="usertype" name="usertype">
-										<option value="">{{ __('messages.selectUserType') }}</option>
-			                            <option value="2">{{ __('messages.houseHunter') }}</option>
-			                            <option value="1">{{ __('messages.landlord') }}</option>
+											<option value="">{{ __('messages.selectUserType') }}</option>
+	                    <option value="2">{{ __('messages.houseHunter') }}</option>
+	                    <option value="1">{{ __('messages.landlord') }}</option>
 									</select>
 								</div>
 
@@ -85,6 +85,14 @@
 								<div class="form-group">
 									<label>{{ __('messages.confirm_password') }}</label>
 									<input type="password" name="password_confirmation" id="ConfirmPassword" class="form-control" />
+								</div>
+
+								<div id="captcha" style="display:none;">
+									<div
+										style="width:100%;"
+										class="g-recaptcha form-group"
+										data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}">
+									</div>
 								</div>
 
 								<div class="checkbox">
@@ -137,34 +145,6 @@
 										<div class="col-sm-12" style="margin: 5px 0px;">
 											<div id="buttons">
 												<div id="fb-root" style="float:left; width:1px;"></div>
-												<script>
-													window.fbAsyncInit = function() {
-																					FB.init({
-																						appId: '959420850739921',
-																						cookie: true,
-																						xfbml: true,
-																						oauth: true
-																					});
-																				};
-
-													(function() {
-													var e = document.createElement('script'); e.async = true;
-													e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-													document.getElementById('fb-root').appendChild(e);
-													}());
-
-													function fblogin()
-													{
-														$.cookie('btn_invoked_login', $("#btnInvokedLogin").val(), { path: '/' });
-														$.cookie('rd_url', $("#loginRedirectURL").val(), { path: '/' });
-
-														FB.login(function(response){
-														if (response.authResponse) {
-														window.location='modules/facebook_login/facebook/validatefb.php';
-														}
-														},{scope: 'email'});
-													}
-												</script>
 												<!--
 												<a href="#" style="font-size: 14px; font-weight: bold;" class="btn btn-primary btn-block btn-social btn-facebook" onClick="fblogin();">
 													<i class="fa fa-facebook"></i> {{  __('messages.signinFacebook') }}</a>
@@ -188,6 +168,28 @@
 
 @section('scripts')
 <script src="{{ asset('public/js/jquery.validate.js') }}"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+	window.fbAsyncInit = function() {
+	(function() {
+	var e = document.createElement('script'); e.async = true;
+	e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+	document.getElementById('fb-root').appendChild(e);
+	}());
+
+	function fblogin()
+	{
+		$.cookie('btn_invoked_login', $("#btnInvokedLogin").val(), { path: '/' });
+		$.cookie('rd_url', $("#loginRedirectURL").val(), { path: '/' });
+
+		FB.login(function(response){
+		if (response.authResponse) {
+			window.location='modules/facebook_login/facebook/validatefb.php';
+		}
+		},{scope: 'email'});
+	}
+	}
+</script>
 <script>
 $(document).ready(function(){
 	$("#frmLogin").validate({
@@ -254,6 +256,18 @@ $(document).ready(function(){
 				required: "Please confirm with terms & conditions."
 			}
 		}
+	});
+
+	jQuery(document.body).on('change','#usertype', function() {
+		var userTypeValue = jQuery('#usertype').val();
+
+		if(userTypeValue == 1) {
+			grecaptcha.reset();
+			jQuery('#captcha').removeAttr('style','display:none;');
+		} else {
+			jQuery('#captcha').attr('style','display:none;');
+		}
+
 	});
 
 	$("#btnRegister").click(function(){

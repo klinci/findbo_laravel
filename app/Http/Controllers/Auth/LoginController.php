@@ -52,48 +52,48 @@ class LoginController extends Controller
     
 	public function loginSubmit(Request $request)
 	{
+
 		$this->validate($request, [
-				'email' => 'required|max:255',
-				'password' => 'required|max:255'
-				]);
-		
+			'email' => 'required|max:255',
+			'password' => 'required|max:255'
+		]);
+
+		$redirected = route('home');
+
+		if(\Session::has('redirected')) {
+			$redirected = \Session::get('redirected');
+		}
+
 		$authUser = User::where('email', $request->email)->first();
 		
 		$getPreviousPage = $request->input('previous_page');
 
-		if (isset($authUser))
-		{
-			if(password_verify($request->password, $authUser->password)==1)
-			{
-				if(auth()->guard('web')->attempt(['email' => $request->email, 'password' => $request->password]))
-				{
-					if(strstr($getPreviousPage, 'property_detail'))
-					{
+		if(isset($authUser)) {
+
+			if(password_verify($request->password, $authUser->password) == 1) {
+
+				if(auth()->guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
+					if(strstr($getPreviousPage, 'property_detail')) {
 						return redirect($getPreviousPage);
+					} else {
+						return redirect($redirected);
 					}
-					else
-					{
-						return redirect("/");
-					}
-				}
-				else 
-				{
-					//return 'oops something happend : email - ' . $request->password;
+
+				} else  {
 					$request->session()->flash('message.level', 'danger');
 					$request->session()->flash('message.content', 'Invalid credentails.');
 					return redirect(route('login'));
 				}
-			}
-			else
-			{
+
+			} else {
 				//return 'oops something happend : email - ' . $request->password;
 				$request->session()->flash('message.level', 'danger');
 				$request->session()->flash('message.content', 'Invalid credentails.');
 				return redirect(route('login'));
 			}
-		}
-		else
-		{
+
+		}else {
 			$request->session()->flash('message.level', 'danger');
 			$request->session()->flash('message.content', 'Invalid credentails.');
 			//return redirect()->route('login');
@@ -108,10 +108,16 @@ class LoginController extends Controller
 
 	public function logoutfront(Request $request)
 	{
+
+		$redirected = route('home');
+
+		if(\Session::has('redirected')) {
+			$redirected = \Session::get('redirected');
+		}
+
 		$this->guard()->logout();
-	
 		$request->session()->invalidate();
-	
-		return redirect('/');
+		return redirect($redirected);
+
 	}
 }

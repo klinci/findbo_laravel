@@ -1,5 +1,5 @@
 <?php
-
+use App\Services\MailboxDisposable;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +16,8 @@
 
 Route::get('/beskrive', 'HomeController@describe')->name('describe');
 
-Route::get('/dashboard', function () {
-  return redirect('http://findbo.dk/dashboard');
+Route::group(['prefix' => 'dashboard'], function () {
+  include 'admin.php';
 });
 
 Route::get('/', 'HomeController@index')
@@ -179,6 +179,7 @@ Route::get('blog/{id}', 'BlogController@show')
   ->name('blog.show');
 
 Route::group(['prefix' => 'admin'], function () {
+  include 'admin.php';
   Route::get('login', 'AdminAuth\LoginController@showLoginForm')
     ->name('admin.login');
   Route::post('login', 'AdminAuth\LoginController@login');
@@ -204,6 +205,4 @@ Route::post('properties-bulk-deletes','PropertiesBulkDeleteController@bulkDelete
   ->name('properties.bulk.post');
 
 Route::get('dummy', function() {
-  $x =  checkdnsrr('gmail.com');
-  var_dump($x);
 });

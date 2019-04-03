@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Area;
-
 use App\Mail\HomeSeekerContact;
-
 use App\Messsages;
-
 use Illuminate\Mail\Message;
-
 use App\Conversation;
-
 use App\Seekgallery;
-
 use App\Seekads;
-
 use App\User;
-
+use Validator;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +25,9 @@ class HomeSeekerController extends Controller
 
 	public function index($id)
 	{
+
+		\Session::put('redirected', url()->current());
+
 		if($id > 0) {
 
 			$l_user_id = 0;
@@ -112,6 +108,17 @@ class HomeSeekerController extends Controller
 	{
 
 		$date = date('Y-m-d H:i:s');
+
+		$validator = \Validator::make($request->all(), [
+			'message' => 'required',
+			'user_id' => 'required',
+			'property_id' => 'required'
+		]);
+
+		if($validator->fails()) {
+			return redirect()->back();
+		}
+
 		$conversationCreate = Conversation::create([
 			'user_one' => Auth::user()->id,
 			'user_two' => $request->user_id,
@@ -141,11 +148,17 @@ class HomeSeekerController extends Controller
 					} else {
 						$message = 0;
 					}
-				} catch (Exception $e) {
+				} catch (\Exception $e) {
 					$message = 0;
 				}
 			}
 		}
+
+		if(\Session::has('redirected')) {
+			return redirect(\Session::get('redirected'))
+				->with('message',$message);
+		}
+
 		return redirect()->back()->with('message',$message);
 	}
 

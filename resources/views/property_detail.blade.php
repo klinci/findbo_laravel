@@ -214,8 +214,17 @@
 									{{ __('messages.lbl_sold') }}
 								@endif
 							@endif
-							{{-- <span>{{ number_format($objProperty->price_usd,0,',','.') }} kr {{ ($objProperty->action == 'rent')?'/md':'' }}</span> --}}
-							<span>{{ number_format($objProperty->price_usd/1000,3).' kr' }}  {{ ($objProperty->action == 'rent')?'/md':'' }}</span>
+
+							@php
+								$price = str_replace(['DKK',' '], '', $objProperty->price_usd);
+								if($price != '') {
+									$price = $price;
+								} else {
+									$price = 0;
+								}
+							@endphp
+
+							<span>{{ number_format($price/1000,3).' kr' }}  {{ ($objProperty->action == 'rent')?'/md':'' }}</span>
 						</div>
 
 						<div id="property-detail-large" class="owl-carousel">
@@ -622,15 +631,19 @@
 						<div class="row">
 							<div class="col-md-12">
 								@if(Session::has('message'))
+
 									@if(Session::get('message') == 1)
 										<div class="alert alert-success">
 											Din besked er sendt.
 										</div>
-									@else
+									@endif
+
+									@if(Session::get('message') == 0)
 										<div class="alert alert-danger">
 											Beskeden blev desværre ikke sendt. Prøv igen senere.
 										</div>
 									@endif
+
 								@endif
 								<div class="property-agent-info">
 									<div class="agent-detail col-md-5">
@@ -828,8 +841,18 @@
 										</div>
 										<div class="price">
 											<i class="fa fa-home"></i>{{ ($rp->action=='rent')?__('messages.lbl_for_rent'):__('messages.lbl_for_sale') }}
-											<span>{{ number_format($rp->price_usd,0,',','.') }} kr {{ ($rp->action=='rent')?'/md':'' }}</span>
-											<!-- <span>{{ number_format($rp->price_usd/1000,3).' kr' }}  {{ ($rp->action=='rent')?'/md':'' }}</span> -->
+											<span>
+												@php
+													$price = str_replace(['DKK',' '], '', $objProperty->price_usd);
+													if($price != '') {
+														$price = $price;
+													} else {
+														$price = 0;
+													}
+												@endphp
+												{{ number_format($price,0,',','.') }} kr {{ ($rp->action=='rent')?'/md':'' }}
+											</span>
+
 										</div>
 										<ul class="amenities">
 											@if(!empty($rp->size))

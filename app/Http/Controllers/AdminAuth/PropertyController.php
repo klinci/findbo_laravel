@@ -107,18 +107,30 @@ class PropertyController extends Controller
 				if($post->status==1)
 				{
 					$nestedData['inactivate_activate'] = '<a href="'.url('admin/properties/updatestatus?id='.$post->id.'&action=inactivate&kw='.$keyword.'&fd='.$fromDate.'&td='.$toDate.'&sts='.$status.'&prt='.$pid.'&btnSubmit=').'"> Inactivate <i class="fa fa-eye-slash"></i></a>';
-				}
-				else if($post->status==3)
-				{
+				} else if($post->status==3) {
 					$nestedData['inactivate_activate'] = '<a href="'.url('admin/properties/updatestatus?id='.$post->id.'&action=activate&kw='.$keyword.'&fd='.$fromDate.'&td='.$toDate.'&sts='.$status.'&prt='.$pid.'&btnSubmit=').'"> Activate <i class="fa fa-eye-slash"></i></a>';
-				}
-				else
-				{
+				} else {
 					$nestedData['inactivate_activate'] = '';
 				}
-				$edit = '<a href="'.url('property_edit/'.$post->id).'" target="_blank"><i class="fa fa-pencil-square-o"></i></a>';
-				$externalLink = '<a href="'.url('property_detail/'.$post->id).'" target="_blank"><i class="fa fa-external-link"></i>';
-				$userProfile = '<a href="'.url("admin/users/view_profile?id=".$post->user_id).'" target="_blank"><i class="fa fa-file-text-o"></i></a>';
+
+				$edit = '
+					<a
+						href="'.route('property_edit', $post->id).'"
+						target="_blank">
+						<i class="fa fa-pencil-square-o"></i>
+					</a>';
+				$externalLink = '
+					<a
+						href="'.route('property_detail.show.withId', $post->id).'"
+						target="_blank">
+							<i class="fa fa-external-link"></i>
+					</a>';
+				$userProfile = '
+					<a
+						href="'.url("admin/users/view_profile?id=".$post->user_id).'"
+						target="_blank">
+							<i class="fa fa-file-text-o"></i>
+					</a>';
 				
 				$featuredProperty = '';
 				if($post->is_featured_property==1)
@@ -295,12 +307,33 @@ class PropertyController extends Controller
 				{
 					$nestedData['property_url'] = '';
 				}
-				
-				$approve = '<a href="'.url('admin/properties/makeitapprove?id='.$post->id).'"><i class="fa fa-check"></i></a>';
-				$externalLink = '<a href="'.url('property_detail/'.$post->id).'" target="_blank"><i class="fa fa-external-link"></i>';
-				$rejected = '<a href="'.url('admin/properties/makeitreject?id='.$post->id).'"><i class="fa fa-times"></i></a>';
-				$userProfile = '<a href="'.url("admin/users/view_profile?id=".$post->user_id).'" target="_blank"><i class="fa fa-file-text-o"></i></a>';
-	
+
+				$approve = '
+					<a
+						href="'.url('admin/properties/makeitapprove?id='.$post->id).'">
+						<i class="fa fa-check"></i>
+					</a>';
+
+				$externalLink = '
+					<a
+						href="'.route('property_detail.show.withId', $post->id).'"
+						target="_blank">
+							<i class="fa fa-external-link"></i>
+					</a>';
+
+				$rejected = '
+					<a
+						href="'.url('admin/properties/makeitreject?id='.$post->id).'">
+						<i class="fa fa-times"></i>
+					</a>';
+
+				$userProfile = '
+					<a
+						href="'.url("admin/users/view_profile?id=".$post->user_id).'"
+						target="_blank">
+							<i class="fa fa-file-text-o"></i>
+					</a>';
+
 				$nestedData['action'] = $externalLink.'&nbsp;<span style="margin: 0 2px;color:#ddd;">|</span>&nbsp;'.
 						$approve.'&nbsp;<span style="margin: 0 2px;color:#ddd;">|</span>&nbsp;'.
 						$rejected.'&nbsp;<span style="margin: 0 2px;color:#ddd;">|</span>&nbsp;'.
@@ -440,7 +473,14 @@ class PropertyController extends Controller
 				$nestedData['date_added'] = $post->date_published;
 	
 				$approve = '<a href="'.url('admin/properties/makeitapprove?id='.$post->id.'&from=rejected').'"><i class="fa fa-check"></i></a>';
-				$externalLink = '<a href="'.url('property_detail/'.$post->id).'" target="_blank"><i class="fa fa-external-link"></i>';
+
+				$externalLink = '
+					<a
+						href="'.route('property_detail.show.withId', $post->id).'"
+						target="_blank">
+							<i class="fa fa-external-link"></i>
+					</a>';
+
 				$userProfile = '<a href="'.url("admin/users/view_profile?id=".$post->user_id).'" target="_blank"><i class="fa fa-file-text-o"></i></a>';
 	
 				$nestedData['action'] = $externalLink.'&nbsp;<span style="margin: 0 2px;color:#ddd;">|</span>&nbsp;'.

@@ -14,7 +14,8 @@ class SocialAuthFacebookController extends Controller
     *
     * @return void
     */
-	public function redirect() {
+	public function redirect()
+	{
 		return Socialite::driver('facebook')->stateless()->redirect();
 	}
 
@@ -23,11 +24,19 @@ class SocialAuthFacebookController extends Controller
 	*
 	* @return callback URL from facebook
 	*/
-	public function callback(SocialFacebookAccountService $service) {
+	public function callback(SocialFacebookAccountService $service)
+	{
+
 		$response = Socialite::driver('facebook')->stateless()->user();
 		$user = $service->createOrGetUser($response);
+		$redirected = route('home');
+
 		auth()->login($user->first());
-		return redirect()->to('/');
+
+		if(\Session::has('redirected')) {
+			$redirected = \Session::get('redirected');
+		}
+		return redirect($redirected);
 	}
 
 }

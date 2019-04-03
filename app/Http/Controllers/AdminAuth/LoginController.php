@@ -62,32 +62,31 @@ class LoginController extends Controller
 		return Auth::guard('admin');
 	}
 	
-	public function login(Request $request) {
+	public function login(Request $request)
+	{
 	
 		$this->validate($request, [
-				'email' => 'required|max:255',
-				'password' => 'required|max:255'
-				]);
+			'email' => 'required|max:255',
+			'password' => 'required|max:255'
+		]);
 	
 		$authUser = Admin::where('email', $request->email)->first();
-		
-		if (isset($authUser))
-		{
-			if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password/*, 'isAdmin'=>'admin'*/])) {
+
+		if (isset($authUser)) {
+
+			if(auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password/*, 'isAdmin'=>'admin'*/])) {
 				return redirect()->route('admin.home');
-			}
-			else {
-				//return 'oops something happend : email - ' . $request->password;
+			} else {
+
 				$request->session()->flash('message.level', 'danger');
 				$request->session()->flash('message.content', 'Invalid credentails.');
-				return redirect()->route('login');
+				return redirect()->back();
 			}
-		}
-		else
-		{
+
+		} else {
 			$request->session()->flash('message.level', 'danger');
 			$request->session()->flash('message.content', 'Invalid credentails.');
-			return redirect()->route('login');
+			return redirect()->back();
 		}
 	}
 	
@@ -100,9 +99,7 @@ class LoginController extends Controller
 	public function logout(Request $request)
 	{
 		$this->guard()->logout();
-	
 		$request->session()->invalidate();
-	
 		return redirect('/admin/login');
 	}
 

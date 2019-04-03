@@ -3,26 +3,16 @@
 namespace App\Http\Controllers;
 
 use Symfony\Component\Process\Process;
-
 use App\Wishlist;
-
 use App\Mail\PropertyAdReport;
-
 use App\Mail\PropertyPurchase;
-
 use App\PropertyPackageHistory;
-
 use App\Transactions;
-
 use App\Zipcode;
-
 use App\Rentalperiod;
-
 use App\Area;
-
 use phpDocumentor\Reflection\DocBlock\Tags\Property;
 use App\Services\MailService;
-
 use App\User;
 use Auth;
 use App\Properties;
@@ -482,6 +472,8 @@ class PropertyController extends Controller
 			$isAdmin = $objUser->isAdmin;
 		}
 
+		\Session::put('redirected', url()->current());
+
 		return view('property_detail', [
 			'objProperty' => $objProperty,
 			'objGallery' => $objGallery,
@@ -644,6 +636,12 @@ class PropertyController extends Controller
 
 	public function insertProperty(Request $request)
 	{
+
+		$imageFiles = $request->file('files');
+
+		if(count($imageFiles) > 5) {
+			return redirect()->back();
+		}
 
 		$headline_dk = $request->headline_dk;
 		$headline_eng = $request->headline_eng;
@@ -937,34 +935,35 @@ class PropertyController extends Controller
 		]);
 
 		$propertyId = $objProperty->id;
-		// $imageFiles = $request->file('image_files');
-		$imageFiles = $request->image_files;
-		// return $imageFiles;
 
 		if(count($imageFiles) > 0) {
 
 			for($i = 0; $i < count($imageFiles); $i++) {
 
-				$extension = 'jpg';
-				if(strpos($imageFiles[$i], 'image/png')) {
-					$extension = 'png';
+				$getImageSize = $imageFiles[$i]->getSize();
+				$getImageExtension = strtolower($imageFiles[$i]->getClientOriginalExtension());
+				$getOriginalName = $imageFiles[$i]->getClientOriginalName();
+				if($getImageSize / 1000 <= 500) {
+
+					if($getImageExtension == 'jpg' || $getImageExtension == 'jpeg' || $getImageExtension == 'png' || $getImageExtension == 'gif' || $getImageExtension == 'bmp') {
+
+						$fileName = md5(date('dmyhis').$getOriginalName).'.'.$getImageExtension;
+						$path = 'images/propertyimages/';
+						$imageFiles[$i]->move(public_path($path), $fileName);
+
+						if($i == 0) {
+							DB::table('properties')->where('id','=', $propertyId)->update([
+								'thumbnail' => $path.$fileName
+							]);
+						}
+
+						Gallery::create([
+							'path' => $path.$fileName,
+							'property_id' => $propertyId
+						]);
+
+					}
 				}
-
-				$fileName = md5(uniqid());
-				$path = 'images/propertyimages/';
-				$filePath = public_path($path.$fileName.".".$extension);
-				$xpath = @copy($imageFiles[$i], $filePath);
-
-				if($i == 0) {
-					DB::table('properties')->where('id','=',$propertyId)->update([
-						'thumbnail' => $path.$fileName.".".$extension
-					]);
-				}
-
-				Gallery::create([
-					'path' => $path.$fileName.".".$extension,
-					'property_id' => $propertyId
-				]);
 
 			}
 		}

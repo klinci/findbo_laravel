@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Response;
+use App\Mail\Register;
+use Illuminate\Http\Request;
+use App\Services\MailService;
+use App\Services\MailboxDisposable;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Mail\Register;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\Request;
-use App\Services\MailService;
-use Response;
-
 
 class RegisterController extends Controller
 {
@@ -61,13 +61,26 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+      if($data['usertype'] == 1) {
         return Validator::make($data, [
-            'fname' => 'required|string|max:255',
-            'lname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'usertype' => 'required',
+          'fname' => 'required|string|max:255',
+          'lname' => 'required|string|max:255',
+          'email' => 'required|string|email|max:255|unique:users',
+          'password' => 'required|string|min:6|confirmed',
+          'usertype' => 'required',
+          'g-recaptcha-response' => 'required|recaptcha'
         ]);
+      }
+
+      return Validator::make($data, [
+        'fname' => 'required|string|max:255',
+        'lname' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6|confirmed',
+        'usertype' => 'required',
+      ]);
+
     }
 
     /**
@@ -114,19 +127,35 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $validator = $this->validator($request->all());
 
-        if ($validator->fails()) {
-          return redirect(route('login'))->withErrors($validator);
+      $validator = $this->validator($request->all());
+
+      if($request->usertype == 1) {
+        $mailboxDisposable = new MailboxDisposable();
+        $page = $mailboxDisposable->check($request->email);
+        if($page['code'] == 200) {
+          $toArray = json_decode($page['response'], true);
+          if(isset($toArray['disposable'])) {
+            if($toArray['disposable']) {
+              return redirect(route('login'))
+                ->withErrors(['email' => 'E-mailen er ikke gyldig.']);
+            }
+          }
         }
+      }
 
-        event(new Registered($user = $this->create($request->all())));
+      if($validator->fails()) {
+        return redirect(route('login'))->withErrors($validator);
+      }
 
-        $this->mailService->sendActivationMail($user);
-        $this->guard()->login($user);
+      event(new Registered($user = $this->create($request->all())));
 
-        //return $this->registered($request, $user) ?: redirect($this->redirectPath());
-        return redirect(route('login.confirmation'));
+      $this->mailService->sendActivationMail($user);
+      $this->guard()->login($user);
+
+      //return $this->registered($request, $user) ?: redirect($this->redirectPath());
+      return redirect(route('login.confirmation'));
+
     }
 
     /**

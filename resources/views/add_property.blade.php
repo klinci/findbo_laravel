@@ -7,20 +7,43 @@
 		href="{{ asset('public/css/datepickr.css') }}"
 		rel="stylesheet"
 		type="text/css">
+	<style type="text/css">
+		article {
+		  margin:auto;
+		  margin-top:10px;
+		}
+
+		#result { float: left;}
+		.imgprev { float: left; margin-left:15px; }
+		.remove_pict {float: right; margin: -30px -7px 0 0;}
+		.thumbnail {
+		  height: 100px;
+		  margin: 10px;
+		  width:  100px;
+		}
+	</style>
 
 @endsection
 
 @section('content')
 
 	{{-- PAGE TITLE/BREADCRUMB --}}
-	<div class="parallax colored-bg pattern-bg" data-stellar-background-ratio="0.5">
+	<div
+		class="parallax colored-bg pattern-bg"
+		data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<h1 class="page-title">{{ __('messages.postlisting') }}</h1>
+					<h1 class="page-title">
+						@lang('messages.postlisting')
+					</h1>
 					<ul class="breadcrumb">
-						<li><a href="{{ route('home') }}">{{ __('messages.lbl_home') }} </a></li>
-						<li>{{ __('messages.post_ad') }}</li>
+						<li>
+							<a href="{{ route('home') }}">
+								@lang('messages.lbl_home')	
+							</a>
+						</li>
+						<li>@lang('messages.post_ad')</li>
 					</ul>
 
 				</div>
@@ -42,15 +65,11 @@
 						method="POST"
 						class="formSubmitUpload"
 						enctype="multipart/form-data">
+
 						{{ csrf_field() }}
+
 						{{-- nav nav-tabs tabcostum --}}
 						<ul class="nav nav-tabs tabcostum" role="tablist" style="margin:10px 0;border:none;">
-							{{-- <li class="rentt active">
-								<a href="#rent" role="tab" data-toggle="tab">
-									<b>{{ __('messages.rentPdetails') }}</b>
-									<label></label>
-								</a>
-							</li> --}}
 							<li class="buyy" style="display: none;">
 								<a href="#sell" role="tab" data-toggle="tab">
 									<b>{{ __('messages.sellPdetails') }}</b>
@@ -58,7 +77,6 @@
 									<label><input type="radio" id="radio_2" name="action" value="buy" style="visibility: hidden;" /></label>
 								</a>
 							</li>
-
 							@if(!Auth::check())
 								<h4 style="color: #74777c; font-weight: normal; padding: 12px 0; text-align: center;">
 									You need to have a Findbo account to post your listing. Create account <a style="font-size: 12px;" href="{{ route('login') }}"> HERE</a>
@@ -67,39 +85,70 @@
 						</ul>
 						{{-- ./nav nav-tabs tabcostum --}}
 
+						{{-- panel panel-default --}}
 						<div class="panel panel-default">
 
+							{{-- panel-heading --}}
 							<div class="panel-heading">
 								<h3 class="panel-title">
 									<a class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ __('messages.adDetails') }}</a>
 								</h3>
 							</div>
+							{{-- ./ panel-heading --}}
 
-							<div id="collapseOne" class="panel-collapse collapse in">
+							{{-- panel-collapse collapse in --}}
+							<div
+								id="collapseOne"
+								class="panel-collapse collapse in">
+
+								{{-- panel-body --}}
 								<div class="panel-body">
 
+									{{-- row --}}
 									<div class="row">
+
 										<div class="col-sm-12 green">
-											<div style="padding-bottom:20px; font-size:20px;">
-												{{ __('messages.danishvers') }}
+											<div
+												style="padding-bottom:20px;font-size:20px;">
+												@lang('messages.danishvers')
 											</div>
 										</div>
 
+										{{--  Overskrift --}}
 										<div class="col-md-3">
-											<label><strong>{{ __('messages.postHeadline') }}: *</strong></label>
+											<label for="headline_dk">
+												<strong>
+													@lang('messages.postHeadline'): *
+												</strong>
+											</label>
 										</div>
-
 										<div class="col-md-8">
-											<input class="form-control adform" type="text" name="headline_dk" required>
+											<input
+												class="form-control adform"
+												type="text"
+												id="headline_dk"
+												name="headline_dk"
+												required>
 										</div>
+										{{-- ./  Overskrift --}}
 
+										{{-- Annoncetekst --}}
 										<div class="col-md-3">
-											<label><strong>{{ __('messages.bodyText') }}: *</strong></label>
+											<label for="texta">
+												<strong>
+													@lang('messages.bodyText'): *
+												</strong>
+											</label>
 										</div>
-
 										<div class="col-md-8">
-											<textarea class="areatxt form-control" rows="3" name="text_dk" id="texta" required></textarea>
-											<p>{{ __('messages.hundredminchars') }}</p>
+											<textarea
+												class="areatxt form-control"
+												rows="3"
+												name="text_dk"
+												id="texta"
+												style="resize:none;"
+												required></textarea>
+											<p>@lang('messages.hundredminchars')</p>
 											<span class="dd_li">
 												<label for="typevrs">
 													<input class="showenglish" englishversion="" type="checkbox" id="typevrs" value="" />
@@ -107,62 +156,92 @@
 												</label>
 											</span>
 										</div>
-
+										{{-- ./ Annoncetekst --}}
 									</div>
+									{{-- ./ row --}}
 
+									{{-- row englishversion --}}
 									<div class="row englishversion" style="display:none;">
+
 										<div class="col-sm-12 green">
 											<div style="padding-bottom:20px; font-size:20px;">
-												{{ __('messages.enversion') }}
+												@lang('messages.enversion')
 											</div>
 										</div>
 
 										<div class="col-md-3">
-											<label><strong>{{ __('messages.postHeadline') }}:</strong></label>
+											<label>
+												<strong>
+													@lang('messages.postHeadline'):
+												</strong>
+											</label>
 										</div>
-
 										<div class="col-md-8">
 											<input class="form-control adform" type="text" name="headline_eng" maxlength="50">
 										</div>
 
 										<div class="col-md-3">
-											<label><strong>{{ __('messages.bodyText') }}: </strong></label>
+											<label>
+												<strong>
+													@lang('messages.bodyText'):
+												</strong>
+											</label>
 										</div>
-
 										<div class="col-md-8">
 											<textarea class="areatxt form-control" rows="3" name="text_eng" id="texta"></textarea>
-											<p>{{ __('messages.hundredminchars') }}</p>
+											<p>@lang('messages.hundredminchars')</p>
 										</div>
-
 									</div>
+									{{-- ./ row englishversion --}}
 
 								</div>
-							</div>
-						</div>
+								{{-- ./ panel-body --}}
 
+							</div>
+							{{-- ./ panel-collapse collapse in --}}
+						</div>
+						{{-- ./ panel panel-default --}}
+
+						{{-- panel panel-default --}}
 						<div class="panel panel-default">
+
 							<div class="panel-heading">
-								<h3 class="panel-title"><a class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">{{ __('messages.locationDetails') }}</a></h3>
+								<h3 class="panel-title">
+									<a
+										class="panel-heading accordion-toggle"
+										data-toggle="collapse"
+										data-parent="#accordion"
+										href="#collapseTwo">
+										@lang('messages.locationDetails')
+									</a>
+								</h3>
 							</div>
 
 							<div id="collapseTwo" class="panel-collapse collapse in">
 								<div class="panel-body">
+
 									<div class="row">
-										<div class="col-md-3">
-											<label><strong>{{ __('messages.postAreas') }} *</strong></label>
-										</div>
 
 										<div class="col-md-3">
+											<label for="area">
+												<strong>
+													@lang('messages.postAreas') *
+												</strong>
+											</label>
+										</div>
+										<div class="col-md-3">
 											<select class="form-control adform area" name="areas" id="area" required>
-												<option value=""> {{ __('messages.postAreas') }}</option>
+												<option value="">@lang('messages.postAreas')</option>
 												@if(!empty($objArea) && count($objArea)>0)
 													@foreach($objArea as $area)
-														<option value="{{ $area->id }}">{{ $area->name }}</option>
+														<option value="{{ $area->id }}">
+															{{ $area->name }}
+														</option>
 													@endforeach
 												@endif
 											</select>
 										</div>
-										<div class="col-md-6"> </div>
+										<div class="col-md-6"></div>
 									</div>
 
 									<div class="row">
@@ -252,9 +331,11 @@
 											</div>
 										</div>
 									</div>
+
 								</div>
 							</div>
 						</div>
+						{{-- ./ panel panel-default --}}
 
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -855,63 +936,86 @@
 						</div>
 
 						<div class="panel panel-default">
+
 							<div class="panel-heading">
-								<h3 class="panel-title"><a class="panel-heading accordion-toggle "  data-toggle="collapse" data-parent="#accordion" href="#collapseSixth">{{ __('messages.postPictures') }}</a></h3>
+								<h3 class="panel-title">
+									<a
+										class="panel-heading accordion-toggle "
+										data-toggle="collapse"
+										data-parent="#accordion"
+										href="#collapseSixth">
+											@lang('messages.postPictures')
+									</a>
+								</h3>
 							</div>
 
 							<div id="collapseSixth" class="panel-collapse collapse in">
-								<div class="panel-body">
-									<div class="row">
-										<div class="fileinput fileinput-new col-md-12" data-provides="fileinput">
-											<p>{{ __('messages.postTip') }}</p>
-										</div>
-										<style type="text/css">
-											article
-											{
-											    margin:auto;
-											    margin-top:10px;
-											}
 
-											#result { float: left;}
-											.imgprev { float: left; margin-left:15px; }
-											.remove_pict {float: right; margin: -30px -7px 0 0;}
-											.thumbnail
-											{
-											    height: 100px;
-											    margin: 10px;
-											    width:  100px;
-											}
-										</style>
-										<div class="fileUpload btn btn-primary">
-											<span style="font-weight: bold;">{{ __('messages.choosefile') }}</span>
-											<input type="file" id="files" class="upload" name="files[]" multiple="multiple" accept="image/*" />
+								<div class="panel-body">
+
+									<div class="row">
+
+										<div
+											class="fileinput fileinput-new col-md-12"
+											data-provides="fileinput">
+											<p>@lang('messages.postTip')</p>
 										</div>
-							            <article>
-							               	<output id="result" />
+
+										<div class="fileUpload btn btn-primary">
+											<span style="font-weight:bold;">
+												@lang('messages.choosefile')
+											</span>
+											<input
+												type="file"
+												id="files"
+												class="upload"
+												name="files[]"
+												multiple="multiple"
+												accept="image/*">
+										</div>
+
+										<article>
+											<output id="result" />
 										</article>
+
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<input type="hidden" id="pk_rGroup" name="package_type_id" value="1" />
+						<input
+							type="hidden"
+							id="pk_rGroup"
+							name="package_type_id"
+							value="1">
+						<input
+							type="hidden"
+							id="imageFileLimit"
+							value="0">
 
-						<button type='button' class='btn btn-primary submitUpload' style='font-weight:bold;'>{{ __('messages.lbl_post_prop') }}</button>
+						<button
+							type='button'
+							class='btn btn-primary submitUpload'
+							style='font-weight:bold;'>
+							@lang('messages.lbl_post_prop')
+						</button>
+
 						<br><br>
 
 					</form>
 				</div>
-				{{-- ./main col-sm-12 mainpbt --}}
+				{{-- ./ main col-sm-12 mainpbt --}}
 			</div>
-			{{-- /row --}}
+			{{-- ./ row --}}
 		</div>
-		{{-- ./container --}}
+		{{-- ./ container --}}
 	</div>
-	{{-- ./content --}}
+	{{-- content --}}
 
 @endsection
 
 @section('scripts')
+
 	<script type="text/javascript" src="{{ asset('public/js/map_address_search.js') }}"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpNqB30eVLDw9fM5qTFqJvkA4XdJslXm0&libraries=places&callback=initAddressAutocomplete&country=DK" ></script>
 	<script src="{{ asset('public/js/datepickr.js') }}"></script>
@@ -923,22 +1027,43 @@
 		});
 
 		var selDiv = "";
+		var imageFileLimit = jQuery('#imageFileLimit');
+		imageFileLimit.val(0);
+
 		window.onload = function() {
 		  //Check File API support
 		  if(window.File && window.FileList && window.FileReader) {
 				var filesInput = document.getElementById("files");
+
 
 	      filesInput.addEventListener("change", function(event) {
 
           var files = event.target.files; //FileList object
           var output = document.getElementById("result");
 
-          for(var i = 0; i< files.length; i++) {
-            var file = files[i];
+	        var xNumber = parseInt(parseInt(imageFileLimit.val()) + files.length );
+	        if(xNumber > 5) {
+	        	return alert('Maksimal upload af 5 filer');
+	        }
 
-            //Only pics
-            if(!file.type.match('image'))
-              continue;
+	        imageFileLimit.val(xNumber);
+
+          for(var i = 0; i < files.length; i++) {
+
+            var file = files[i];
+            var divider = file.size/1000;
+
+            if(parseInt(imageFileLimit.val()) > 5) {
+            	console.log(imageFileLimit.val());
+            }
+
+            if(!file.type.match('image')) {
+              return alert('der er en fil ikke et billede!');
+            }
+
+            if(divider > 500) {
+            	return alert('Upload billede max filstørrelse 500Kb!');
+            }
 
             var picReader = new FileReader();
 
@@ -951,15 +1076,15 @@
               div.innerHTML = `
               	<input
               		type="hidden"
-              		value="`+ picFile.result +`"
+              		value="`+ file.name +`"
               		name='image_files[]'>
               		<img
               			class="thumbnail"
               			src="`+ picFile.result +`"
-              			title="`+ picFile.name +`">
+              			title="`+ file.name +`">
               	<a
               		onclick='remove_div(this)'
-              		href='#collapseSixth'
+              		href='javascript:void(0)'
               		class='remove_pict'>
               		X
               	</a>
@@ -969,8 +1094,6 @@
                  div.parentNode.removeChild(div);
               });
             });
-
-             //Read the image
             picReader.readAsDataURL(file);
           }
 	      });
@@ -980,7 +1103,54 @@
 		  }
 		}
 
-		function remove_div(obj){
+		function init() {
+			document.querySelector('#files').addEventListener('change', handleFileSelect, false);
+			return document.querySelector("#selectedFiles");
+		}
+
+		document.addEventListener("DOMContentLoaded", init(), false);
+
+		function handleFileSelect(e) {
+
+			if(!e.target.files || !window.FileReader) return;
+
+			selDiv.innerHTML = "";
+
+			var files = e.target.files,
+					filesArr = Array.prototype.slice.call(files);
+
+			filesArr.forEach(function(f) {
+
+				var divider = f.size/1000;
+				if(!f.type.match("image.*")) {
+					return;
+				}
+
+				if(divider <= 500) {
+					var reader = new FileReader();
+
+					reader.onload = function (e) {
+						var html = `
+							<div class='col-sm-2'>
+								<img src="`+ e.target.result +`"> `+ f.name +`
+								<br clear="left">
+							</div>
+						`;
+						selDiv.innerHTML += html;
+					}
+					reader.readAsDataURL(f);
+				}
+
+			});
+
+		}
+
+		function remove_div(obj) {
+			var xNumber = parseInt(parseInt(imageFileLimit.val()) - 1);
+			if(xNumber > 5) {
+				return alert('Maksimal upload af 5 filer');
+			}
+			imageFileLimit.val(xNumber);
 			$(obj).parent().remove();
 		}
 
@@ -1026,43 +1196,6 @@
 		$(".energy").click(function(){
 			$(".energyinput").show();
 		});
-
-		function init() {
-			document.querySelector('#files').addEventListener('change', handleFileSelect, false);
-			return document.querySelector("#selectedFiles");
-		}
-
-		document.addEventListener("DOMContentLoaded", init(), false);
-
-		function handleFileSelect(e) {
-
-			if(!e.target.files || !window.FileReader) return;
-
-			selDiv.innerHTML = "";
-
-			var files = e.target.files,
-					filesArr = Array.prototype.slice.call(files);
-
-			filesArr.forEach(function(f) {
-				if(!f.type.match("image.*")) {
-					return;
-				}
-
-				var reader = new FileReader();
-				reader.onload = function (e) {
-					var html = `
-						<div class='col-sm-2'>
-							<img src="`+ e.target.result +`"> `+ f.name +`
-							<br clear="left">
-						</div>
-					`;
-					selDiv.innerHTML += html;
-				}
-				reader.readAsDataURL(f);
-				console.log(reader)
-			});
-
-		}
 
 		$( ".rentt" ).click(function() {
 		  $( ".petsrow" ).show();

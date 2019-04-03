@@ -230,11 +230,30 @@
 							<h1 class="section-title" id="contact-agent">{{ __('messages.lbl_seeker_detail_msg_1') }}</h1>
 							<form action="{{ route('home_seeker_contact') }}" method="post" class="form-style">
 								{{ csrf_field() }}
+
 								<div class="col-sm-12">
-									<select name="propertyid" required class="form-control">
-										<option value="">{{ __('messages.lbl_seeker_detail_msg_2') }}</option>
-										@if(!empty($objHomeSeekerProperty) && count($objHomeSeekerProperty)<1)
-											<option value="">{{ __('messages.lbl_seeker_detail_msg_3') }}</option>
+									@if(Session::has('message'))
+										@if(Session::get('message') == 1)
+											<div class="alert alert-success">
+												Din besked er sendt.
+											</div>
+										@else
+											<div class="alert alert-danger">
+												Beskeden blev desværre ikke sendt. Prøv igen senere.
+											</div>
+										@endif
+									@endif
+								</div>
+
+								<div class="col-sm-12">
+									<select name="property_id" required class="form-control">
+										<option value="">
+											@lang('messages.lbl_seeker_detail_msg_2')
+										</option>
+										@if(!empty($objHomeSeekerProperty) && count($objHomeSeekerProperty) < 1)
+											<option value="">
+												@lang('messages.lbl_seeker_detail_msg_3')
+											</option>
 										@else
 											@foreach($objHomeSeekerProperty as $prop)
 												@if($prop->headline_dk != "")
@@ -245,28 +264,37 @@
 											@endforeach
 										@endif
 									</select>
-									<textarea name="text" placeholder="{{ __('messages.msg') }}" class="form-control required"></textarea>
-									<input type="hidden" value="{{ $l_user_id }}" name="userid">
-						            <input type="hidden" value="{{ $objHomeSeeker->user2 }}" name="user2">
-						            <input type="hidden" value="{{ $objHomeSeeker->title }}" name="title">
-						            <input type="hidden" value="{{ $objHomeSeeker->email }}" name="modalEmail">
-						            <input type="hidden" value="{{ $objHomeSeeker->id }}" name="redirect">
+									<textarea
+										name="message"
+										placeholder="@lang('messages.msg')"
+										class="form-control required"></textarea>
+				            <input type="hidden" value="{{ $objHomeSeeker->user2 }}" name="user_id">
+				            <input type="hidden" value="{{ $objHomeSeeker->title }}" name="title">
+				            <input type="hidden" value="{{ $objHomeSeeker->email }}" name="user_email">
 								</div>
 								<div class="center">
-									<button type="submit" class="btn btn-default-color" name="messageSubmit"><i class="fa fa-envelope"></i> {{ __('messages.sendmsg') }}</button>
+									<button type="submit" class="btn btn-default-color" name="messageSubmit">
+										<i class="fa fa-envelope"></i> @lang('messages.sendmsg')
+									</button>
 								</div>
 							</form>
 						@elseif(empty($l_user_id))
 							<div class="contact-landlord" style="margin-top: 60px;">
-								<a data-id="contactLandlordBtn" data-rd="{{ route('home_seeker.show', $objHomeSeeker->id) }}" href="#" data-toggle="modal" data-target="#loginModal" class="btn btn-fullcolor contact-landlord">
-									<i class="fa fa-lock"></i> {{ __('messages.postSeeker') }}
+								<a
+									data-id="contactLandlordBtn"
+									data-rd="{{ route('home_seeker.show', $objHomeSeeker->id) }}"
+									href="javascript:void(0)"
+									data-toggle="modal"
+									data-target="#loginModal"
+									class="btn btn-fullcolor contact-landlord">
+										<i class="fa fa-lock"></i> @lang('messages.postSeeker')
 								</a>
 							</div>
 						@elseif(!empty($l_user_id) && ($l_user_id != $objHomeSeeker->user2) && (empty($is_paid_member)))
 							<div class="contact-landlord" style="margin-top: 60px;">
 								<input type="hidden" name="{{ $l_user_id }}" value="dd" />
 								<a href="{{ route('packages') }}" class="btn btn-fullcolor contact-landlord">
-									<i class="fa fa-lock"></i> {{ __('messages.postSeeker') }}
+									<i class="fa fa-lock"></i> @lang('messages.postSeeker')
 								</a>
 							</div>
 						@endif

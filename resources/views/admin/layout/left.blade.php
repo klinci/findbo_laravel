@@ -8,7 +8,7 @@
 			</a>
 			<ul style="display: none">
 				<li class="menucls"><a href="{{ url('admin/properties/allproperties') }}">All Properties</a></li>
-				<li class="menucls"><a href="{{ url('add_property') }}" target="_blank">Add Property</a></li>
+				<li class="menucls"><a href="{{ route('property.create') }}" target="_blank">Add Property</a></li>
 				<li class="menucls"><a href="{{ url('admin/properties/pendingproperties') }}">Pending</a></li>
 				<li class="menucls"><a href="{{ url('admin/properties/rejectedproperties') }}">Rejected</a></li>
 			</ul>
